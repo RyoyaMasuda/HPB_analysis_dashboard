@@ -69,7 +69,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='dropdown3',
                     # options = callbackで返ってくる。
-                    value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
+                    # value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
                     style={'width':'250px', 'margin-bottom':'1px', 'fontSize':12},
                     clearable=True,
                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
@@ -279,15 +279,8 @@ def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_val
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
-
     _df = _df[_df['エリア']==dropdown2_value]
-    
-    if dropdown3_value is None:
-        dropdown3_value = _df['サロン名'].unique()
-    else:
-        dropdown3_value = [dropdown3_value]
-
-    _df = _df[_df['サロン名'].isin(dropdown3_value)]
+    _df = _df[_df['サロン名']==dropdown3_value]
     
     _df = _df[_df['性別'].isin(checklist1_value)]
     
@@ -365,15 +358,8 @@ def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value,
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
-
     _df = _df[_df['エリア']==dropdown2_value]
-    
-    if dropdown3_value is None:
-        dropdown3_value = _df['サロン名'].unique()
-    else:
-        dropdown3_value = [dropdown3_value]
-
-    _df = _df[_df['サロン名'].isin(dropdown3_value)]
+    _df = _df[_df['サロン名']==dropdown3_value]
     
     _df = _df[_df['性別'].isin(checklist1_value)]
     
@@ -462,24 +448,13 @@ def total_bill_distplot_figure(n_clicks, dropdown1_value, dropdown2_value, dropd
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
-
-    if dropdown2_value is None:
-        dropdown2_value = _df['エリア'].unique()
-    else:
-        dropdown2_value = [dropdown2_value]
-
-    if dropdown3_value is None:
-        dropdown3_value = _df['サロン名'].unique()
-    else:
-        dropdown3_value = [dropdown3_value]
-
-    _df = _df[_df['エリア'].isin(dropdown2_value)]
-    _df = _df[_df['サロン名'].isin(dropdown3_value)]
+    _df = _df[_df['エリア']==dropdown2_value]
+    _df = _df[_df['サロン名']==dropdown3_value]
     
     _df = _df[_df['性別'].isin(checklist1_value)]
     
     
-    _df = _df[['年齢', '支出金額', '名前', 'メニューの種類', '性別', '職業', '投稿日時','総合','雰囲気','接客サービス',	'技術・仕上がり', 'メニュー・料金']][_df['支出金額']!=0]
+    _df = _df[['サロン名','年齢', '支出金額', '名前', 'メニューの種類', '性別', '職業', '投稿日時','総合','雰囲気','接客サービス',	'技術・仕上がり', 'メニュー・料金']][_df['支出金額']!=0]
     
     figure = px.box(
         data_frame=_df,
@@ -563,4 +538,4 @@ def update_page(href):
         return home_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8048)
+    app.run_server(debug=True, port=8046)
