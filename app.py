@@ -6,7 +6,6 @@ import numpy as np
 import plotly
 import plotly.express as px
 import plotly.figure_factory as ff
-import scipy
 
 from navber import navber
 
@@ -14,11 +13,14 @@ default_font='Comic Sans Ms'
 
 df = pd.read_csv('./data/merge_df.csv', low_memory=False)
 
-
 app = Dash(__name__,
            suppress_callback_exceptions=True,
            prevent_initial_callbacks=False,
-           external_stylesheets=[dbc.themes.DARKLY])
+           external_stylesheets=[dbc.themes.DARKLY],
+           update_title=None,
+           )
+app.title = "Hello Title"
+
 
 sidebar = html.Div(
     [
@@ -110,7 +112,7 @@ content = html.Div(
                         dcc.Graph(
                             id='gender-rate',
                             # figureの大きさは最初から指定しておく。
-                            figure={'layout':{'height':260, 'width':375}},
+                            # figure={'layout':{'height':230, 'width':375}},
                             # style={'margin-top':'10px',
                             #        'margin-bottom':'10px',
                             #        'margin-right':'2px',
@@ -118,15 +120,14 @@ content = html.Div(
                         )                     
                 ],
                 className='bg-info col-3',
-                style={'padding':'10px'
-                    }
+                style={'padding':'6px'}
                 ),
                 dbc.Col(
                     [
                         dcc.Graph(
                             id='age-rate',
                             # figureの大きさは最初から指定しておく。
-                            figure={'layout':{'height':260, 'width':375}},
+                            # figure={'layout':{'height':235, 'width':375}},
                             # margin-*の順番によって反映されないことがある。原因不明。leftよりもrightが先に来ると反応しなかった。上のdbc.Colは何故か大丈夫
                             # style={'margin-top':'10px',
                             #        'margin-bottom':'10px',
@@ -137,7 +138,7 @@ content = html.Div(
                 ],
                     # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
                 className='bg-light col-3',
-                style={'padding':'0.7%'}
+                style={'padding':'6px'}
                 ),
                 dbc.Col(
                     [
@@ -155,11 +156,11 @@ content = html.Div(
                     [
                         dcc.Graph(
                             id='total_bill_distplot',
-                            figure={'layout':{'height':360, 'width':775}},
+                            # figure={'layout':{'height':340, 'width':775}},
                         )
                 ],
-                    className='bg-warning',
-                    style={'padding':'0.6%'}
+                    # className='bg-light',
+                    style={'padding':'0.6%', 'background-color':'rgb(143,139,193)'}
                 ),
                 dbc.Col(
                     [
@@ -235,14 +236,36 @@ def update_area(value):
 def update_salon(value):
     return [{'label': x3,'value': x3} for x3 in df[df['エリア'] == value]['サロン名'].unique()]
 
+# 県を削除したときにサロン名も消える処理
+@app.callback(
+    Output('dropdown3', 'value'),
+    Input('dropdown1', 'value'),
+    prevent_initial_call=True
+)
+def update_area(value):
+    print(value)
+    if value is None:
+        return ''
+    # else:
+    #     'ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
+
 @app.callback(
     Output('checklist1', 'options'),
     Input('dropdown3', 'value'),
-    State('dropdown2', 'value')
+    Input('dropdown2', 'value'),
 )
 def update_gender(dropdown3_value, dropdown2_value):
+    
+    _df = df.copy()
     _df = df[df['エリア'] == dropdown2_value]
-    _df = _df[_df['サロン名'] == dropdown3_value]
+    
+    if dropdown3_value is None:
+        dropdown3_value = _df['サロン名'].unique()
+    else:
+        dropdown3_value = [dropdown3_value]
+    
+    _df = _df[_df['サロン名'].isin(dropdown3_value)]
+    
     return [{'label': x3,'value': x3} for x3 in _df['性別'].unique()]
 
 @app.callback(
@@ -256,8 +279,15 @@ def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_val
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
-    _df = _df[_df['エリア'] == dropdown2_value]
-    _df = _df[_df['サロン名'] == dropdown3_value]
+
+    _df = _df[_df['エリア']==dropdown2_value]
+    
+    if dropdown3_value is None:
+        dropdown3_value = _df['サロン名'].unique()
+    else:
+        dropdown3_value = [dropdown3_value]
+
+    _df = _df[_df['サロン名'].isin(dropdown3_value)]
     
     _df = _df[_df['性別'].isin(checklist1_value)]
     
@@ -269,8 +299,8 @@ def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_val
         values='客数(口コミ数)',
         color='性別',
         title=f'Gender Rate',
-        height=260,
-        width=375,
+        height=255,
+        width=385,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
     
@@ -332,11 +362,18 @@ def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_val
      State('dropdown3', 'value'),
      State('checklist1', 'value')])
 def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-        
+    
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
-    _df = _df[_df['エリア'] == dropdown2_value]
-    _df = _df[_df['サロン名'] == dropdown3_value]
+
+    _df = _df[_df['エリア']==dropdown2_value]
+    
+    if dropdown3_value is None:
+        dropdown3_value = _df['サロン名'].unique()
+    else:
+        dropdown3_value = [dropdown3_value]
+
+    _df = _df[_df['サロン名'].isin(dropdown3_value)]
     
     _df = _df[_df['性別'].isin(checklist1_value)]
     
@@ -348,8 +385,8 @@ def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value,
         values='客数(口コミ数)',
         color='年齢',
         title='Age Rate',
-        height=260,
-        width=375,
+        height=255,
+        width=385,
         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
@@ -406,7 +443,8 @@ def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value,
                       family=default_font,
                       color='slategrey'),
             # valign='top',
-            itemsizing='constant'
+            # ↓多分いらない。itemsizing=
+            # itemsizing='constant'
         ),
         
     )
@@ -421,21 +459,40 @@ def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value,
      State('dropdown3', 'value'),
      State('checklist1', 'value')])
 def total_bill_distplot_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-            
+    
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
-    _df = _df[_df['エリア'] == dropdown2_value]
-    _df = _df[_df['サロン名'] == dropdown3_value]
+
+    if dropdown2_value is None:
+        dropdown2_value = _df['エリア'].unique()
+    else:
+        dropdown2_value = [dropdown2_value]
+
+    if dropdown3_value is None:
+        dropdown3_value = _df['サロン名'].unique()
+    else:
+        dropdown3_value = [dropdown3_value]
+
+    _df = _df[_df['エリア'].isin(dropdown2_value)]
+    _df = _df[_df['サロン名'].isin(dropdown3_value)]
     
     _df = _df[_df['性別'].isin(checklist1_value)]
     
+    
     _df = _df[['年齢', '支出金額', '名前', 'メニューの種類', '性別', '職業', '投稿日時','総合','雰囲気','接客サービス',	'技術・仕上がり', 'メニュー・料金']][_df['支出金額']!=0]
     
-    figure = px.box(_df, y="支出金額", x="年齢", color="年齢", points="all",
-          hover_data=_df.columns, title='Distribution of Payments by Age',
-          color_discrete_sequence=plotly.colors.qualitative.Set3,
-          category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
-          )
+    figure = px.box(
+        data_frame=_df,
+        y="支出金額", 
+        x="年齢",
+        color="年齢",
+        points="all",
+        hover_data=_df.columns, title='Distribution of Payments by Age',
+        color_discrete_sequence=plotly.colors.qualitative.Set3,
+        category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
+        height=340,
+        width=775
+        )
 
     figure.update_traces(
         marker=dict(
@@ -490,7 +547,7 @@ def total_bill_distplot_figure(n_clicks, dropdown1_value, dropdown2_value, dropd
                       family=default_font,
                       color='slategrey'),
             # valign='top'
-            itemsizing='constant'
+            # itemsizing='constant'
         ),
         
     )
