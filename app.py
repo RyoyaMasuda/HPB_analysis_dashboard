@@ -110,7 +110,7 @@ content = html.Div(
                 dbc.Col(
                     [
                         dcc.Graph(
-                            id='gender-rate',
+                            id='gender-ratio',
                             # figureの大きさは最初から指定しておく。
                             # figure={'layout':{'height':230, 'width':375}},
                             # style={'margin-top':'10px',
@@ -119,13 +119,13 @@ content = html.Div(
                             #        'margin-left':'2px'}
                         )                     
                 ],
-                className='bg-info col-3',
-                style={'padding':'6px'}
+                className='bg-info',
+                style={'padding':'7px'}
                 ),
                 dbc.Col(
                     [
                         dcc.Graph(
-                            id='age-rate',
+                            id='age-ratio',
                             # figureの大きさは最初から指定しておく。
                             # figure={'layout':{'height':235, 'width':375}},
                             # margin-*の順番によって反映されないことがある。原因不明。leftよりもrightが先に来ると反応しなかった。上のdbc.Colは何故か大丈夫
@@ -137,15 +137,27 @@ content = html.Div(
                         )
                 ],
                     # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
-                className='bg-light col-3',
-                style={'padding':'6px'}
+                className='bg-light',
+                style={'padding':'7px'}
                 ),
                 dbc.Col(
                     [
-                        ],
-                    className='bg-info col-6',
-                    style={'padding':'0.7%'}
+                        dcc.Graph(
+                            id='hair-color-ratio'
+                        )
+                    ],
+                    className='bg-info',
+                    style={'padding':'6px'}
                 ),
+                dbc.Col(
+                    [
+                        dcc.Graph(
+                            id='treatment-ratio'
+                        )
+                    ],
+                    className='bg-light',
+                    style={'padding':'6px'}
+                )
             ],
             className='bg-primary',
             style={'height':'30vh'}
@@ -154,13 +166,10 @@ content = html.Div(
             [
                 dbc.Col(
                     [
-                        dcc.Graph(
-                            id='total_bill_distplot',
-                            # figure={'layout':{'height':340, 'width':775}},
-                        )
+                        
                 ],
                     # className='bg-light',
-                    style={'padding':'0.6%', 'background-color':'rgb(143,139,193)'}
+                    style={'padding':'6px','background-color':'rgb(143,139,193)'}
                 ),
                 dbc.Col(
                     [
@@ -169,14 +178,19 @@ content = html.Div(
                     ),
             ],
             # className='bg-secondary',
-            style={'height':'40vh'}
+            style={'height':'30vh'}
         ),
         dbc.Row(
             [
                 dbc.Col(
                     [
-      
+                        dcc.Graph(
+                            id='total_bill_boxplot',
+                            # figure={'layout':{'height':340, 'width':775}},
+                        ),
+                        # className='bg-light',
                 ],
+                    style={'padding':'6px', 'background-color':'rgb(143,139,193)'},
                     className='bg-info'
                     ),
                 dbc.Col(
@@ -186,7 +200,7 @@ content = html.Div(
                     ),
             ],
             className='bg-light',
-            style={'height':'30vh'}
+            style={'height':'40vh'}
         )   
     ]
 )
@@ -269,13 +283,13 @@ def update_gender(dropdown3_value, dropdown2_value):
     return [{'label': x3,'value': x3} for x3 in _df['性別'].unique()]
 
 @app.callback(
-    Output('gender-rate', 'figure'),
+    Output('gender-ratio', 'figure'),
     Input('button', 'n_clicks'),
     [State('dropdown1', 'value'),
      State('dropdown2', 'value'),
      State('dropdown3', 'value'),
      State('checklist1', 'value')])
-def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
@@ -291,9 +305,9 @@ def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_val
         names='性別',
         values='客数(口コミ数)',
         color='性別',
-        title=f'Gender Rate',
+        title=f'Gender Ratio',
         height=255,
-        width=385,
+        width=380,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
     
@@ -348,13 +362,13 @@ def gender_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_val
     return figure
     
 @app.callback(
-    Output('age-rate', 'figure'),
+    Output('age-ratio', 'figure'),
     Input('button', 'n_clicks'),
     [State('dropdown1', 'value'),
      State('dropdown2', 'value'),
      State('dropdown3', 'value'),
      State('checklist1', 'value')])
-def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
@@ -370,9 +384,9 @@ def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value,
         names='年齢',
         values='客数(口コミ数)',
         color='年齢',
-        title='Age Rate',
+        title='Age Ratio',
         height=255,
-        width=385,
+        width=380,
         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
@@ -438,13 +452,180 @@ def age_rate_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value,
     return figure
 
 @app.callback(
-    Output('total_bill_distplot', 'figure'),
+    Output('hair-color-ratio', 'figure'),
     Input('button', 'n_clicks'),
     [State('dropdown1', 'value'),
      State('dropdown2', 'value'),
      State('dropdown3', 'value'),
      State('checklist1', 'value')])
-def total_bill_distplot_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+    
+    _df = df.copy()
+    _df = _df[_df['県']==dropdown1_value]
+    _df = _df[_df['エリア']==dropdown2_value]
+    _df = _df[_df['サロン名']==dropdown3_value]
+    
+    _df = _df[_df['性別'].isin(checklist1_value)]
+    
+    _df =_df.groupby('カラー選択').count().iloc[:,0:1].reset_index()
+    _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
+    _df.loc[_df['カラー選択']==0, 'カラー選択'] = 'カラー未実施'
+    _df.loc[_df['カラー選択']==1, 'カラー選択'] = 'カラー実施'
+
+    figure = px.pie(
+        data_frame=_df,
+        names='カラー選択',
+        values='客数(口コミ数)',
+        color='カラー選択',
+        title=f'Percentage Of Color Selected',
+        height=255,
+        width=380,
+        color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
+        category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
+    )
+    
+    figure.update_traces(
+        textinfo='percent+label',
+        textposition='inside',
+        marker=dict(
+            line=dict(
+                color='slategrey',
+                width=2.0
+            ),
+        )
+    )
+    
+    figure.update_layout(
+        uniformtext_mode='hide',
+        uniformtext_minsize=10,
+        margin={'l':30, 'r':30, 't':50, 'b':10},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family='Comic Sans Ms',
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='カラー選択の有無',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+        ),
+        
+    )
+    
+    return figure
+
+@app.callback(
+    Output('treatment-ratio', 'figure'),
+    Input('button', 'n_clicks'),
+    [State('dropdown1', 'value'),
+     State('dropdown2', 'value'),
+     State('dropdown3', 'value'),
+     State('checklist1', 'value')])
+def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+    
+    _df = df.copy()
+    _df = _df[_df['県']==dropdown1_value]
+    _df = _df[_df['エリア']==dropdown2_value]
+    _df = _df[_df['サロン名']==dropdown3_value]
+    
+    _df = _df[_df['性別'].isin(checklist1_value)]
+    
+    _df =_df.groupby('トリートメント選択').count().iloc[:,0:1].reset_index()
+    _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
+    _df.loc[_df['トリートメント選択']==0, 'トリートメント選択'] = 'Tr未実施'
+    _df.loc[_df['トリートメント選択']==1, 'トリートメント選択'] = 'Tr実施'
+
+    figure = px.pie(
+        data_frame=_df,
+        names='トリートメント選択',
+        values='客数(口コミ数)',
+        color='トリートメント選択',
+        title=f'Percentage Of Treatment Selected',
+        height=255,
+        width=380,
+        color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
+        category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
+    )
+    
+    figure.update_traces(
+        textinfo='percent+label',
+        textposition='inside',
+        marker=dict(
+            line=dict(
+                color='slategrey',
+                width=2.0
+            ),
+        )
+    )
+    
+    figure.update_layout(
+        uniformtext_mode='hide',
+        uniformtext_minsize=10,
+        margin={'l':30, 'r':30, 't':50, 'b':10},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family='Comic Sans Ms',
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='Tr選択の有無',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+        ),
+        
+    )
+    
+    return figure
+    
+    
+@app.callback(
+    Output('total_bill_boxplot', 'figure'),
+    Input('button', 'n_clicks'),
+    [State('dropdown1', 'value'),
+     State('dropdown2', 'value'),
+     State('dropdown3', 'value'),
+     State('checklist1', 'value')])
+def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
     
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
@@ -484,7 +665,7 @@ def total_bill_distplot_figure(n_clicks, dropdown1_value, dropdown2_value, dropd
         rangemode='tozero',
         tickformat=',',
         tickprefix='¥',
-        tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,40000]
+        tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,40000,50000,60000]
     )
 
     figure.update_layout(
@@ -538,4 +719,4 @@ def update_page(href):
         return home_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8046)
+    app.run_server(debug=True, port=8045)
