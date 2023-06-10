@@ -563,7 +563,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         title=f'Percentage Of Treatment Selected',
         height=255,
         width=380,
-        color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
+        color_discrete_map={'Tr実施':'#ffffb3','Tr未実施':'#ccebc5'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
     )
     
