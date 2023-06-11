@@ -1,8 +1,9 @@
 #
-from dash import Dash, dcc, html, Input, Output, State, callback
-import dash_bootstrap_components as dbc
+import math
 import pandas as pd
 import numpy as np
+from dash import Dash, dcc, html, Input, Output, State, callback
+import dash_bootstrap_components as dbc
 import plotly
 import plotly.express as px
 import plotly.figure_factory as ff
@@ -100,13 +101,13 @@ sidebar = html.Div(
             ]
         )
     ],
-    style={'font-family': 'Comic Sans Ms'}
+    style={'font-family': default_font}
 )
 
 content = html.Div(
     [
         dbc.Row(
-            [
+            [   # 1行1列
                 dbc.Col(
                     [
                         dcc.Graph(
@@ -122,6 +123,7 @@ content = html.Div(
                 className='bg-info',
                 style={'padding':'7px'}
                 ),
+                # 1行2列
                 dbc.Col(
                     [
                         dcc.Graph(
@@ -140,6 +142,7 @@ content = html.Div(
                 className='bg-light',
                 style={'padding':'7px'}
                 ),
+                # 1行3列
                 dbc.Col(
                     [
                         dcc.Graph(
@@ -149,6 +152,7 @@ content = html.Div(
                     className='bg-info',
                     style={'padding':'6px'}
                 ),
+                # 1行4列
                 dbc.Col(
                     [
                         dcc.Graph(
@@ -163,19 +167,25 @@ content = html.Div(
             style={'height':'30vh'}
         ),
         dbc.Row(
-            [
+            [   # 2行1列
                 dbc.Col(
                     [
-                        
+                        dcc.Graph(
+                            id='cut-only-comparison'
+                        )
                 ],
                     # className='bg-light',
                     style={'padding':'6px'},
                     className='bg-light'
                 ),
+                # 2行2列
                 dbc.Col(
                     [
-                        
+                        dcc.Graph(
+                            id='cut-and-colr-comparison'
+                        )
                     ],
+                    style={'padding':'6px'},
                     className='bg-info'
                     ),
                 dbc.Col(
@@ -271,12 +281,12 @@ def update_salon(value):
     prevent_initial_call=True
 )
 def update_area(value):
-    print(value)
     if value is None:
         return ''
     # else:
     #     'ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
 
+# 1行1列
 @app.callback(
     Output('checklist1', 'options'),
     Input('dropdown3', 'value'),
@@ -296,6 +306,7 @@ def update_gender(dropdown3_value, dropdown2_value):
     
     return [{'label': x3,'value': x3} for x3 in _df['性別'].unique()]
 
+# 1行2列
 @app.callback(
     Output('gender-ratio', 'figure'),
     Input('button', 'n_clicks'),
@@ -346,7 +357,7 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
                'y':0.95,
                'xanchor':'center'},
         font=dict(
-            family='Comic Sans Ms',
+            family=default_font,
             size=10,
         ),
         # hoverlabel: hoverdataの中の指定
@@ -374,7 +385,8 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
     )
     
     return figure
-    
+
+# 1行3列
 @app.callback(
     Output('age-ratio', 'figure'),
     Input('button', 'n_clicks'),
@@ -432,7 +444,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
                'y':0.95,
                'xanchor':'center'},
         font=dict(
-            family='Comic Sans Ms',
+            family=default_font,
             size=10,
         ),
         # hoverlabel: hoverdataの中の指定
@@ -465,6 +477,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
     
     return figure
 
+# 1行4列
 @app.callback(
     Output('hair-color-ratio', 'figure'),
     Input('button', 'n_clicks'),
@@ -519,7 +532,7 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                'y':0.95,
                'xanchor':'center'},
         font=dict(
-            family='Comic Sans Ms',
+            family=default_font,
             size=10,
         ),
         # hoverlabel: hoverdataの中の指定
@@ -548,6 +561,271 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
     
     return figure
 
+
+# 2行1列
+@app.callback(
+    Output('cut-only-comparison', 'figure'),
+    Input('button', 'n_clicks'),
+    [State('dropdown1', 'value'),
+     State('dropdown2', 'value'),
+     State('dropdown3', 'value'),
+     State('checklist1', 'value')])
+def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+
+    _df = df.copy()
+    _df = _df[_df['県']==dropdown1_value]
+
+    _df_prefecture = _df.copy()
+    prefecture_mean = int(round(_df_prefecture.loc[
+        ((_df_prefecture['カット選択']==1)&(_df_prefecture['カラー選択']==0)&(_df_prefecture['トリートメント選択']==0)&(_df_prefecture['パーマ選択']==0)&\
+        (_df_prefecture['縮毛矯正選択']==0)&(_df_prefecture['その他選択']==0)&(_df_prefecture['ヘッドスパ選択']==0)&(_df_prefecture['ヘアセット選択']==0)&\
+        (_df_prefecture['エクステ選択']==0)&(_df_prefecture['着付け選択']==0)&(_df_prefecture['メニュー無し選択']==0)&(_df_prefecture['支出金額']!=0)),
+        ['支出金額']].mean()))
+
+    _df = _df[_df['エリア'] == dropdown2_value]
+
+    _df_area = _df.copy()
+    area_mean = int(round(_df_area.loc[
+        ((_df_area['カット選択']==1)&(_df_area['カラー選択']==0)&(_df_area['トリートメント選択']==0)&(_df_area['パーマ選択']==0)&\
+        (_df_area['縮毛矯正選択']==0)&(_df_area['その他選択']==0)&(_df_area['ヘッドスパ選択']==0)&(_df_area['ヘアセット選択']==0)&\
+        (_df_area['エクステ選択']==0)&(_df_area['着付け選択']==0)&(_df_area['メニュー無し選択']==0)&(_df_area['支出金額']!=0)),
+        ['支出金額']].mean()))
+
+    _df = _df[_df['サロン名'] == dropdown3_value]
+    _df = _df[_df['性別'].isin(checklist1_value)]
+
+    _df_salon = _df.copy()
+    try:
+        salon_mean = int(round(_df_salon.loc[
+            ((_df_salon['カット選択']==1)&(_df_salon['カラー選択']==0)&(_df_salon['トリートメント選択']==0)&(_df_salon['パーマ選択']==0)&\
+            (_df_salon['縮毛矯正選択']==0)&(_df_salon['その他選択']==0)&(_df_salon['ヘッドスパ選択']==0)&(_df_salon['ヘアセット選択']==0)&\
+            (_df_salon['エクステ選択']==0)&(_df_salon['着付け選択']==0)&(_df_salon['メニュー無し選択']==0)&(_df_salon['支出金額']!=0)),
+            ['支出金額']].mean()))
+    except ValueError:
+        salon_mean = 0
+        
+    __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['平均単価'])
+    __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
+
+    xaxes_range_min = int(round(__df['平均単価'].min()/2, -3))
+    range_max = int(math.ceil(__df['平均単価'].max()))
+    xaxes_range_max = math.ceil(range_max/1000) * 1000 + 1000
+
+    __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['平均単価'])
+    __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
+    __df
+
+    figure=px.bar(data_frame=__df,
+                  y='算出レンジ',
+                  x='平均単価',
+                  color='算出レンジ',
+                  color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
+                  category_orders={'算出レンジ':['サロン', 'エリア', '県']},
+                  text=[f'¥{text:,}' for text in __df['平均単価']],
+                  title=f'Cut Unit Price',
+                  height=255,
+                  width=380,
+                )
+    figure.update_traces(
+        orientation='h',
+        # texttemplate=,
+        textposition='outside',
+        textfont=dict(size=8),
+        hovertemplate='平均単価: ¥%{x:,}<br>算出レンジ: %{y}',
+        marker=dict(
+            line=dict(
+            color='slategrey',
+            width=1.5
+            )
+        ),
+        # showlegend=False
+    )
+
+    figure.update_layout(
+        uniformtext_mode='hide',
+        uniformtext_minsize=10,
+        margin={'l':0, 'r':50, 't':40, 'b':20},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='算出範囲',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+            # tracegroupgap=1,
+            # itemsizing='constant'
+        ),   
+    )
+
+    figure.update_xaxes(
+        # rangemode='tozero',
+        tickformat=',',
+        tickprefix='¥',
+        tickvals=np.arange(xaxes_range_min, xaxes_range_max, 1000),
+        range=(xaxes_range_min,xaxes_range_max)
+    )
+    
+    figure.update_yaxes(
+        title=''
+    )    
+    
+    return figure
+
+# 2行2列
+@app.callback(
+    Output('cut-and-colr-comparison', 'figure'),
+    Input('button', 'n_clicks'),
+    [State('dropdown1', 'value'),
+     State('dropdown2', 'value'),
+     State('dropdown3', 'value'),
+     State('checklist1', 'value')])
+def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+
+    _df = df.copy()
+    _df = _df[_df['県']==dropdown1_value]
+
+    _df_prefecture = _df.copy()
+    prefecture_mean = int(round(_df_prefecture.loc[
+        ((_df_prefecture['カット選択']==1)&(_df_prefecture['カラー選択']==1)&(_df_prefecture['トリートメント選択']==0)&(_df_prefecture['パーマ選択']==0)&\
+        (_df_prefecture['縮毛矯正選択']==0)&(_df_prefecture['その他選択']==0)&(_df_prefecture['ヘッドスパ選択']==0)&(_df_prefecture['ヘアセット選択']==0)&\
+        (_df_prefecture['エクステ選択']==0)&(_df_prefecture['着付け選択']==0)&(_df_prefecture['メニュー無し選択']==0)&(_df_prefecture['支出金額']!=0)),
+        ['支出金額']].mean()))
+
+    _df = _df[_df['エリア'] == dropdown2_value]
+
+    _df_area = _df.copy()
+    area_mean = int(round(_df_area.loc[
+        ((_df_area['カット選択']==1)&(_df_area['カラー選択']==1)&(_df_area['トリートメント選択']==0)&(_df_area['パーマ選択']==0)&\
+        (_df_area['縮毛矯正選択']==0)&(_df_area['その他選択']==0)&(_df_area['ヘッドスパ選択']==0)&(_df_area['ヘアセット選択']==0)&\
+        (_df_area['エクステ選択']==0)&(_df_area['着付け選択']==0)&(_df_area['メニュー無し選択']==0)&(_df_area['支出金額']!=0)),
+        ['支出金額']].mean()))
+
+    _df = _df[_df['サロン名'] == dropdown3_value]
+    _df = _df[_df['性別'].isin(checklist1_value)]
+
+    _df_salon = _df.copy()
+    try:
+        salon_mean = int(round(_df_salon.loc[
+            ((_df_salon['カット選択']==1)&(_df_salon['カラー選択']==1)&(_df_salon['トリートメント選択']==0)&(_df_salon['パーマ選択']==0)&\
+            (_df_salon['縮毛矯正選択']==0)&(_df_salon['その他選択']==0)&(_df_salon['ヘッドスパ選択']==0)&(_df_salon['ヘアセット選択']==0)&\
+            (_df_salon['エクステ選択']==0)&(_df_salon['着付け選択']==0)&(_df_salon['メニュー無し選択']==0)&(_df_salon['支出金額']!=0)),
+            ['支出金額']].mean()))
+    except ValueError:
+        salon_mean = 0
+        
+    __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['平均単価'])
+    __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
+
+    xaxes_range_min = int(round(__df['平均単価'].min()/2, -3))
+    range_max = int(math.ceil(__df['平均単価'].max()))
+    xaxes_range_max = math.ceil(range_max/1000) * 1000 + 2000
+
+    __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['平均単価'])
+    __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
+    __df
+
+    figure=px.bar(data_frame=__df,
+                  y='算出レンジ',
+                  x='平均単価',
+                  color='算出レンジ',
+                  color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
+                  category_orders={'算出レンジ':['サロン', 'エリア', '県']},
+                  text=[f'¥{text:,}' for text in __df['平均単価']],
+                  title=f'Cut&Color Unit Price',
+                  height=255,
+                  width=380,
+                )
+    figure.update_traces(
+        orientation='h',
+        # texttemplate=,
+        textposition='outside',
+        textfont=dict(size=8),
+        hovertemplate='平均単価: ¥%{x:,}<br>算出レンジ: %{y}',
+        marker=dict(
+            line=dict(
+            color='slategrey',
+            width=1.5
+            )
+        ),
+        # showlegend=False
+    )
+
+    figure.update_layout(
+        uniformtext_mode='hide',
+        uniformtext_minsize=10,
+        margin={'l':0, 'r':50, 't':40, 'b':20},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='算出範囲',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+            # tracegroupgap=1,
+            # itemsizing='constant'
+        ),   
+    )
+
+    figure.update_xaxes(
+        # rangemode='tozero',
+        tickformat=',',
+        tickprefix='¥',
+        tickvals=np.arange(xaxes_range_min, xaxes_range_max, 1000),
+        range=(xaxes_range_min,xaxes_range_max),
+    )
+    
+    figure.update_yaxes(
+        title=''
+    )    
+    
+    return figure
+    
+
+# 3行1列
 @app.callback(
     Output('treatment-ratio', 'figure'),
     Input('button', 'n_clicks'),
@@ -577,7 +855,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         title=f'Percentage Of Treatment Selected',
         height=255,
         width=380,
-        color_discrete_map={'Tr実施':'#ffffb3','Tr未実施':'#ccebc5'},
+        color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
     )
     
@@ -602,7 +880,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
                'y':0.95,
                'xanchor':'center'},
         font=dict(
-            family='Comic Sans Ms',
+            family=default_font,
             size=10,
         ),
         # hoverlabel: hoverdataの中の指定
@@ -631,7 +909,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
     
     return figure
     
-    
+# 3行1列
 @app.callback(
     Output('total_bill_boxplot', 'figure'),
     Input('button', 'n_clicks'),
@@ -692,7 +970,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
                'y':0.95,
                'xanchor':'center'},
         font=dict(
-            family='Comic Sans Ms',
+            family=default_font,
             size=10,
         ),
         # hoverlabel: hoverdataの中の指定
@@ -733,4 +1011,4 @@ def update_page(href):
         return home_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8045)
+    app.run_server(debug=True, port=8044)
