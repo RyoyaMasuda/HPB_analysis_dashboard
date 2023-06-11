@@ -169,13 +169,27 @@ content = html.Div(
                         
                 ],
                     # className='bg-light',
-                    style={'padding':'6px','background-color':'rgb(143,139,193)'}
+                    style={'padding':'6px'},
+                    className='bg-light'
                 ),
                 dbc.Col(
                     [
-                        ],
-                    className='bg-light'
+                        
+                    ],
+                    className='bg-info'
                     ),
+                dbc.Col(
+                    [
+                        
+                    ],
+                    className='bg-light'
+                ),
+                dbc.Col(
+                    [
+                        
+                    ],
+                    className='bg-info'
+                )
             ],
             # className='bg-secondary',
             style={'height':'30vh'}
