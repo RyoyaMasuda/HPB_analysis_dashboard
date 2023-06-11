@@ -602,7 +602,10 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             (_df_salon['エクステ選択']==0)&(_df_salon['着付け選択']==0)&(_df_salon['メニュー無し選択']==0)&(_df_salon['支出金額']!=0)),
             ['支出金額']].mean()))
     except ValueError:
-        salon_mean = 0
+        try:
+            salon_mean = int(_df['カット料金'].unique()[0])
+        except Exception:
+            salon_mean = 0
         
     __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['平均単価'])
     __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
@@ -701,7 +704,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
      State('dropdown2', 'value'),
      State('dropdown3', 'value'),
      State('checklist1', 'value')])
-def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
 
     _df = df.copy()
     _df = _df[_df['県']==dropdown1_value]
