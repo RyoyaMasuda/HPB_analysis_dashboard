@@ -17,7 +17,7 @@ sidebar = html.Div(
         dbc.Row(
             html.P(
                 children='Select the parameters.',
-                style={'margin':'10px', 'fontSize':20},
+                style={'margin':'10px', 'fontSize':22},
             ),
             className='bg-secondary'
         ),
@@ -25,8 +25,11 @@ sidebar = html.Div(
             [
                 html.P(
                     children='Select a prefecture',
-                    style={'margin': '10px', 'width':'175px'},
-                    className='border-bottom font-weight-bold'
+                    style={'margin': '10px',
+                        #    'width':'175px',
+                           'text-decoration':'underline',
+                           'fontSize':18},
+                    className='font-weight-bold'
                 ),
                 dcc.Dropdown(
                     id='dropdown1',
@@ -40,8 +43,11 @@ sidebar = html.Div(
                 ),
                 html.P(
                     children='Select a region',
-                    style={'margin': '10px', 'width':'140px'},
-                    className='border-bottom font-weight-bold'
+                    style={'margin': '10px',
+                        #    'width':'140px',
+                           'text-decoration':'underline',
+                           'fontSize':18},
+                    className='font-weight-bold'
                 ),
                 dcc.Dropdown(
                     id='dropdown2',
@@ -53,8 +59,11 @@ sidebar = html.Div(
                 ),
                 html.P(
                     children='Select a salon',
-                    style={'margin': '10px', 'width':'130px'},
-                    className='border-bottom font-weight-bold'
+                    style={'margin': '10px',
+                        #    'width':'130px',
+                           'text-decoration':'underline',
+                           'fontSize':18},
+                    className='font-weight-bold'
                 ),
                 dcc.Dropdown(
                     id='dropdown3',
@@ -68,8 +77,11 @@ sidebar = html.Div(
                 ),
                 html.P(
                     children='Select gender',
-                    style={'margin': '10px', 'width':'130px'},
-                    className='border-bottom font-weight-bold'
+                    style={'margin': '10px',
+                        #    'width':'130px',
+                           'text-decoration':'underline',
+                           'fontSize':18},
+                    className='font-weight-bold'
                 ),
                 dcc.Checklist(
                     id='checklist1',
@@ -86,7 +98,11 @@ sidebar = html.Div(
                     style={'margin':'20px'},
                     className='d-grid gap-2 col-6 mx-auto',
                 ),
-                html.Hr()
+                html.Hr(),
+                html.Br(),
+                html.Div(
+                    id='salon_infomation',
+                )
             ]
         )
     ],
@@ -98,57 +114,91 @@ content = html.Div(
         dbc.Row(
             [   # 1行1列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='gender-ratio',
-                            # figureの大きさは最初から指定しておく。
-                            # figure={'layout':{'height':230, 'width':375}},
-                            # style={'margin-top':'10px',
-                            #        'margin-bottom':'10px',
-                            #        'margin-right':'2px',
-                            #        'margin-left':'2px'}
-                        )                     
+                    [   
+                        dcc.Loading(id="loading_1-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='gender-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
                 ],
                 className='bg-info',
                 style={'padding':'8px'}
                 ),
                 # 1行2列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='age-ratio',
-                            # figureの大きさは最初から指定しておく。
-                            # figure={'layout':{'height':235, 'width':375}},
-                            # margin-*の順番によって反映されないことがある。原因不明。leftよりもrightが先に来ると反応しなかった。上のdbc.Colは何故か大丈夫
-                            # style={'margin-top':'10px',
-                            #        'margin-bottom':'10px',
-                            #        'margin-left':'1px',
-                            #        'margin-right':'px'
-                            #     }
-                        )
-                ],
+                    [   
+                        dcc.Loading(id="loading_1-2",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='age-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],
                     # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
-                className='bg-light',
-                style={'padding':'8px'}
+                    className='bg-info',
+                    style={'padding':'8px'}
                 ),
                 # 1行3列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='hair-color-ratio'
-                        )
+                    [   
+                        dcc.Loading(id="loading_1-3",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='hair-color-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
                     ],
                     className='bg-info',
                     style={'padding':'8px'}
                 ),
                 # 1行4列
-                dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='treatment-ratio'
-                        )
-                    ],
-                    className='bg-light',
+                dbc.Col(  
+                    [   
+                        dcc.Loading(id="loading_1-4",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='treatment-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                                          
+                    className='bg-info',
                     style={'padding':'8px'}
                 )
             ],
@@ -158,40 +208,89 @@ content = html.Div(
         dbc.Row(
             [   # 2行1列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='cut-only-comparison'
-                        )
-                ],
-                    # className='bg-light',
+                    [   
+                        dcc.Loading(id="loading_2-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='cut-only-comparison',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                    
+                    # className='bg-info',
                     style={'padding':'8px'},
-                    className='bg-light'
+                    className='bg-info'
                 ),
                 # 2行2列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='cut-and-colr-comparison'
-                        )
+                    [   
+                        dcc.Loading(id="loading_2-2",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='cut-and-colr-comparison',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
                     ],
                     style={'padding':'8px'},
                     className='bg-info'
                     ),
+                # 2行3列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='cut-and-colr-and-treatment-comparison'
-                        )
-                    ],
+                    [   
+                        dcc.Loading(id="loading_2-3",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='cut-and-colr-and-treatment-comparison',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                    
                     style={'padding':'8px'},
-                    className='bg-light'
+                    className='bg-info'
                 ),
+                # 2行4列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='all-menu-comparison'
-                        )
-                    ],
+                    [   
+                        dcc.Loading(id="loading_2-4",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='all-menu-comparison',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",},
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                       
                     style={'padding':'8px'},
                     className='bg-info'
                 )
@@ -200,29 +299,51 @@ content = html.Div(
             style={'height':'30vh'}
         ),
         dbc.Row(
-            [# (3,1)
+            [   #3行1列
                 dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='total_bill_boxplot',
-                            # figure={'layout':{'height':340, 'width':775}},
-                        ),
-                        # className='bg-light',
-                ],
-                    style={'padding':'8px'},
-                    className='bg-light'
-                    ),
-                dbc.Col(
-                    [
-                        dcc.Graph(
-                            id='coupon-ranking',
-                        )
-                    ],
+                    [   
+                        dcc.Loading(id="loading_3-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='total_bill_boxplot',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                    
                     style={'padding':'8px'},
                     className='bg-info'
                     ),
+                dbc.Col(
+[   
+                        dcc.Loading(id="loading_3-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='coupon-ranking',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],
+                    style={'padding':'8px'},
+                    className='light'
+                    ),
             ],
-            className='bg-light',
+            className='bg-info',
             style={'height':'40vh'}
         )   
     ]
@@ -239,7 +360,7 @@ home_layout = [
             dbc.Col(
                 children=content,
                 width=10,
-                className='bg-light'
+                className='bg-info'
             )
         ],
         style={'height':'95vh'}
@@ -289,6 +410,122 @@ def update_gender(dropdown3_value, dropdown2_value):
     _df = _df[_df['サロン名'].isin(dropdown3_value)]
     
     return [{'label': x3,'value': x3} for x3 in _df['性別'].unique()]
+
+# サイドバーのサロンインフォメーション
+@callback(
+    Output('salon_infomation', 'children'),
+    Input('button', 'n_clicks'),
+    [State('dropdown1', 'value'),
+     State('dropdown2', 'value'),
+     State('dropdown3', 'value'),
+     State('checklist1', 'value')])
+def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+    _df = df.copy()
+    _df = _df[_df['県']==dropdown1_value]
+    _df = _df[_df['エリア']==dropdown2_value]
+    _df = _df[_df['サロン名']==dropdown3_value]
+    
+    _df = _df[_df['性別'].isin(checklist1_value)]
+    
+    salon_name = _df['サロン名'].unique()[0]
+    salon_adress = _df['住所'].unique()[0]
+    num_of_seat = _df['セット面の数'].unique()[0]
+    num_of_staff = _df['スタッフ数'].unique()[0]
+    num_of_review = _df['口コミ数'].unique()[0]
+    num_of_coupon = _df['クーポン数'].unique()[0]
+    num_of_menu = _df['メニュー数'].unique()[0]
+    link = _df['URL'].unique()[0]
+    
+    children = [
+                    html.P(children='Salon Infomation',
+                            style={'text-align':'center',
+                                    'fontSize':20},
+                            className='bg-info col-12 mx-auto'),
+                    html.P(children='Salon Name :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children=salon_name,
+                            style={'text-align':'center',
+                                    'fontSize': 18,
+                                    'text-decoration':'underline'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children='Salon Address :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children=salon_adress,
+                            style={'text-align':'center',
+                                    'fontSize': 16,
+                                    'text-decoration':'underline'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children='Number Of Sheets :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children=f'{num_of_seat}席',
+                            style={'text-align':'center',
+                                    'fontSize': 18,
+                                    'text-decoration':'underline'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children='Number Of Staff :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children=f'{num_of_staff}人',
+                            style={'text-align':'center',
+                                    'fontSize': 18,
+                                    'text-decoration':'underline'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children='Number Of Review :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children=f'{num_of_review}口コミ',
+                            style={'text-align':'center',
+                                    'fontSize': 18,
+                                    'text-decoration':'underline'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children='Number Of Coupon & Menu :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children=f'クーポン数={num_of_coupon} メニュー数={num_of_menu}',
+                            style={'text-align':'center',
+                                    'fontSize': 18,
+                                    'text-decoration':'underline'},
+                            className='font-weight-bold'
+                        ),
+                    html.P(children='Link to Hot Pepper Beauty :',
+                            style={'margin':'5px'},
+                            className='font-weight-bold'
+                        ),
+                    dbc.Row(
+                        dbc.Col(
+                            html.Div(
+                                [
+                                    html.A(children='HPBのページへ飛ぶ',
+                                            href=link,
+                                            target='_blank',
+                                            style={'text-decoration':'underline',
+                                                    'margin':'5px'
+                                            },
+                                        ),
+                                    ]
+                                ),
+                            width={"size": 6, "offset": 3},
+                        )
+                    ),
+                ]
+    
+    
+    return children
+    
 
 # 1行1列
 @callback(
@@ -1291,9 +1528,17 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
     figure = go.Figure(
         data=go.Table(
             columnorder = [1,2,3,4],
-            columnwidth = [50,410,50,50],
-            header={'values':_df.columns},
-            cells={'values':[_df[col].tolist() for col in _df.columns]}
+            columnwidth = [60,400,50,50],
+            header={'values':_df.columns,
+                    'fill_color':'#fee391',
+                    'line_color':'grey',
+                    'font_size':14,
+                    'height':30,},
+            cells={'values':[_df[col].tolist() for col in _df.columns],
+                   'fill_color':'#ffffe5',
+                   'line_color':'grey',
+                   'font_size':14,
+                   'height':30,},
         ),
         layout=go.Layout(title='Coupon Ranking Table',
                          height=400,

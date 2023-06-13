@@ -7,7 +7,8 @@ nav_contens = [
             id='home',
             children='Home',
             href='/',
-            external_link=True
+            external_link=True,
+            style={'fontSize':18}
         )
     ),
     dbc.NavItem(
@@ -15,7 +16,8 @@ nav_contens = [
             id='dashboard',
             children='Dashboard',
             href='/',
-            external_link=True
+            external_link=True,
+            style={'fontSize':18}
         )
     ),
     dbc.NavItem(
@@ -23,7 +25,8 @@ nav_contens = [
             id='map',
             children='Map',
             href='/',
-            external_link=True
+            external_link=True,
+            style={'fontSize':18}
         )
     ),
     dbc.NavItem(
@@ -31,7 +34,8 @@ nav_contens = [
             id='hoge',
             children='hoge',
             href='/',
-            external_link=True
+            external_link=True,
+            style={'fontSize':18}
         )
     )
 ]
@@ -54,7 +58,7 @@ navber = dbc.NavbarSimple(
         ],
         brand='Hot Pepper Beauty Review Analysis Dashboard',
         brand_href='/',
-        brand_style={'fontSize':20, 'font-family':'Comic Sans Ms'},
+        brand_style={'fontSize':30, 'font-family':'Comic Sans Ms'},
         className='bg-dark font-weight-bold text-warning',
         dark=True,
         fluid=True

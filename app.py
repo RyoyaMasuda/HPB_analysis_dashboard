@@ -14,7 +14,7 @@ default_font='Comic Sans Ms'
 
 app = Dash(__name__,
            suppress_callback_exceptions=True,
-           prevent_initial_callbacks=True,
+           prevent_initial_callbacks=False,
            external_stylesheets=[dbc.themes.DARKLY],
            update_title=None,
            )
@@ -42,4 +42,4 @@ def update_page(href):
         return home_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=7000)
+    app.run_server(debug=True, port=7001)
