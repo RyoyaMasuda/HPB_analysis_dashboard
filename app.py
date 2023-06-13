@@ -12,9 +12,10 @@ from layout.home_layout import home_layout
 
 default_font='Comic Sans Ms'
 
+
 app = Dash(__name__,
            suppress_callback_exceptions=True,
-           prevent_initial_callbacks=False,
+           prevent_initial_callbacks=True,
            external_stylesheets=[dbc.themes.DARKLY],
            update_title=None,
            )
