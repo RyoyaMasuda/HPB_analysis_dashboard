@@ -437,7 +437,7 @@ def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
     link = _df['URL'].unique()[0]
     
     children = [
-                    html.P(children='Salon Infomation',
+                    html.P(children='Salon Information',
                             style={'text-align':'center',
                                     'fontSize':20},
                             className='bg-light col-10 mx-auto'),
