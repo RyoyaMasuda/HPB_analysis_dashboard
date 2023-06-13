@@ -440,7 +440,7 @@ def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
                     html.P(children='Salon Infomation',
                             style={'text-align':'center',
                                     'fontSize':20},
-                            className='bg-info col-12 mx-auto'),
+                            className='bg-light col-10 mx-auto'),
                     html.P(children='Salon Name :',
                             style={'margin':'5px'},
                             className='font-weight-bold'
@@ -648,11 +648,6 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
                 width=2.0
             ),
         ),
-        # legendgrouptitle=dict(
-        #     font=dict(
-        #         size=30
-        #     )
-        # )
     )
     
     figure.update_layout(
@@ -1531,12 +1526,12 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
             columnwidth = [60,400,50,50],
             header={'values':_df.columns,
                     'fill_color':'#fee391',
-                    'line_color':'grey',
+                    'line_color':'lightgrey',
                     'font_size':14,
                     'height':30,},
             cells={'values':[_df[col].tolist() for col in _df.columns],
                    'fill_color':'#ffffe5',
-                   'line_color':'grey',
+                   'line_color':'lightgrey',
                    'font_size':14,
                    'height':30,},
         ),
