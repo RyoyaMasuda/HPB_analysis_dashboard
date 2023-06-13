@@ -342,7 +342,7 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
         values='客数(口コミ数)',
         color='性別',
         title=f'Gender Ratio',
-        height=285,
+        height=290,
         width=418,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
@@ -422,7 +422,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
         values='客数(口コミ数)',
         color='年齢',
         title='Age Ratio',
-        height=285,
+        height=290,
         width=418,
         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
@@ -516,7 +516,7 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         values='客数(口コミ数)',
         color='カラー選択',
         title=f'Percentage Of Color Selected',
-        height=285,
+        height=290,
         width=418,
         color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
         category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
@@ -637,7 +637,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut Unit Price',
-                  height=285,
+                  height=290,
                   width=418,
                 )
     figure.update_traces(
@@ -772,7 +772,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color Unit Price',
-                  height=285,
+                  height=290,
                   width=418,
                 )
     figure.update_traces(
@@ -875,7 +875,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         values='客数(口コミ数)',
         color='トリートメント選択',
         title=f'Percentage Of Treatment Selected',
-        height=285,
+        height=290,
         width=418,
         color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
@@ -995,7 +995,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color & Treatment Unit Price',
-                  height=285,
+                  height=290,
                   width=418,
                 )
     figure.update_traces(
@@ -1117,7 +1117,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'All Menu Unit Price',
-                  height=285,
+                  height=290,
                   width=418,
                 )
     figure.update_traces(
