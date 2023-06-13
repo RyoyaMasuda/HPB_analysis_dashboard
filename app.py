@@ -46,7 +46,7 @@ sidebar = html.Div(
                         {'label':x, 'value':x} for x in df['県'].unique()
                     ],
                     value='広島',
-                    style={'width':'250px', 'margin-bottom':'1px', 'fontSize':15},
+                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     className='text-dark'
                 ),
@@ -58,7 +58,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='dropdown2',
                     # options = callbackで返ってくる。
-                    style={'width':'250px', 'margin-bottom':'1px', 'fontSize':15},
+                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     value='八丁堀・幟町・胡町',
                     className='text-dark',
@@ -72,10 +72,10 @@ sidebar = html.Div(
                     id='dropdown3',
                     # options = callbackで返ってくる。
                     value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
-                    style={'width':'250px', 'margin-bottom':'1px', 'fontSize':12},
+                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':12},
                     clearable=True,
                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                    optionHeight=45,
+                    optionHeight=55,
                     className='text-dark'
                 ),
                 html.P(
@@ -122,7 +122,7 @@ content = html.Div(
                         )                     
                 ],
                 className='bg-info',
-                style={'padding':'4px'}
+                style={'padding':'8px'}
                 ),
                 # 1行2列
                 dbc.Col(
@@ -141,7 +141,7 @@ content = html.Div(
                 ],
                     # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
                 className='bg-light',
-                style={'padding':'4px'}
+                style={'padding':'8px'}
                 ),
                 # 1行3列
                 dbc.Col(
@@ -151,7 +151,7 @@ content = html.Div(
                         )
                     ],
                     className='bg-info',
-                    style={'padding':'4px'}
+                    style={'padding':'8px'}
                 ),
                 # 1行4列
                 dbc.Col(
@@ -161,7 +161,7 @@ content = html.Div(
                         )
                     ],
                     className='bg-light',
-                    style={'padding':'4px'}
+                    style={'padding':'8px'}
                 )
             ],
             className='bg-primary',
@@ -176,7 +176,7 @@ content = html.Div(
                         )
                 ],
                     # className='bg-light',
-                    style={'padding':'4px'},
+                    style={'padding':'8px'},
                     className='bg-light'
                 ),
                 # 2行2列
@@ -186,7 +186,7 @@ content = html.Div(
                             id='cut-and-colr-comparison'
                         )
                     ],
-                    style={'padding':'4px'},
+                    style={'padding':'8px'},
                     className='bg-info'
                     ),
                 dbc.Col(
@@ -195,7 +195,7 @@ content = html.Div(
                             id='cut-and-colr-and-treatment-comparison'
                         )
                     ],
-                    style={'padding':'4px'},
+                    style={'padding':'8px'},
                     className='bg-light'
                 ),
                 dbc.Col(
@@ -204,7 +204,7 @@ content = html.Div(
                             id='all-menu-comparison'
                         )
                     ],
-                    style={'padding':'4px'},
+                    style={'padding':'8px'},
                     className='bg-info'
                 )
             ],
@@ -221,7 +221,7 @@ content = html.Div(
                         ),
                         # className='bg-light',
                 ],
-                    style={'padding':'4px'},
+                    style={'padding':'8px'},
                     className='bg-light'
                     ),
                 dbc.Col(
@@ -230,7 +230,7 @@ content = html.Div(
                             id='coupon-ranking',
                         )
                     ],
-                    style={'padding':'4px'},
+                    style={'padding':'8px'},
                     className='bg-info'
                     ),
             ],
@@ -342,8 +342,8 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
         values='客数(口コミ数)',
         color='性別',
         title=f'Gender Ratio',
-        height=275,
-        width=388,
+        height=285,
+        width=425,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
     
@@ -422,8 +422,8 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
         values='客数(口コミ数)',
         color='年齢',
         title='Age Ratio',
-        height=275,
-        width=388,
+        height=285,
+        width=425,
         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
@@ -516,8 +516,8 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         values='客数(口コミ数)',
         color='カラー選択',
         title=f'Percentage Of Color Selected',
-        height=275,
-        width=388,
+        height=285,
+        width=425,
         color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
         category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
     )
@@ -637,8 +637,8 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut Unit Price',
-                  height=275,
-                  width=388,
+                  height=285,
+                  width=425,
                 )
     figure.update_traces(
         width=0.6,
@@ -772,8 +772,8 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color Unit Price',
-                  height=275,
-                  width=388,
+                  height=285,
+                  width=425,
                 )
     figure.update_traces(
         width=0.6,
@@ -875,8 +875,8 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         values='客数(口コミ数)',
         color='トリートメント選択',
         title=f'Percentage Of Treatment Selected',
-        height=275,
-        width=388,
+        height=285,
+        width=425,
         color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
     )
@@ -995,8 +995,8 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color & Treatment Unit Price',
-                  height=275,
-                  width=388,
+                  height=285,
+                  width=425,
                 )
     figure.update_traces(
         width=0.6,
@@ -1117,8 +1117,8 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'All Menu Unit Price',
-                  height=275,
-                  width=388,
+                  height=285,
+                  width=425,
                 )
     figure.update_traces(
         width=0.6,
@@ -1220,8 +1220,8 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         hover_data=_df.columns, title='Distribution of Payments by Age',
         color_discrete_sequence=plotly.colors.qualitative.T10,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
-        height=370,
-        width=785
+        height=400,
+        width=865
         )
 
     figure.update_traces(
@@ -1241,7 +1241,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         rangemode='tozero',
         tickformat=',',
         tickprefix='¥',
-        tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,40000,50000,60000]
+        tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,42500,50000,60000]
     )
 
     figure.update_layout(
@@ -1321,13 +1321,13 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
     figure = go.Figure(
         data=go.Table(
             columnorder = [1,2,3,4],
-            columnwidth = [50,400,50,50],
+            columnwidth = [50,425,50,50],
             header={'values':_df.columns},
             cells={'values':[_df[col].tolist() for col in _df.columns]}
         ),
         layout=go.Layout(title='Coupon Ranking Table',
-                         height=370,
-                         width=785)
+                         height=400,
+                         width=865)
     )
     
     figure.update_layout(
