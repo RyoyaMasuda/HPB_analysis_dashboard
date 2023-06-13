@@ -343,7 +343,7 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
         color='性別',
         title=f'Gender Ratio',
         height=285,
-        width=425,
+        width=418,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
     
@@ -423,7 +423,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
         color='年齢',
         title='Age Ratio',
         height=285,
-        width=425,
+        width=418,
         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
@@ -517,7 +517,7 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         color='カラー選択',
         title=f'Percentage Of Color Selected',
         height=285,
-        width=425,
+        width=418,
         color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
         category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
     )
@@ -638,7 +638,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut Unit Price',
                   height=285,
-                  width=425,
+                  width=418,
                 )
     figure.update_traces(
         width=0.6,
@@ -773,7 +773,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color Unit Price',
                   height=285,
-                  width=425,
+                  width=418,
                 )
     figure.update_traces(
         width=0.6,
@@ -876,7 +876,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         color='トリートメント選択',
         title=f'Percentage Of Treatment Selected',
         height=285,
-        width=425,
+        width=418,
         color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
     )
@@ -996,7 +996,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color & Treatment Unit Price',
                   height=285,
-                  width=425,
+                  width=418,
                 )
     figure.update_traces(
         width=0.6,
@@ -1118,7 +1118,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'All Menu Unit Price',
                   height=285,
-                  width=425,
+                  width=418,
                 )
     figure.update_traces(
         width=0.6,
@@ -1221,7 +1221,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         color_discrete_sequence=plotly.colors.qualitative.T10,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
         height=400,
-        width=865
+        width=852
         )
 
     figure.update_traces(
@@ -1241,7 +1241,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         rangemode='tozero',
         tickformat=',',
         tickprefix='¥',
-        tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,42500,50000,60000]
+        tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,40000,50000,60000]
     )
 
     figure.update_layout(
@@ -1321,13 +1321,13 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
     figure = go.Figure(
         data=go.Table(
             columnorder = [1,2,3,4],
-            columnwidth = [50,425,50,50],
+            columnwidth = [50,410,50,50],
             header={'values':_df.columns},
             cells={'values':[_df[col].tolist() for col in _df.columns]}
         ),
         layout=go.Layout(title='Coupon Ranking Table',
                          height=400,
-                         width=865)
+                         width=852)
     )
     
     figure.update_layout(
@@ -1381,4 +1381,4 @@ def update_page(href):
         return home_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8043)
+    app.run_server(debug=True, port=8041)
