@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 from navber import navber
-from layout.home_layout import home_layout
+from layout import dashboard_layout, salonmap_layout
 
 default_font='Comic Sans Ms'
 
@@ -34,6 +34,12 @@ app.layout = dbc.Container(
     fluid=True
 )
 
+home_layout = [
+    html.Div(
+        children='aaa'
+    )
+]
+
 @app.callback(
     [Output('layout', 'children')],
     [Input('url', 'pathname')]
@@ -41,6 +47,10 @@ app.layout = dbc.Container(
 def update_page(href):
     if href == '/':
         return home_layout
+    if href == '/analysis_dashboard':
+        return dashboard_layout.dashboard_layout
+    if href == '/salon_map':
+        return salonmap_layout.salonmap_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=7001)
+    app.run_server(debug=True, port=7006)

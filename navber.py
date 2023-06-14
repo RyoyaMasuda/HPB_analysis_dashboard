@@ -8,34 +8,48 @@ nav_contens = [
             children='Home',
             href='/',
             external_link=True,
-            style={'fontSize':18}
+            style={'fontSize':18,},
         )
     ),
     dbc.NavItem(
         dbc.NavLink(
-            id='dashboard',
-            children='Dashboard',
-            href='/',
+            id='analysis_dashboard',
+            children='AnalysisDashboard',
+            href='/analysis_dashboard',
             external_link=True,
-            style={'fontSize':18}
+            style={'fontSize':18,},
+            active='partial'
+            
         )
     ),
     dbc.NavItem(
         dbc.NavLink(
-            id='map',
-            children='Map',
-            href='/',
+            id='salon_map',
+            children='SalonMap',
+            href='/salon_map',
             external_link=True,
-            style={'fontSize':18}
+            style={'fontSize':18,},
+            active='partial'
         )
     ),
     dbc.NavItem(
         dbc.NavLink(
-            id='hoge',
-            children='hoge',
-            href='/',
+            id='review_table',
+            children='ReviewTable',
+            href='/review_table',
             external_link=True,
-            style={'fontSize':18}
+            style={'fontSize':18,},
+            active='partial'
+        )
+    ),
+    dbc.NavItem(
+        dbc.NavLink(
+            id='potential_analysis',
+            children='PotentialAnalysis(AI)',
+            href='/potential_analysis',
+            external_link=True,
+            style={'fontSize':18,},
+            active='partial'
         )
     )
 ]
@@ -61,5 +75,5 @@ navber = dbc.NavbarSimple(
         brand_style={'fontSize':30, 'font-family':'Comic Sans Ms'},
         className='bg-dark font-weight-bold text-warning',
         dark=True,
-        fluid=True
+        fluid=True,
 )
