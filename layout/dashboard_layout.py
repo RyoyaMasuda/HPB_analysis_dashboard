@@ -349,7 +349,7 @@ content = html.Div(
     ]
 )
 
-home_layout = [
+dashboard_layout = [
     dbc.Row(
         [
             dbc.Col(
