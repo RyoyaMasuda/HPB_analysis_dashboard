@@ -9,6 +9,7 @@ nav_contens = [
             href='/',
             external_link=True,
             style={'fontSize':18,},
+            active='exact'
         )
     ),
     dbc.NavItem(
