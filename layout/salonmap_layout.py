@@ -637,10 +637,13 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     time.sleep(1)
     if type(multi_dropdown2_value) == str:
         multi_dropdown2_value = [multi_dropdown2_value]
+        _df = _df[_df['エリア'].isin(multi_dropdown2_value)]
+    elif type(multi_dropdown2_value) == list and len(multi_dropdown2_value) > 0:
+        _df = _df[_df['エリア'].isin(multi_dropdown2_value)]
     elif multi_dropdown2_value == []:
         pass
-    else:
-        _df = _df[_df['エリア'].isin(multi_dropdown2_value)]
+    
+
     
     _df.loc[_df['イルミナメニュー化の有無']==0, 'イルミナメニュー化の有無'] = '不活性or未導入'
     _df.loc[_df['イルミナメニュー化の有無']==1, 'イルミナメニュー化の有無'] = 'メニュー化'
@@ -651,7 +654,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                 lon="経度",
                                 color='イルミナメニュー化の有無',
                                 size_max=15,
-                                zoom=8,
+                                zoom=9,
                                 color_discrete_map={'メニュー化':'fuchsia', '不活性or未導入':'aqua'},
                                 hover_name='サロン名',
                                 hover_data={'緯度':False,
@@ -728,14 +731,13 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
         multi_dropdown1_value = [multi_dropdown1_value]
     _df = _df[_df['県'].isin(multi_dropdown1_value)]
 
-    
-    time.sleep(1)
     if type(multi_dropdown2_value) == str:
         multi_dropdown2_value = [multi_dropdown2_value]
+        _df = _df[_df['エリア'].isin(multi_dropdown2_value)]
+    elif type(multi_dropdown2_value) == list and len(multi_dropdown2_value) > 0:
+        _df = _df[_df['エリア'].isin(multi_dropdown2_value)]
     elif multi_dropdown2_value == []:
         pass
-    else:
-        _df = _df[_df['エリア'].isin(multi_dropdown2_value)]
     
     _df.loc[_df[selected_brand]==0, selected_brand] = '不活性or未導入'
     _df.loc[_df[selected_brand]==1, selected_brand] = 'メニュー化'
@@ -746,7 +748,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                 lon="経度",
                                 color=selected_brand,
                                 size_max=15,
-                                zoom=8,
+                                zoom=9,
                                 color_discrete_map={'メニュー化':'fuchsia', '不活性or未導入':'aqua'},
                                 hover_name='サロン名',
                                 hover_data={'緯度':False,
