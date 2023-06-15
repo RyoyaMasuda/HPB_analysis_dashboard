@@ -8,10 +8,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 from navber import navber
-from layout import dashboard_layout, salonmap_layout
+from layout import dashboard_layout, salonmap_layout, reviewtable_layout
 
 default_font='Comic Sans Ms'
-
 
 app = Dash(__name__,
            suppress_callback_exceptions=True,
@@ -51,6 +50,8 @@ def update_page(href):
         return dashboard_layout.dashboard_layout
     if href == '/salon_map':
         return salonmap_layout.salonmap_layout
+    if href == '/review_table':
+        return reviewtable_layout.reviewtable_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=7011)
+    app.run_server(debug=True, port=7012)

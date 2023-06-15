@@ -104,7 +104,7 @@ sidebar = html.Div(
                     id='salon_infomation',
                 )
             ]
-        )
+        ),
     ],
     style={'font-family': default_font}
 )

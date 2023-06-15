@@ -12,7 +12,8 @@ import plotly.express as px
 
 default_font='Comic Sans Ms'
 
-df = pd.read_csv('./data_for_revise/for_map_df_tmp.csv', low_memory=False)
+df = pd.read_csv('./data_for_revise/for_map_df_tmp2.csv', low_memory=False)
+
 
 sidebar = html.Div(
     [
@@ -223,9 +224,21 @@ content = html.Div(
         ),
         dbc.Row(
             [   
-                dcc.Graph(
-                    id='brand_activate_map'
-                )
+                dcc.Loading(id="loading_2-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='brand_activate_map',
+                                            ), 
+                                        ] 
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
             ],
             style={'height':'70vh', 
                    'padding':'6px'},
@@ -233,6 +246,8 @@ content = html.Div(
         ),
     ]
 )
+
+
 
 salonmap_layout = [
     dbc.Row(
@@ -296,7 +311,7 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         title=f'Illumina Color Activated Salon Ratio',
         height=290,
         width=418,
-        color_discrete_map={'メニュー化':'#fdb462','不活性or未導入':'#ffffb3'},
+        color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'イルミナメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
     
@@ -384,7 +399,7 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
         title=f'Addicthy Color Activated Salon Ratio',
         height=290,
         width=418,
-        color_discrete_map={'メニュー化':'#fdb462','不活性or未導入':'#ffffb3'},
+        color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'addicthyメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
     
@@ -472,7 +487,7 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         title=f'inoa Color Activated Salon Ratio',
         height=290,
         width=418,
-        color_discrete_map={'メニュー化':'#fdb462','不活性or未導入':'#ffffb3'},
+        color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'inoaメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
     
@@ -563,7 +578,7 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         title=f'Aujua Activated Salon Ratio',
         height=290,
         width=418,
-        color_discrete_map={'メニュー化':'#fdb462','不活性or未導入':'#ffffb3'},
+        color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'Aujuaメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
     
@@ -654,7 +669,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                 lon="経度",
                                 color='イルミナメニュー化の有無',
                                 size_max=15,
-                                zoom=9,
+                                zoom=12,
                                 color_discrete_map={'メニュー化':'fuchsia', '不活性or未導入':'aqua'},
                                 hover_name='サロン名',
                                 hover_data={'緯度':False,
@@ -669,6 +684,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
+                                height=690
 
     )
     figure.update_traces(
@@ -748,7 +764,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                 lon="経度",
                                 color=selected_brand,
                                 size_max=15,
-                                zoom=9,
+                                zoom=12,
                                 color_discrete_map={'メニュー化':'fuchsia', '不活性or未導入':'aqua'},
                                 hover_name='サロン名',
                                 hover_data={'緯度':False,
@@ -763,6 +779,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
+                                height=690
 
     )
     figure.update_traces(
