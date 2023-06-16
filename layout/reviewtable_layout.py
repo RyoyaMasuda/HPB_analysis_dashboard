@@ -1101,7 +1101,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     
     range={'only':'のみ', 'more_than':'以上', 'less_than':'以下'}
     
-    return dcc.send_data_frame(_df.to_csv, f"{table_dropdown3_value}_評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv")
+    return dcc.send_data_frame(_df.to_csv, f"{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv")
 # @callback(
 #     ,
 #     Input("button_csv", "n_clicks"),
