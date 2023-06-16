@@ -54,4 +54,4 @@ def update_page(href):
         return reviewtable_layout.reviewtable_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True, port=7012)
+    app.run_server(debug=True, port=7016)

@@ -322,7 +322,7 @@ content = html.Div(
                     className='bg-info'
                     ),
                 dbc.Col(
-[   
+                    [   
                         dcc.Loading(id="loading_3-1",
                             children=[
                                     html.Div(
@@ -1541,41 +1541,41 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
     )
     
     figure.update_layout(
-    # uniformtext_mode='hide',
-    # uniformtext_minsize=10,
-    margin={'l':30, 'r':30, 't':50, 'b':10},
-    title={'font':{'size':20,
-                    'color':'grey'},
-            'x':0.5,
-            'y':0.95,
-            'xanchor':'center'},
-    font=dict(
-        family=default_font,
-        size=10,
-    ),
-    # hoverlabel: hoverdataの中の指定
-    hoverlabel=dict(font=dict(family="Comic Sans Ms",
-                                size=12,
-                            #   color="white"
-                                )
-                    ),
-    paper_bgcolor='lightcyan',
-    # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-    # autosize=True,
-    legend=dict(
-        title=dict(text='年齢',
-                    font=dict(family=default_font,
-                                size=12),
+        # uniformtext_mode='hide',
+        # uniformtext_minsize=10,
+        margin={'l':30, 'r':30, 't':50, 'b':10},
+        title={'font':{'size':20,
+                        'color':'grey'},
+                'x':0.5,
+                'y':0.95,
+                'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=10,
         ),
-        bgcolor='aliceblue',
-        bordercolor='grey',
-        #bordercolorを指定したらborderwidthも指定しないといけない。
-        borderwidth=2,
-        font=dict(size=12,
-                    family=default_font,
-                    color='slategrey'),
-        # valign='top'
-        # itemsizing='constant'
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                    size=12,
+                                #   color="white"
+                                    )
+                        ),
+        paper_bgcolor='lightcyan',
+        # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
+        # autosize=True,
+        legend=dict(
+            title=dict(text='年齢',
+                        font=dict(family=default_font,
+                                    size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                        family=default_font,
+                        color='slategrey'),
+            # valign='top'
+            # itemsizing='constant'
     ),
     
 )
