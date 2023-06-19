@@ -10,7 +10,7 @@ import plotly.express as px
 
 default_font='Comic Sans Ms'
 
-df = pd.read_csv('./data/merge_df.csv', low_memory=False)
+df = pd.read_csv('./data_for_revise/tmp_merge_df.csv', low_memory=False)
 
 sidebar = html.Div(
     [

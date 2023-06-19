@@ -59,7 +59,7 @@ sidebar = html.Div(
                     id='multi_dropdown2',
                     options = [{'label':x, 'value':x} for x in df['県'].unique()],
                     style={'width':'300px',
-                           'height': '80px',
+                           'height': '150px',
                            'margin-bottom':'1px',
                            'fontSize':15},
                     clearable=True,
