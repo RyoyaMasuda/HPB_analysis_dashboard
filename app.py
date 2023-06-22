@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 from navber import navber
-from layout import dashboard_layout, salonmap_layout, reviewtable_layout
+from layout import dashboard_layout, salonmap_layout, reviewtable_layout, potentialAI_layout
 
 default_font='Comic Sans Ms'
 
@@ -52,6 +52,8 @@ def update_page(href):
         return salonmap_layout.salonmap_layout
     if href == '/review_table':
         return reviewtable_layout.reviewtable_layout
+    if href == '/potential_analysis':
+        return potentialAI_layout.potensialAI_layout
     
 if __name__ == '__main__':
     app.run_server(debug=True, port=7016)
