@@ -509,7 +509,7 @@ def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
                         dbc.Col(
                             html.Div(
                                 [
-                                    html.A(children='HPBのページへ飛ぶ',
+                                    html.A(children='HPBのページへ',
                                             href=link,
                                             target='_blank',
                                             style={'text-decoration':'underline',
