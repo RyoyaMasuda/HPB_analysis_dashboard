@@ -40,7 +40,7 @@ sidebar = html.Div(
                     value='広島',
                     style={'width':'300px',
                         #    "height":"20px",
-                           'margin-bottom':'1px', 'fontSize':16},
+                           'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     className='text-dark'
                 ),
@@ -57,7 +57,7 @@ sidebar = html.Div(
                     # options = callbackで返ってくる。
                     style={'width':'300px',
                         #    "height":"5px",
-                           "margin-bottom":'1px', 'fontSize':16},
+                           "margin-bottom":'1px', 'fontSize':15},
                     clearable=True,
                     value='八丁堀・幟町・胡町',
                     className='text-dark',
@@ -84,7 +84,7 @@ sidebar = html.Div(
                                     className='font-weight-bold'
                                 ),
                                 dbc.Input(
-                                    id='AI_input',
+                                    id='AI_input1',
                                     placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=3,
@@ -126,7 +126,7 @@ sidebar = html.Div(
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
                                     className='text-dark',
                                     size="sm",
-                                    type="text", inputmode="numeric", pattern="[0-9]*",
+                                    type="text", inputmode="numeric", pattern="[0-9]{1,4}",
                                 ),
                             ]
                         )
@@ -158,7 +158,7 @@ sidebar = html.Div(
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
                                     className='text-dark',
                                     size="sm",
-                                    type="text", inputmode="numeric", pattern="[0-9]*",
+                                    type="text", inputmode="numeric", pattern="[0-9]{1,4}",
                                 ),
                             ]
                         ),
@@ -288,7 +288,7 @@ sidebar = html.Div(
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
                                     className='text-dark',
                                     size="sm",
-                                    type="text", inputmode="numeric", pattern="[0-9]*",
+                                    type="text", inputmode="numeric", pattern="[0-9]{1,4}",
                                 ),
                             ]
                         ),
@@ -323,6 +323,42 @@ sidebar = html.Div(
                                 ),
                             ]
                         )
+                    ],
+                    style={"margin-bottom": "10px"}
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Replay Rate',
+                                    style={
+                                        'margin-left': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input9',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=70,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                            'margin-bottom':'1px',
+                                            # 'margin-left':'12px',
+                                            'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    min=0,
+                                    max=100,
+                                    step=1,
+                                    type="number",
+                                ),
+                            ]
+                        ),
                     ],
                     style={"margin-bottom": "10px"}
                 ),
@@ -447,7 +483,7 @@ sidebar = html.Div(
                     style={"margin-bottom": "10px"}
                 ),
                 dbc.Button(
-                    id='tmp_button',
+                    id='AI_button',
                     children='Predict',
                     color='info',
                     n_clicks=0,
@@ -464,146 +500,146 @@ sidebar = html.Div(
 
 content = html.Div(
     [
-        # dbc.Row(
-        #     [   # 1行1列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_1-1",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_gender-ratio',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #         ],
-        #         className='bg-info',
-        #         style={'padding':'8px'}
-        #         ),
-        #         # 1行2列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_1-2",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_age-ratio',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],
-        #             # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
-        #             className='bg-info',
-        #             style={'padding':'8px'}
-        #         ),
-        #         # 1行3列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_1-3",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_hair-color-ratio',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],
-        #             className='bg-info',
-        #             style={'padding':'8px'}
-        #         ),
-        #         # 1行4列
-        #         dbc.Col(  
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_1-4",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_treatment-ratio',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],                                          
-        #             className='bg-info',
-        #             style={'padding':'8px'}
-        #         )
-        #     ],
-        #     className='bg-primary',
-        #     style={'height':'30vh'}
-        # ),
-        # dbc.Row(
-        #     [   # 2行1列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_2-1",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_cut-only-comparison',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],                    
-        #             # className='bg-info',
-        #             style={'padding':'8px'},
-        #             className='bg-info'
-        #         ),
-        #         # 2行2列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_2-2",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_cut-and-colr-comparison',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],
-        #             style={'padding':'8px'},
-        #             className='bg-info'
-        #             ),
+        dbc.Row(
+            [   # 1行1列
+                dbc.Col(
+                    [   
+                        dcc.Loading(id="tmp_loading_1-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='AI-color-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                ],
+                className='bg-info',
+                style={'padding':'8px'}
+                ),
+                # 1行2列
+                dbc.Col(
+                    [   
+                        dcc.Loading(id="tmp_loading_1-2",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='tmp_age-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],
+                    # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
+                    className='bg-info',
+                    style={'padding':'8px'}
+                ),
+                # 1行3列
+                dbc.Col(
+                    [   
+                        dcc.Loading(id="tmp_loading_1-3",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='tmp_hair-color-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],
+                    className='bg-info',
+                    style={'padding':'8px'}
+                ),
+                # 1行4列
+                dbc.Col(  
+                    [   
+                        dcc.Loading(id="tmp_loading_1-4",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='tmp_treatment-ratio',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                                          
+                    className='bg-info',
+                    style={'padding':'8px'}
+                )
+            ],
+            className='bg-primary',
+            style={'height':'30vh'}
+        ),
+        dbc.Row(
+            [   # 2行1列
+                dbc.Col(
+                    [   
+                        dcc.Loading(id="tmp_loading_2-1",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='tmp_cut-only-comparison',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],                    
+                    # className='bg-info',
+                    style={'padding':'8px'},
+                    className='bg-info'
+                ),
+                # 2行2列
+                dbc.Col(
+                    [   
+                        dcc.Loading(id="tmp_loading_2-2",
+                            children=[
+                                    html.Div(
+                                        [
+                                            dcc.Graph(
+                                            id='tmp_cut-and-colr-comparison',
+                                            ), 
+                                        ]
+                                    )
+                            ],
+                            style={"margin": "10%",
+                                    },
+                            type='dot',
+                            color='#ffffb3',
+                            className='bg-info'),
+                    ],
+                    style={'padding':'8px'},
+                    className='bg-info'
+                    ),
         #         # 2行3列
         #         dbc.Col(
         #             [   
@@ -695,10 +731,10 @@ content = html.Div(
         #             style={'padding':'8px'},
         #             className='light'
         #             ),
-        #     ],
-        #     className='bg-info',
-        #     style={'height':'40vh'}
-        # )   
+            ],
+            className='bg-info',
+            style={'height':'40vh'}
+        )   
     ]
 )
 
@@ -727,238 +763,127 @@ potensialAI_layout = [
 def update_area(value):
     return [{'label': x2,'value': x2} for x2 in df[df['県'] == value]['エリア'].unique()]
 
-# @callback(
-#     Output('dropdown3', 'options'),
-#     Input('dropdown2', 'value')
-# )
-# def update_salon(value):
-#     return [{'label': x3,'value': x3} for x3 in df[df['エリア'] == value]['サロン名'].unique()]
-
-# # 県を削除したときにサロン名も消える処理
-# @callback(
-#     Output('dropdown3', 'value'),
-#     Input('dropdown1', 'value'),
-#     prevent_initial_call=True
-# )
-# def update_area(value):
-#     if value is None:
-#         return ''
-
-# @callback(
-#     Output('checklist1', 'options'),
-#     Input('dropdown3', 'value'),
-#     Input('dropdown2', 'value'),
-#     #
-# )
-# def update_gender(dropdown3_value, dropdown2_value):
+# 1行1列
+@callback(
+    Output('AI-color-ratio', 'figure'),
+    Input('AI_button', 'n_clicks'),
+    [
+        # 県
+        State('AI_dropdown1', 'value'),
+        # エリア
+        State('AI_dropdown2', 'value'),
+        # セット面の数
+        State('AI_input1', 'value'),
+        # ブログ投稿数
+        State('AI_input2', 'value'),
+        # 口コミ数
+        State('AI_input3', 'value'),
+        # スタッフ数
+        State('AI_input4', 'value'),
+        # クーポン数
+        State('AI_input5', 'value'),
+        # メニュー数
+        State('AI_input6', 'value'),
+        # スタイル数
+        State('AI_input7', 'value'),
+        # 駅徒歩
+        State('AI_input8', 'value'),
+        # コメントへの返信率
+        State('AI_input9', 'value'),
+        # イルミナメニュー化の有無
+        State('AI_dropdown3', 'value'),
+        # addicthyメニュー化の有無
+        State('AI_dropdown4', 'value'),
+        # inoaメニュー化の有無
+        State('AI_dropdown5', 'value'),
+        # Aujuaメニュー化の有無
+        State('AI_dropdown6', 'value'),
+    ],
+)
+def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
+                       AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
+                       AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
     
-#     _df = df.copy()
-#     _df = df[df['エリア'] == dropdown2_value]
+    _df = pd.DataFrame(columns=['県', 'エリア', 'セット面の数', 'ブログ投稿数', '口コミ数', 'スタッフ数', 'クーポン数', 'メニュー数', 'スタイル数', '駅徒歩', 'コメントへの返信率'])
+    _df['県'] = AI_dropdown1_value
+    _df['エリア'] = AI_dropdown1_value
+    _df['セット面の数'] = AI_input1_value
+    _df['ブログ投稿数'] = AI_input2_value
+    _df['口コミ数'] = AI_input3_value
+    _df['スタッフ数'] = AI_input4_value
+    _df['クーポン数'] = AI_input5_value
+    _df['メニュー数'] = AI_input6_value
+    _df['スタイル数'] = AI_input7_value
+    _df['駅徒歩'] = AI_input8_value
+    _df['コメントへの返信率'] = AI_input9_value
     
-#     if dropdown3_value is None:
-#         dropdown3_value = _df['サロン名'].unique()
-#     else:
-#         dropdown3_value = [dropdown3_value]
+    _df = _df[_df['エリア']==dropdown2_value]
+    _df = _df[_df['サロン名']==dropdown3_value]
     
-#     _df = _df[_df['サロン名'].isin(dropdown3_value)]
+    _df = _df[_df['性別'].isin(checklist1_value)]
     
-#     return [{'label': x3,'value': x3} for x3 in _df['性別'].unique()]
-
-# # サイドバーのサロンインフォメーション
-# @callback(
-#     Output('salon_infomation', 'children'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
+    _df =_df.groupby('性別').count().iloc[:,0:1].reset_index()
+    _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
+    figure = px.pie(
+        data_frame=_df,
+        names='性別',
+        values='客数(口コミ数)',
+        color='性別',
+        title=f'Gender Ratio',
+        height=290,
+        width=418,
+        color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
+    )
     
-#     _df = _df[_df['性別'].isin(checklist1_value)]
+    figure.update_traces(
+        textinfo='percent+label',
+        textposition='inside',
+        marker=dict(
+            line=dict(
+                color='slategrey',
+                width=2.0
+            ),
+        )
+    )
     
-#     salon_name = _df['サロン名'].unique()[0]
-#     salon_adress = _df['住所'].unique()[0]
-#     num_of_seat = _df['セット面の数'].unique()[0]
-#     num_of_staff = _df['スタッフ数'].unique()[0]
-#     num_of_review = _df['口コミ数'].unique()[0]
-#     num_of_coupon = _df['クーポン数'].unique()[0]
-#     num_of_menu = _df['メニュー数'].unique()[0]
-#     link = _df['URL'].unique()[0]
-    
-#     children = [
-#                     html.P(children='Salon Information',
-#                             style={'text-align':'center',
-#                                     'fontSize':20},
-#                             className='bg-light col-10 mx-auto'),
-#                     html.P(children='Salon Name :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children=salon_name,
-#                             style={'text-align':'center',
-#                                     'fontSize': 18,
-#                                     'text-decoration':'underline'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children='Salon Address :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children=salon_adress,
-#                             style={'text-align':'center',
-#                                     'fontSize': 16,
-#                                     'text-decoration':'underline'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children='Number Of Sheets :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children=f'{num_of_seat}席',
-#                             style={'text-align':'center',
-#                                     'fontSize': 18,
-#                                     'text-decoration':'underline'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children='Number Of Staff :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children=f'{num_of_staff}人',
-#                             style={'text-align':'center',
-#                                     'fontSize': 18,
-#                                     'text-decoration':'underline'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children='Number Of Review :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children=f'{num_of_review}口コミ',
-#                             style={'text-align':'center',
-#                                     'fontSize': 18,
-#                                     'text-decoration':'underline'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children='Number Of Coupon & Menu :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children=f'クーポン数={num_of_coupon} メニュー数={num_of_menu}',
-#                             style={'text-align':'center',
-#                                     'fontSize': 18,
-#                                     'text-decoration':'underline'},
-#                             className='font-weight-bold'
-#                         ),
-#                     html.P(children='Link to Hot Pepper Beauty :',
-#                             style={'margin':'5px'},
-#                             className='font-weight-bold'
-#                         ),
-#                     dbc.Row(
-#                         dbc.Col(
-#                             html.Div(
-#                                 [
-#                                     html.A(children='HPBのページへ飛ぶ',
-#                                             href=link,
-#                                             target='_blank',
-#                                             style={'text-decoration':'underline',
-#                                                     'margin':'5px'
-#                                             },
-#                                         ),
-#                                     ]
-#                                 ),
-#                             width={"size": 6, "offset": 3},
-#                         )
-#                     ),
-#                 ]
-    
-    
-#     return children
-    
-
-# # 1行1列
-# @callback(
-#     Output('gender-ratio', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-    
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
-    
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-    
-#     _df =_df.groupby('性別').count().iloc[:,0:1].reset_index()
-#     _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
-#     figure = px.pie(
-#         data_frame=_df,
-#         names='性別',
-#         values='客数(口コミ数)',
-#         color='性別',
-#         title=f'Gender Ratio',
-#         height=290,
-#         width=418,
-#         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
-#     )
-    
-#     figure.update_traces(
-#         textinfo='percent+label',
-#         textposition='inside',
-#         marker=dict(
-#             line=dict(
-#                 color='slategrey',
-#                 width=2.0
-#             ),
-#         )
-#     )
-    
-#     figure.update_layout(
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=10,
-#         margin={'l':30, 'r':30, 't':50, 'b':10},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='性別',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=2,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#         ),
+    figure.update_layout(
+        uniformtext_mode='hide',
+        uniformtext_minsize=10,
+        margin={'l':30, 'r':30, 't':50, 'b':10},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='性別',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+        ),
         
-#     )
+    )
     
-#     return figure
+    return figure
 
 # # 1行2列
 # @callback(
