@@ -12,10 +12,6 @@ default_font='Comic Sans Ms'
 
 df = pd.read_csv('./data_for_revise/prediction/payments/dataset_for_payments.csv', low_memory=False)
 print(df.columns)
-columns=['県', 'エリア', 'セット面の数', 'ブログ投稿数', '口コミ数', 'スタッフ数', 'クーポン数', 'メニュー数',
-       'スタイル数', '駅徒歩', 'コメントへの返信率', 'カット選択', 'カラー選択', 'トリートメント選択', 'パーマ選択',
-       '縮毛矯正選択', 'その他選択', 'ヘッドスパ選択', 'イルミナメニュー化の有無', 'Aujuaメニュー化の有無',
-       'addicthyメニュー化の有無', 'inoaメニュー化の有無', '支出金額']
 
 sidebar = html.Div(
     [
@@ -67,80 +63,392 @@ sidebar = html.Div(
                     className='text-dark',
                 ),
                 html.P(
-                    children='Select the number of seats',
+                    children='Select the number for items below',
                     style={'margin': '10px',
-                        #    'width':'130px',
+                        #    'width':'140px',
                            'text-decoration':'underline',
                            'fontSize':18},
                     className='font-weight-bold'
                 ),
-                dbc.Input(
-                    id='AI_input',
-                    placeholder="Select...",
-                    # options = callbackで返ってくる。
-                    value=3,
-                    style={'width':'300px',
-                        #    "height":"30px",
-                           'margin-bottom':'1px',
-                           'margin-left':'12px',
-                           'fontSize':16},
-                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                    className='text-dark',
-                    size="sm",
-                    min=1,
-                    max=30,
-                    step=1,
-                    type="number"
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Seats',
+                                    style={
+                                        'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input',
+                                    placeholder="Select...",
+                                    # options = callbackで返ってくる。
+                                    value=3,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                        'margin-bottom':'1px',
+                                        # 'margin-left':'12px',
+                                        'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    min=1,
+                                    max=30,
+                                    step=1,
+                                    type="number"
+                                ),
+                            ]    
+                        ),
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Blog Posts',
+                                    style={'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input2',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=100,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                        'margin-bottom':'1px',
+                                        # 'margin-left':'12px',
+                                        'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    type="text", inputmode="numeric", pattern="[0-9]*",
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"}
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Review',
+                                    style={'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input3',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=150,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                        'margin-bottom':'1px',
+                                        #    'margin-left':'12px',
+                                        'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    type="text", inputmode="numeric", pattern="[0-9]*",
+                                ),
+                            ]
+                        ),
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Staff',
+                                    style={'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input4',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=4,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                        'margin-bottom':'1px',
+                                        #    'margin-left':'12px',
+                                        'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    min=1,
+                                    max=50,
+                                    step=1,
+                                    type="number",
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"}
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Coupon',
+                                    style={
+                                        'margin-left': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input5',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=20,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                            'margin-bottom':'1px',
+                                            # 'margin-left':'12px',
+                                            'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    min=1,
+                                    max=150,
+                                    step=1,
+                                    type="number",
+                                ),
+                            ]
+                        ),
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Menu',
+                                    style={
+                                        'margin-left': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input6',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=15,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                        'margin-bottom':'1px',
+                                        # 'margin-left':'12px',
+                                        'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    min=1,
+                                    max=150,
+                                    step=1,
+                                    type="number",
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"}
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Style',
+                                    style={
+                                        'margin-left': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input7',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=100,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                            'margin-bottom':'1px',
+                                            # 'margin-left':'12px',
+                                            'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    type="text", inputmode="numeric", pattern="[0-9]*",
+                                ),
+                            ]
+                        ),
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Time from station(walk)',
+                                    style={
+                                        'margin-left': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':11},
+                                    className='font-weight-bold'
+                                ),
+                                dbc.Input(
+                                    id='AI_input8',
+                                    placeholder='Select...',
+                                    # options = callbackで返ってくる。
+                                    value=9,
+                                    style={'width':'135px',
+                                        #    "height":"30px",
+                                        'margin-bottom':'1px',
+                                        # 'margin-left':'12px',
+                                        'fontSize':16},
+                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    className='text-dark',
+                                    size="sm",
+                                    min=1,
+                                    max=40,
+                                    step=1,
+                                    type="number",
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"}
                 ),
                 html.P(
-                    children='Select the number of blog posts',
+                    children='Select utilizing of brands below',
                     style={'margin': '10px',
-                        #    'width':'130px',
+                        #    'width':'140px',
                            'text-decoration':'underline',
                            'fontSize':18},
                     className='font-weight-bold'
                 ),
-                dbc.Input(
-                    id='AI_input2',
-                    placeholder='Select the number of blog posts',
-                    # options = callbackで返ってくる。
-                    value=100,
-                    style={'width':'300px',
-                        #    "height":"30px",
-                           'margin-bottom':'1px',
-                           'margin-left':'12px',
-                           'fontSize':16},
-                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                    className='text-dark',
-                    size="sm",
-                    type="text", inputmode="numeric", pattern="[0-9]*",
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Illumina(WELLA)',
+                                    style={
+                                        'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':14},
+                                    className='font-weight-bold'
+                                ),
+                                dcc.Dropdown(
+                                    id='AI_dropdown3',
+                                    options=[
+                                        {'label':"メニュー化", 'value':1},
+                                        {'label':'無', 'value':0},
+                                    ],
+                                    value=0,
+                                    style={'width':'135px',
+                                        'margin-bottom':'1px',
+                                        'fontSize':14},
+                                    clearable=False,
+                                    className='text-dark',
+                                ),
+                            ]    
+                        ),
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Addicthy(MILBON)',
+                                    style={'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':12},
+                                    className='font-weight-bold'
+                                ),
+                                dcc.Dropdown(
+                                    id='AI_dropdown4',
+                                    options=[
+                                        {'label':"メニュー化", 'value':1},
+                                        {'label':'無', 'value':0},
+                                    ],
+                                    value=0,
+                                    style={'width':'135px',
+                                        'margin-bottom':'1px',
+                                        'fontSize':14},
+                                    clearable=False,
+                                    className='text-dark',
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"}
                 ),
-                html.P(
-                    children='Select the number of review',
-                    style={'margin': '10px',
-                        #    'width':'130px',
-                           'text-decoration':'underline',
-                           'fontSize':18},
-                    className='font-weight-bold'
-                ),
-                dbc.Input(
-                    id='AI_input3',
-                    placeholder='Select the number of review',
-                    # options = callbackで返ってくる。
-                    value=100,
-                    style={'width':'300px',
-                        #    "height":"30px",
-                           'margin-bottom':'1px',
-                           'margin-left':'12px',
-                           'fontSize':16},
-                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                    className='text-dark',
-                    size="sm",
-                    type="text", inputmode="numeric", pattern="[0-9]*",
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Inoa(LOREAL)',
+                                    style={
+                                        'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dcc.Dropdown(
+                                    id='AI_dropdown5',
+                                    options=[
+                                        {'label':"メニュー化", 'value':1},
+                                        {'label':'無', 'value':0},
+                                    ],
+                                    value=0,
+                                    style={'width':'135px',
+                                        'margin-bottom':'1px',
+                                        'fontSize':14},
+                                    clearable=False,
+                                    className='text-dark',
+                                ),
+                            ]    
+                        ),
+                        dbc.Col(
+                            [
+                                html.Span(
+                                    children='Aujua(MILBON)',
+                                    style={'margin': '10px',
+                                        #    'width':'130px',
+                                        'text-decoration':'underline',
+                                        'fontSize':16},
+                                    className='font-weight-bold'
+                                ),
+                                dcc.Dropdown(
+                                    id='AI_dropdown6',
+                                    options=[
+                                        {'label':"メニュー化", 'value':1},
+                                        {'label':'無', 'value':0},
+                                    ],
+                                    value=0,
+                                    style={'width':'135px',
+                                        'margin-bottom':'1px',
+                                        'fontSize':14},
+                                    clearable=False,
+                                    className='text-dark',
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"}
                 ),
                 dbc.Button(
                     id='tmp_button',
-                    children='Apply',
+                    children='Predict',
                     color='info',
                     n_clicks=0,
                     style={'margin':'20px'},
@@ -148,9 +456,6 @@ sidebar = html.Div(
                 ),
                 html.Hr(),
                 html.Br(),
-                html.Div(
-                    id='tmp_salon_infomation',
-                )
             ]
         ),
     ],
@@ -159,241 +464,241 @@ sidebar = html.Div(
 
 content = html.Div(
     [
-        dbc.Row(
-            [   # 1行1列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_1-1",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_gender-ratio',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                ],
-                className='bg-info',
-                style={'padding':'8px'}
-                ),
-                # 1行2列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_1-2",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_age-ratio',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],
-                    # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
-                    className='bg-info',
-                    style={'padding':'8px'}
-                ),
-                # 1行3列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_1-3",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_hair-color-ratio',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],
-                    className='bg-info',
-                    style={'padding':'8px'}
-                ),
-                # 1行4列
-                dbc.Col(  
-                    [   
-                        dcc.Loading(id="tmp_loading_1-4",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_treatment-ratio',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],                                          
-                    className='bg-info',
-                    style={'padding':'8px'}
-                )
-            ],
-            className='bg-primary',
-            style={'height':'30vh'}
-        ),
-        dbc.Row(
-            [   # 2行1列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_2-1",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_cut-only-comparison',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],                    
-                    # className='bg-info',
-                    style={'padding':'8px'},
-                    className='bg-info'
-                ),
-                # 2行2列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_2-2",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_cut-and-colr-comparison',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],
-                    style={'padding':'8px'},
-                    className='bg-info'
-                    ),
-                # 2行3列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_2-3",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_cut-and-colr-and-treatment-comparison',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],                    
-                    style={'padding':'8px'},
-                    className='bg-info'
-                ),
-                # 2行4列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_2-4",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_all-menu-comparison',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",},
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],                       
-                    style={'padding':'8px'},
-                    className='bg-info'
-                )
-            ],
-            # className='bg-secondary',
-            style={'height':'30vh'}
-        ),
-        dbc.Row(
-            [   #3行1列
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_3-1",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_total_bill_boxplot',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],                    
-                    style={'padding':'8px'},
-                    className='bg-info'
-                    ),
-                dbc.Col(
-                    [   
-                        dcc.Loading(id="tmp_loading_3-1",
-                            children=[
-                                    html.Div(
-                                        [
-                                            dcc.Graph(
-                                            id='tmp_coupon-ranking',
-                                            ), 
-                                        ]
-                                    )
-                            ],
-                            style={"margin": "10%",
-                                    },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
-                    ],
-                    style={'padding':'8px'},
-                    className='light'
-                    ),
-            ],
-            className='bg-info',
-            style={'height':'40vh'}
-        )   
+        # dbc.Row(
+        #     [   # 1行1列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_1-1",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_gender-ratio',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #         ],
+        #         className='bg-info',
+        #         style={'padding':'8px'}
+        #         ),
+        #         # 1行2列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_1-2",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_age-ratio',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],
+        #             # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
+        #             className='bg-info',
+        #             style={'padding':'8px'}
+        #         ),
+        #         # 1行3列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_1-3",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_hair-color-ratio',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],
+        #             className='bg-info',
+        #             style={'padding':'8px'}
+        #         ),
+        #         # 1行4列
+        #         dbc.Col(  
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_1-4",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_treatment-ratio',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],                                          
+        #             className='bg-info',
+        #             style={'padding':'8px'}
+        #         )
+        #     ],
+        #     className='bg-primary',
+        #     style={'height':'30vh'}
+        # ),
+        # dbc.Row(
+        #     [   # 2行1列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_2-1",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_cut-only-comparison',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],                    
+        #             # className='bg-info',
+        #             style={'padding':'8px'},
+        #             className='bg-info'
+        #         ),
+        #         # 2行2列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_2-2",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_cut-and-colr-comparison',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],
+        #             style={'padding':'8px'},
+        #             className='bg-info'
+        #             ),
+        #         # 2行3列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_2-3",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_cut-and-colr-and-treatment-comparison',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],                    
+        #             style={'padding':'8px'},
+        #             className='bg-info'
+        #         ),
+        #         # 2行4列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_2-4",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_all-menu-comparison',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",},
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],                       
+        #             style={'padding':'8px'},
+        #             className='bg-info'
+        #         )
+        #     ],
+        #     # className='bg-secondary',
+        #     style={'height':'30vh'}
+        # ),
+        # dbc.Row(
+        #     [   #3行1列
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_3-1",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_total_bill_boxplot',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],                    
+        #             style={'padding':'8px'},
+        #             className='bg-info'
+        #             ),
+        #         dbc.Col(
+        #             [   
+        #                 dcc.Loading(id="tmp_loading_3-1",
+        #                     children=[
+        #                             html.Div(
+        #                                 [
+        #                                     dcc.Graph(
+        #                                     id='tmp_coupon-ranking',
+        #                                     ), 
+        #                                 ]
+        #                             )
+        #                     ],
+        #                     style={"margin": "10%",
+        #                             },
+        #                     type='dot',
+        #                     color='#ffffb3',
+        #                     className='bg-info'),
+        #             ],
+        #             style={'padding':'8px'},
+        #             className='light'
+        #             ),
+        #     ],
+        #     className='bg-info',
+        #     style={'height':'40vh'}
+        # )   
     ]
 )
 
@@ -415,12 +720,12 @@ potensialAI_layout = [
     )
 ]
 
-# @callback(
-#     Output('dropdown2', 'options'),
-#     Input('dropdown1', 'value')
-# )
-# def update_area(value):
-#     return [{'label': x2,'value': x2} for x2 in df[df['県'] == value]['エリア'].unique()]
+@callback(
+    Output('AI_dropdown2', 'options'),
+    Input('AI_dropdown1', 'value')
+)
+def update_area(value):
+    return [{'label': x2,'value': x2} for x2 in df[df['県'] == value]['エリア'].unique()]
 
 # @callback(
 #     Output('dropdown3', 'options'),
