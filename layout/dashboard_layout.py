@@ -553,7 +553,7 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
         color='性別',
         title=f'Gender Ratio',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
     
@@ -571,7 +571,9 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -633,7 +635,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
         color='年齢',
         title='Age Ratio',
         height=290,
-        width=418,
+        # width=418,
         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
@@ -653,7 +655,9 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -722,7 +726,7 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         color='カラー選択',
         title=f'Percentage Of Color Selected',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
         category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
     )
@@ -741,7 +745,9 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -806,7 +812,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         color='トリートメント選択',
         title=f'Percentage Of Treatment Selected',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
     )
@@ -828,7 +834,9 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         yaxis_showgrid=False,
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -928,7 +936,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   text=[f'¥{text:,}' for text in __df1['単価(平均価格)']],
                   title=f'Cut Unit Price',
                   height=290,
-                  width=418,
+                #   width=418,
                 )
     
         
@@ -954,7 +962,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         xaxis_showgrid=False,
         yaxis_showgrid=False,
         uniformtext_mode='hide',
-        margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -980,7 +988,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             bgcolor='aliceblue',
             bordercolor='grey',
             #bordercolorを指定したらborderwidthも指定しないといけない。
-            borderwidth=1.5,
+            borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
@@ -1063,7 +1071,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
                   text=[f'¥{text:,}' for text in __df2['単価(平均価格)']],
                   title=f'Cut & Color Unit Price',
                   height=290,
-                  width=418,
+                #   width=418,
                 )
     
                 
@@ -1089,7 +1097,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
         plot_bgcolor='#f7fcf5',
         xaxis_showgrid=False,
         yaxis_showgrid=False,
-        margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -1115,7 +1123,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
             bgcolor='aliceblue',
             bordercolor='grey',
             #bordercolorを指定したらborderwidthも指定しないといけない。
-            borderwidth=1.5,
+            borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
@@ -1198,7 +1206,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color & Treatment Unit Price',
                   height=290,
-                  width=418,
+                #   width=418,
                 )
     
         
@@ -1224,7 +1232,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
         yaxis_showgrid=False,
         uniformtext_mode='hide',
         uniformtext_minsize=8,
-        margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -1250,7 +1258,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
             bgcolor='aliceblue',
             bordercolor='grey',
             #bordercolorを指定したらborderwidthも指定しないといけない。
-            borderwidth=1.5,
+            borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
@@ -1319,7 +1327,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'All Menu Unit Price',
                   height=290,
-                  width=418,
+                #   width=418,
                 )
                 
     figure.update_traces(
@@ -1344,7 +1352,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         yaxis_showgrid=False,        
         uniformtext_mode='hide',
         uniformtext_minsize=8,
-        margin={'l':0, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -1370,7 +1378,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             bgcolor='aliceblue',
             bordercolor='grey',
             #bordercolorを指定したらborderwidthも指定しないといけない。
-            borderwidth=1.5,
+            borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
@@ -1423,7 +1431,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         color_discrete_sequence=plotly.colors.qualitative.T10,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
         height=400,
-        width=852
+        # width=852
         )
 
     figure.update_traces(
@@ -1537,7 +1545,8 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
         ),
         layout=go.Layout(title='Coupon Ranking Table',
                          height=400,
-                         width=852)
+                        #  width=852
+                    )
     )
     
     figure.update_layout(

@@ -41,7 +41,7 @@ sidebar = html.Div(
                     ],
                     value='広島',
                     style={'width':'300px',
-                           'height': '80px',
+                           'height': '150px',
                            'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     multi=True,
@@ -59,7 +59,7 @@ sidebar = html.Div(
                     id='multi_dropdown2',
                     options = [{'label':x, 'value':x} for x in df['県'].unique()],
                     style={'width':'300px',
-                           'height': '150px',
+                           'height': '300px',
                            'margin-bottom':'1px',
                            'fontSize':15},
                     clearable=True,
@@ -241,7 +241,7 @@ content = html.Div(
                             className='bg-info'),
             ],
             style={'height':'70vh', 
-                   'padding':'6px'},
+                   'padding':'4px'},
             className='bg-info'
         ),
     ]
@@ -310,7 +310,7 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         color='イルミナメニュー化の有無',
         title=f'Illumina Color Activated Salon Ratio',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'イルミナメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
@@ -329,7 +329,8 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -398,7 +399,7 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
         color='addicthyメニュー化の有無',
         title=f'Addicthy Color Activated Salon Ratio',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'addicthyメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
@@ -417,7 +418,8 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -486,7 +488,7 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         color='inoaメニュー化の有無',
         title=f'inoa Color Activated Salon Ratio',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'inoaメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
@@ -505,7 +507,8 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -577,7 +580,7 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         color='Aujuaメニュー化の有無',
         title=f'Aujua Activated Salon Ratio',
         height=290,
-        width=418,
+        # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'Aujuaメニュー化の有無':['メニュー化', '不活性or未導入']}
     )
@@ -596,7 +599,8 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
+        # margin={'l':30, 'r':30, 't':50, 'b':10},
+        margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
                'x':0.5,
@@ -684,7 +688,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=690
+                                height=710
 
     )
     figure.update_traces(
@@ -695,7 +699,8 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         mapbox_style="open-street-map",
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':80, 'b':10},
+        # margin={'l':30, 'r':30, 't':80, 'b':10},
+        margin={'l':10, 'r':50, 't':80, 'b':20},
         title={'font':{'size':26,
                        'color':'grey'},
                'x':0.5,
@@ -779,7 +784,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=690
+                                height=710
 
     )
     figure.update_traces(
@@ -789,7 +794,8 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
         mapbox_style="open-street-map",
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':80, 'b':10},
+        # margin={'l':10, 'r':50, 't':40, 'b':20},
+        margin={'l':10, 'r':50, 't':80, 'b':20},
         title={'font':{'size':26,
                        'color':'grey'},
                'x':0.5,

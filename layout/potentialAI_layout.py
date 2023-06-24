@@ -1,4 +1,5 @@
 import time
+import pickle
 import math
 import pandas as pd
 import numpy as np
@@ -8,93 +9,136 @@ import plotly
 import plotly.graph_objects as go
 import plotly.express as px
 
-default_font='Comic Sans Ms'
+default_font="Comic Sans Ms"
 
-df = pd.read_csv('./data_for_revise/prediction/payments/dataset_for_payments.csv', low_memory=False)
+df = pd.read_csv("./data_for_revise/prediction/payments/dataset_for_payments.csv", low_memory=False)
 print(df.columns)
+
+# 各モデルを全て読み込んでおく。
+# カラー比率
+with open("./model/menu_ratio_and_review_points/color_ratio_models.pkl", "rb") as p:
+    color_ratio_models = pickle.load(p)
+# トリートメント比率
+with open("./model/menu_ratio_and_review_points/treatment_ratio_models.pkl", "rb") as p:
+    treatment_ratio_models = pickle.load(p)
+# トリートメント比率
+with open("./model/menu_ratio_and_review_points/pama_ratio_models.pkl", "rb") as p:
+    pama_ratio_models = pickle.load(p)
+# イルミナ
+with open("./model/brand_classification/illumina_classification_models.pkl", 'rb') as p:
+    illumina_classification_models = pickle.load(p)    
+# アディクシー
+with open("./model/brand_classification/addicthy_classification_models.pkl", 'rb') as p:
+    addicthy_classification_models = pickle.load(p)
+# Aujua
+with open("./model/brand_classification/inoa_classification_models.pkl", 'rb') as p:
+    inoa_classification_models = pickle.load(p)
+# inoa
+with open("./model/brand_classification/Aujua_classification_models.pkl", 'rb') as p:
+    aujua_classification_models = pickle.load(p)
+
+# 総合
+with open("./model/menu_ratio_and_review_points/general_review_models.pkl", 'rb') as p:
+    general_review_models = pickle.load(p)
+# 雰囲気
+with open("./model/menu_ratio_and_review_points/atmosphere_models.pkl", 'rb') as p:
+    atmosphere_models = pickle.load(p)
+# 接客サービス
+with open("./model/menu_ratio_and_review_points/hospitality_models.pkl", 'rb') as p:
+    hospitality_models = pickle.load(p)
+# 技術・仕上がり
+with open("./model/menu_ratio_and_review_points/skills_and_completion_models.pkl", 'rb') as p:
+    skills_and_completion_models = pickle.load(p)
+# メニュー・料金
+with open("./model/menu_ratio_and_review_points/menu_and_price_models.pkl", 'rb') as p:
+    menu_and_price_models = pickle.load(p)
+
+# 支出金額
+with open("./model/payments/payments_models.pkl", 'rb') as p:
+    payments_models = pickle.load(p)
 
 sidebar = html.Div(
     [
         dbc.Row(
             html.P(
-                children='Select the parameters.',
-                style={'margin':'10px', 'fontSize':22},
+                children="Select the parameters.",
+                style={"margin":"10px", "fontSize":22},
             ),
-            className='bg-secondary'
+            className="bg-secondary"
         ),
         dbc.Row(
             [
                 html.P(
-                    children='Select a prefecture',
-                    style={'margin': '10px',
-                        #    'width':'175px',
-                           'text-decoration':'underline',
-                           'fontSize':18},
-                    className='font-weight-bold'
+                    children="Select a prefecture",
+                    style={"margin": "10px",
+                        #    "width":"175px",
+                           "text-decoration":"underline",
+                           "fontSize":18},
+                    className="font-weight-bold"
                 ),
                 dcc.Dropdown(
-                    id='AI_dropdown1',
+                    id="AI_dropdown1",
                     options=[
-                        {'label':x, 'value':x} for x in df['県'].unique()
+                        {"label":x, "value":x} for x in df["県"].unique()
                     ],
-                    value='広島',
-                    style={'width':'300px',
+                    value="広島",
+                    style={"width":"300px",
                         #    "height":"20px",
-                           'margin-bottom':'1px', 'fontSize':15},
+                           "margin-bottom":"1px", "fontSize":15},
                     clearable=True,
-                    className='text-dark'
+                    className="text-dark"
                 ),
                 html.P(
-                    children='Select a region',
-                    style={'margin': '10px',
-                        #    'width':'140px',
-                           'text-decoration':'underline',
-                           'fontSize':18},
-                    className='font-weight-bold'
+                    children="Select a region",
+                    style={"margin": "10px",
+                        #    "width":"140px",
+                           "text-decoration":"underline",
+                           "fontSize":18},
+                    className="font-weight-bold"
                 ),
                 dcc.Dropdown(
-                    id='AI_dropdown2',
+                    id="AI_dropdown2",
                     # options = callbackで返ってくる。
-                    style={'width':'300px',
+                    style={"width":"300px",
                         #    "height":"5px",
-                           "margin-bottom":'1px', 'fontSize':15},
+                           "margin-bottom":"1px", "fontSize":15},
                     clearable=True,
-                    value='八丁堀・幟町・胡町',
-                    className='text-dark',
+                    value="八丁堀・幟町・胡町",
+                    className="text-dark",
                 ),
                 html.P(
-                    children='Select the number for items below',
-                    style={'margin': '10px',
-                        #    'width':'140px',
-                           'text-decoration':'underline',
-                           'fontSize':18},
-                    className='font-weight-bold'
+                    children="Select the number for items below",
+                    style={"margin": "10px",
+                        #    "width":"140px",
+                           "text-decoration":"underline",
+                           "fontSize":18},
+                    className="font-weight-bold"
                 ),
                 dbc.Row(
                     [
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Seats',
+                                    children="Seats",
                                     style={
-                                        'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                        "margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input1',
+                                    id="AI_input1",
                                     placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=3,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                        'margin-bottom':'1px',
-                                        # 'margin-left':'12px',
-                                        'fontSize':16},
+                                        "margin-bottom":"1px",
+                                        # "margin-left":"12px",
+                                        "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     min=1,
                                     max=30,
@@ -106,25 +150,25 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Blog Posts',
-                                    style={'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                    children="Blog Posts",
+                                    style={"margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input2',
-                                    placeholder='Select...',
+                                    id="AI_input2",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=100,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                        'margin-bottom':'1px',
-                                        # 'margin-left':'12px',
-                                        'fontSize':16},
+                                        "margin-bottom":"1px",
+                                        # "margin-left":"12px",
+                                        "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     type="text", inputmode="numeric", pattern="[0-9]{1,4}",
                                 ),
@@ -138,25 +182,25 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Review',
-                                    style={'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                    children="Review",
+                                    style={"margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input3',
-                                    placeholder='Select...',
+                                    id="AI_input3",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=150,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                        'margin-bottom':'1px',
-                                        #    'margin-left':'12px',
-                                        'fontSize':16},
+                                        "margin-bottom":"1px",
+                                        #    "margin-left":"12px",
+                                        "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     type="text", inputmode="numeric", pattern="[0-9]{1,4}",
                                 ),
@@ -165,25 +209,25 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Staff',
-                                    style={'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                    children="Staff",
+                                    style={"margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input4',
-                                    placeholder='Select...',
+                                    id="AI_input4",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=4,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                        'margin-bottom':'1px',
-                                        #    'margin-left':'12px',
-                                        'fontSize':16},
+                                        "margin-bottom":"1px",
+                                        #    "margin-left":"12px",
+                                        "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     min=1,
                                     max=50,
@@ -200,26 +244,26 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Coupon',
+                                    children="Coupon",
                                     style={
-                                        'margin-left': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                        "margin-left": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input5',
-                                    placeholder='Select...',
+                                    id="AI_input5",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=20,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                            'margin-bottom':'1px',
-                                            # 'margin-left':'12px',
-                                            'fontSize':16},
+                                            "margin-bottom":"1px",
+                                            # "margin-left":"12px",
+                                            "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     min=1,
                                     max=150,
@@ -231,26 +275,26 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Menu',
+                                    children="Menu",
                                     style={
-                                        'margin-left': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                        "margin-left": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input6',
-                                    placeholder='Select...',
+                                    id="AI_input6",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=15,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                        'margin-bottom':'1px',
-                                        # 'margin-left':'12px',
-                                        'fontSize':16},
+                                        "margin-bottom":"1px",
+                                        # "margin-left":"12px",
+                                        "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     min=1,
                                     max=150,
@@ -267,26 +311,26 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Style',
+                                    children="Style",
                                     style={
-                                        'margin-left': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                        "margin-left": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input7',
-                                    placeholder='Select...',
+                                    id="AI_input7",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=100,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                            'margin-bottom':'1px',
-                                            # 'margin-left':'12px',
-                                            'fontSize':16},
+                                            "margin-bottom":"1px",
+                                            # "margin-left":"12px",
+                                            "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     type="text", inputmode="numeric", pattern="[0-9]{1,4}",
                                 ),
@@ -295,26 +339,26 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Time from station(walk)',
+                                    children="Time from station(walk)",
                                     style={
-                                        'margin-left': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':11},
-                                    className='font-weight-bold'
+                                        "margin-left": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":11},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input8',
-                                    placeholder='Select...',
+                                    id="AI_input8",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=9,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                        'margin-bottom':'1px',
-                                        # 'margin-left':'12px',
-                                        'fontSize':16},
+                                        "margin-bottom":"1px",
+                                        # "margin-left":"12px",
+                                        "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     min=1,
                                     max=40,
@@ -331,26 +375,26 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Replay Rate',
+                                    children="Replay Rate",
                                     style={
-                                        'margin-left': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                        "margin-left": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dbc.Input(
-                                    id='AI_input9',
-                                    placeholder='Select...',
+                                    id="AI_input9",
+                                    placeholder="Select...",
                                     # options = callbackで返ってくる。
                                     value=70,
-                                    style={'width':'135px',
+                                    style={"width":"135px",
                                         #    "height":"30px",
-                                            'margin-bottom':'1px',
-                                            # 'margin-left':'12px',
-                                            'fontSize':16},
+                                            "margin-bottom":"1px",
+                                            # "margin-left":"12px",
+                                            "fontSize":16},
                                     # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
-                                    className='text-dark',
+                                    className="text-dark",
                                     size="sm",
                                     min=0,
                                     max=100,
@@ -363,63 +407,63 @@ sidebar = html.Div(
                     style={"margin-bottom": "10px"}
                 ),
                 html.P(
-                    children='Select utilizing of brands below',
-                    style={'margin': '10px',
-                        #    'width':'140px',
-                           'text-decoration':'underline',
-                           'fontSize':18},
-                    className='font-weight-bold'
+                    children="Select utilizing of brands below",
+                    style={"margin": "10px",
+                        #    "width":"140px",
+                           "text-decoration":"underline",
+                           "fontSize":18},
+                    className="font-weight-bold"
                 ),
                 dbc.Row(
                     [
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Illumina(WELLA)',
+                                    children="Illumina(WELLA)",
                                     style={
-                                        'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':14},
-                                    className='font-weight-bold'
+                                        "margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":14},
+                                    className="font-weight-bold"
                                 ),
                                 dcc.Dropdown(
-                                    id='AI_dropdown3',
+                                    id="AI_dropdown3",
                                     options=[
-                                        {'label':"メニュー化", 'value':1},
-                                        {'label':'無', 'value':0},
+                                        {"label":"メニュー化", "value":1},
+                                        {"label":"無", "value":0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
-                                        'margin-bottom':'1px',
-                                        'fontSize':14},
+                                    style={"width":"135px",
+                                        "margin-bottom":"1px",
+                                        "fontSize":14},
                                     clearable=False,
-                                    className='text-dark',
+                                    className="text-dark",
                                 ),
                             ]    
                         ),
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Addicthy(MILBON)',
-                                    style={'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':12},
-                                    className='font-weight-bold'
+                                    children="Addicthy(MILBON)",
+                                    style={"margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":12},
+                                    className="font-weight-bold"
                                 ),
                                 dcc.Dropdown(
-                                    id='AI_dropdown4',
+                                    id="AI_dropdown4",
                                     options=[
-                                        {'label':"メニュー化", 'value':1},
-                                        {'label':'無', 'value':0},
+                                        {"label":"メニュー化", "value":1},
+                                        {"label":"無", "value":0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
-                                        'margin-bottom':'1px',
-                                        'fontSize':14},
+                                    style={"width":"135px",
+                                        "margin-bottom":"1px",
+                                        "fontSize":14},
                                     clearable=False,
-                                    className='text-dark',
+                                    className="text-dark",
                                 ),
                             ]
                         )
@@ -431,51 +475,51 @@ sidebar = html.Div(
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Inoa(LOREAL)',
+                                    children="Inoa(LOREAL)",
                                     style={
-                                        'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                        "margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dcc.Dropdown(
-                                    id='AI_dropdown5',
+                                    id="AI_dropdown5",
                                     options=[
-                                        {'label':"メニュー化", 'value':1},
-                                        {'label':'無', 'value':0},
+                                        {"label":"メニュー化", "value":1},
+                                        {"label":"無", "value":0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
-                                        'margin-bottom':'1px',
-                                        'fontSize':14},
+                                    style={"width":"135px",
+                                        "margin-bottom":"1px",
+                                        "fontSize":14},
                                     clearable=False,
-                                    className='text-dark',
+                                    className="text-dark",
                                 ),
                             ]    
                         ),
                         dbc.Col(
                             [
                                 html.Span(
-                                    children='Aujua(MILBON)',
-                                    style={'margin': '10px',
-                                        #    'width':'130px',
-                                        'text-decoration':'underline',
-                                        'fontSize':16},
-                                    className='font-weight-bold'
+                                    children="Aujua(MILBON)",
+                                    style={"margin": "10px",
+                                        #    "width":"130px",
+                                        "text-decoration":"underline",
+                                        "fontSize":16},
+                                    className="font-weight-bold"
                                 ),
                                 dcc.Dropdown(
-                                    id='AI_dropdown6',
+                                    id="AI_dropdown6",
                                     options=[
-                                        {'label':"メニュー化", 'value':1},
-                                        {'label':'無', 'value':0},
+                                        {"label":"メニュー化", "value":1},
+                                        {"label":"無", "value":0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
-                                        'margin-bottom':'1px',
-                                        'fontSize':14},
+                                    style={"width":"135px",
+                                        "margin-bottom":"1px",
+                                        "fontSize":14},
                                     clearable=False,
-                                    className='text-dark',
+                                    className="text-dark",
                                 ),
                             ]
                         )
@@ -483,19 +527,19 @@ sidebar = html.Div(
                     style={"margin-bottom": "10px"}
                 ),
                 dbc.Button(
-                    id='AI_button',
-                    children='Predict',
-                    color='info',
+                    id="AI_button",
+                    children="Predict",
+                    color="info",
                     n_clicks=0,
-                    style={'margin':'20px'},
-                    className='d-grid gap-2 col-6 mx-auto',
+                    style={"margin":"20px"},
+                    className="d-grid gap-2 col-6 mx-auto",
                 ),
                 html.Hr(),
                 html.Br(),
             ]
         ),
     ],
-    style={'font-family': default_font}
+    style={"font-family": default_font}
 )
 
 content = html.Div(
@@ -509,19 +553,19 @@ content = html.Div(
                                     html.Div(
                                         [
                                             dcc.Graph(
-                                            id='AI-color-ratio',
+                                            id="AI-color-ratio",
                                             ), 
                                         ]
                                     )
                             ],
                             style={"margin": "10%",
                                     },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
+                            type="dot",
+                            color="#ffffb3",
+                            className="bg-info"),
                 ],
-                className='bg-info',
-                style={'padding':'8px'}
+                className="bg-info",
+                style={"padding":"8px"}
                 ),
                 # 1行2列
                 dbc.Col(
@@ -531,20 +575,20 @@ content = html.Div(
                                     html.Div(
                                         [
                                             dcc.Graph(
-                                            id='tmp_age-ratio',
+                                            id="AI_treatment-ratio",
                                             ), 
                                         ]
                                     )
                             ],
                             style={"margin": "10%",
                                     },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
+                            type="dot",
+                            color="#ffffb3",
+                            className="bg-info"),
                     ],
                     # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
-                    className='bg-info',
-                    style={'padding':'8px'}
+                    className="bg-info",
+                    style={"padding":"8px"}
                 ),
                 # 1行3列
                 dbc.Col(
@@ -554,19 +598,19 @@ content = html.Div(
                                     html.Div(
                                         [
                                             dcc.Graph(
-                                            id='tmp_hair-color-ratio',
+                                            id="AI-pama-ratio",
                                             ), 
                                         ]
                                     )
                             ],
                             style={"margin": "10%",
                                     },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
+                            type="dot",
+                            color="#ffffb3",
+                            className="bg-info"),
                     ],
-                    className='bg-info',
-                    style={'padding':'8px'}
+                    className="bg-info",
+                    style={"padding":"8px"}
                 ),
                 # 1行4列
                 dbc.Col(  
@@ -576,23 +620,23 @@ content = html.Div(
                                     html.Div(
                                         [
                                             dcc.Graph(
-                                            id='tmp_treatment-ratio',
+                                            id="brand-target",
                                             ), 
                                         ]
                                     )
                             ],
                             style={"margin": "10%",
                                     },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
+                            type="dot",
+                            color="#ffffb3",
+                            className="bg-info"),
                     ],                                          
-                    className='bg-info',
-                    style={'padding':'8px'}
+                    className="bg-info",
+                    style={"padding":"8px"}
                 )
             ],
-            className='bg-primary',
-            style={'height':'30vh'}
+            className="bg-primary",
+            style={"height":"30vh"}
         ),
         dbc.Row(
             [   # 2行1列
@@ -603,20 +647,20 @@ content = html.Div(
                                     html.Div(
                                         [
                                             dcc.Graph(
-                                            id='tmp_cut-only-comparison',
+                                            id="review_score_prediction",
                                             ), 
                                         ]
                                     )
                             ],
                             style={"margin": "10%",
                                     },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
+                            type="dot",
+                            color="#ffffb3",
+                            className="bg-info"),
                     ],                    
-                    # className='bg-info',
-                    style={'padding':'8px'},
-                    className='bg-info'
+                    # className="bg-info",
+                    style={"padding":"8px"},
+                    className="bg-info"
                 ),
                 # 2行2列
                 dbc.Col(
@@ -626,114 +670,23 @@ content = html.Div(
                                     html.Div(
                                         [
                                             dcc.Graph(
-                                            id='tmp_cut-and-colr-comparison',
+                                            id="each_price_prediction",
                                             ), 
                                         ]
                                     )
                             ],
                             style={"margin": "10%",
                                     },
-                            type='dot',
-                            color='#ffffb3',
-                            className='bg-info'),
+                            type="dot",
+                            color="#ffffb3",
+                            className="bg-info"),
                     ],
-                    style={'padding':'8px'},
-                    className='bg-info'
+                    style={"padding":"8px"},
+                    className="bg-info"
                     ),
-        #         # 2行3列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_2-3",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_cut-and-colr-and-treatment-comparison',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],                    
-        #             style={'padding':'8px'},
-        #             className='bg-info'
-        #         ),
-        #         # 2行4列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_2-4",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_all-menu-comparison',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",},
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],                       
-        #             style={'padding':'8px'},
-        #             className='bg-info'
-        #         )
-        #     ],
-        #     # className='bg-secondary',
-        #     style={'height':'30vh'}
-        # ),
-        # dbc.Row(
-        #     [   #3行1列
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_3-1",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_total_bill_boxplot',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],                    
-        #             style={'padding':'8px'},
-        #             className='bg-info'
-        #             ),
-        #         dbc.Col(
-        #             [   
-        #                 dcc.Loading(id="tmp_loading_3-1",
-        #                     children=[
-        #                             html.Div(
-        #                                 [
-        #                                     dcc.Graph(
-        #                                     id='tmp_coupon-ranking',
-        #                                     ), 
-        #                                 ]
-        #                             )
-        #                     ],
-        #                     style={"margin": "10%",
-        #                             },
-        #                     type='dot',
-        #                     color='#ffffb3',
-        #                     className='bg-info'),
-        #             ],
-        #             style={'padding':'8px'},
-        #             className='light'
-        #             ),
             ],
-            className='bg-info',
-            style={'height':'40vh'}
+            className="bg-info",
+            style={"height":"40vh"}
         )   
     ]
 )
@@ -744,117 +697,132 @@ potensialAI_layout = [
             dbc.Col(
                 children=sidebar,
                 width=2,
-                className='bg-primary'
+                className="bg-primary"
             ),
             dbc.Col(
                 children=content,
                 width=10,
-                className='bg-info'
+                className="bg-info"
             )
         ],
-        style={'height':'95vh'}
+        style={"height":"95vh"}
     )
 ]
 
 @callback(
-    Output('AI_dropdown2', 'options'),
-    Input('AI_dropdown1', 'value')
+    Output("AI_dropdown2", "options"),
+    Input("AI_dropdown1", "value")
 )
 def update_area(value):
-    return [{'label': x2,'value': x2} for x2 in df[df['県'] == value]['エリア'].unique()]
+    return [{"label": x2,"value": x2} for x2 in df[df["県"] == value]["エリア"].unique()]
 
 # 1行1列
 @callback(
-    Output('AI-color-ratio', 'figure'),
-    Input('AI_button', 'n_clicks'),
+    Output("AI-color-ratio", "figure"),
+    Input("AI_button", "n_clicks"),
     [
         # 県
-        State('AI_dropdown1', 'value'),
+        State("AI_dropdown1", "value"),
         # エリア
-        State('AI_dropdown2', 'value'),
+        State("AI_dropdown2", "value"),
         # セット面の数
-        State('AI_input1', 'value'),
+        State("AI_input1", "value"),
         # ブログ投稿数
-        State('AI_input2', 'value'),
+        State("AI_input2", "value"),
         # 口コミ数
-        State('AI_input3', 'value'),
+        State("AI_input3", "value"),
         # スタッフ数
-        State('AI_input4', 'value'),
+        State("AI_input4", "value"),
         # クーポン数
-        State('AI_input5', 'value'),
+        State("AI_input5", "value"),
         # メニュー数
-        State('AI_input6', 'value'),
+        State("AI_input6", "value"),
         # スタイル数
-        State('AI_input7', 'value'),
+        State("AI_input7", "value"),
         # 駅徒歩
-        State('AI_input8', 'value'),
+        State("AI_input8", "value"),
         # コメントへの返信率
-        State('AI_input9', 'value'),
+        State("AI_input9", "value"),
         # イルミナメニュー化の有無
-        State('AI_dropdown3', 'value'),
+        State("AI_dropdown3", "value"),
         # addicthyメニュー化の有無
-        State('AI_dropdown4', 'value'),
+        State("AI_dropdown4", "value"),
         # inoaメニュー化の有無
-        State('AI_dropdown5', 'value'),
+        State("AI_dropdown5", "value"),
         # Aujuaメニュー化の有無
-        State('AI_dropdown6', 'value'),
+        State("AI_dropdown6", "value"),
     ],
 )
 def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
                        AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
                        AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
     
-    _df = pd.DataFrame(columns=['県', 'エリア', 'セット面の数', 'ブログ投稿数', '口コミ数', 'スタッフ数', 'クーポン数', 'メニュー数', 'スタイル数', '駅徒歩', 'コメントへの返信率'])
-    _df['県'] = AI_dropdown1_value
-    _df['エリア'] = AI_dropdown1_value
-    _df['セット面の数'] = AI_input1_value
-    _df['ブログ投稿数'] = AI_input2_value
-    _df['口コミ数'] = AI_input3_value
-    _df['スタッフ数'] = AI_input4_value
-    _df['クーポン数'] = AI_input5_value
-    _df['メニュー数'] = AI_input6_value
-    _df['スタイル数'] = AI_input7_value
-    _df['駅徒歩'] = AI_input8_value
-    _df['コメントへの返信率'] = AI_input9_value
+    _df = pd.DataFrame(data=[["県", "エリア", 0, 0.0, 0, 0, 0, 0, 0, 0, 0.0]],
+                    columns=["県", "エリア", "セット面の数", "ブログ投稿数", "口コミ数", "スタッフ数", "クーポン数", "メニュー数", "スタイル数", "駅徒歩", "コメントへの返信率"])
+    _df["県"] = AI_dropdown1_value
+    _df["エリア"] = AI_dropdown2_value
+    _df["セット面の数"] = AI_input1_value
+    _df["ブログ投稿数"] = AI_input2_value
+    _df["口コミ数"] = AI_input3_value
+    _df["スタッフ数"] = AI_input4_value
+    _df["クーポン数"] = AI_input5_value
+    _df["メニュー数"] = AI_input6_value
+    _df["スタイル数"] = AI_input7_value
+    _df["駅徒歩"] = AI_input8_value
+    _df["コメントへの返信率"] = AI_input9_value / 100
     
-    _df = _df[_df['エリア']==dropdown2_value]
-    _df = _df[_df['サロン名']==dropdown3_value]
+    _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
+    _df["口コミ数"] = _df["口コミ数"].astype(int)
+    _df["スタイル数"] = _df["スタイル数"].astype(int)
     
-    _df = _df[_df['性別'].isin(checklist1_value)]
+    _df["県"] = _df["県"].astype("category")
+    _df["エリア"] = _df["エリア"].astype("category")
     
-    _df =_df.groupby('性別').count().iloc[:,0:1].reset_index()
-    _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
-    figure = px.pie(
-        data_frame=_df,
-        names='性別',
-        values='客数(口コミ数)',
-        color='性別',
-        title=f'Gender Ratio',
-        height=290,
-        width=418,
-        color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
-    )
+    _score = np.mean([model.predict(_df) for model in color_ratio_models])
+    _score = round(_score, 2)
+    
+    _df=pd.DataFrame(data=[["する", _score],
+                           ["しない", 1-_score]],
+                     columns=["カラー選択","選択割合"])
+    # _df["選択割合(%)"] = _df["選択割合"]*100
+    figure = px.pie(data_frame=_df,
+                    names="カラー選択",
+                    values="選択割合",
+                    color="カラー選択",
+                    )
+    
+    figure = px.pie(data_frame=_df,
+                    names="カラー選択",
+                    values="選択割合",
+                    color="カラー選択",
+                    title=f"Potential Color Ratio",
+                    height=290,
+                    # width=418,
+                    color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
+                    category_orders={"カラー選択":["する","しない"]}
+                )
     
     figure.update_traces(
-        textinfo='percent+label',
-        textposition='inside',
+        textinfo="percent+label",
+        textposition="inside",
         marker=dict(
             line=dict(
-                color='slategrey',
+                color="slategrey",
                 width=2.0
-            ),
-        )
+            )
+        ),
+        hovertemplate="カラー選択: %{label}<br>選択割合: %{percent}}",
     )
     
     figure.update_layout(
-        uniformtext_mode='hide',
+        uniformtext_mode="hide",
         uniformtext_minsize=10,
-        margin={'l':30, 'r':30, 't':50, 'b':10},
-        title={'font':{'size':20,
-                       'color':'grey'},
-               'x':0.5,
-               'y':0.95,
-               'xanchor':'center'},
+        margin={"l":30, "r":30, "t":50, "b":10},
+        title={"font":{"size":20,
+                       "color":"grey"},
+               "x":0.5,
+               "y":0.95,
+               "xanchor":"center"},
         font=dict(
             family=default_font,
             size=10,
@@ -865,997 +833,859 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                                 #   color="white"
                                   )
                         ),
-        paper_bgcolor='lightcyan',
+        paper_bgcolor="lightcyan",
         # autosize=True,
         legend=dict(
-            title=dict(text='性別',
+            title=dict(text="カラー選択",
                        font=dict(family=default_font,
                                  size=12),
             ),
-            bgcolor='aliceblue',
-            bordercolor='grey',
+            bgcolor="aliceblue",
+            bordercolor="grey",
             #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
-                      color='slategrey'),
+                      color="slategrey"),
         ),
         
     )
     
     return figure
 
-# # 1行2列
-# @callback(
-#     Output('age-ratio', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+# 1行2列
+@callback(
+    Output("AI_treatment-ratio", "figure"),
+    Input("AI_button", "n_clicks"),
+    [
+        # 県
+        State("AI_dropdown1", "value"),
+        # エリア
+        State("AI_dropdown2", "value"),
+        # セット面の数
+        State("AI_input1", "value"),
+        # ブログ投稿数
+        State("AI_input2", "value"),
+        # 口コミ数
+        State("AI_input3", "value"),
+        # スタッフ数
+        State("AI_input4", "value"),
+        # クーポン数
+        State("AI_input5", "value"),
+        # メニュー数
+        State("AI_input6", "value"),
+        # スタイル数
+        State("AI_input7", "value"),
+        # 駅徒歩
+        State("AI_input8", "value"),
+        # コメントへの返信率
+        State("AI_input9", "value"),
+        # イルミナメニュー化の有無
+        State("AI_dropdown3", "value"),
+        # addicthyメニュー化の有無
+        State("AI_dropdown4", "value"),
+        # inoaメニュー化の有無
+        State("AI_dropdown5", "value"),
+        # Aujuaメニュー化の有無
+        State("AI_dropdown6", "value"),
+    ],
+)
+def treatment_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
+                       AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
+                       AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
     
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
+    _df = pd.DataFrame(data=[["県", "エリア", 0, 0.0, 0, 0, 0, 0, 0, 0, 0.0]],
+                    columns=["県", "エリア", "セット面の数", "ブログ投稿数", "口コミ数", "スタッフ数", "クーポン数", "メニュー数", "スタイル数", "駅徒歩", "コメントへの返信率"])
+    _df["県"] = AI_dropdown1_value
+    _df["エリア"] = AI_dropdown2_value
+    _df["セット面の数"] = AI_input1_value
+    _df["ブログ投稿数"] = AI_input2_value
+    _df["口コミ数"] = AI_input3_value
+    _df["スタッフ数"] = AI_input4_value
+    _df["クーポン数"] = AI_input5_value
+    _df["メニュー数"] = AI_input6_value
+    _df["スタイル数"] = AI_input7_value
+    _df["駅徒歩"] = AI_input8_value
+    _df["コメントへの返信率"] = AI_input9_value / 100
     
-#     _df = _df[_df['性別'].isin(checklist1_value)]
+    _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
+    _df["口コミ数"] = _df["口コミ数"].astype(int)
+    _df["スタイル数"] = _df["スタイル数"].astype(int)
     
-#     _df = _df.groupby('年齢').count().iloc[:,0:1].reset_index()
-#     _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
-#     figure = px.pie(
-#         data_frame=_df,
-#         names='年齢',
-#         values='客数(口コミ数)',
-#         color='年齢',
-#         title='Age Ratio',
-#         height=290,
-#         width=418,
-#         # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
-#         color_discrete_sequence=plotly.colors.qualitative.Set3,
-#         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
-#     )
+    _df["県"] = _df["県"].astype("category")
+    _df["エリア"] = _df["エリア"].astype("category")
     
-#     figure.update_traces(
-#         textinfo='percent+label',
-#         textposition='inside',
-#         marker=dict(
-#             line=dict(
-#                 color='slategrey',
-#                 width=2.0
-#             ),
-#         ),
-#     )
+    _score = np.mean([model.predict(_df) for model in treatment_ratio_models])
+    _score = round(_score, 2)
     
-#     figure.update_layout(
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=10,
-#         margin={'l':30, 'r':30, 't':50, 'b':10},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='年齢',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=2,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#             # valign='top',
-#             # ↓多分いらない。itemsizing=
-#             # itemsizing='constant'
-#         ),
+    _df=pd.DataFrame(data=[["する", _score],
+                           ["しない", 1-_score]],
+                     columns=["トリートメント選択","選択割合"])
+    # _df["選択割合(%)"] = _df["選択割合"]*100
+    
+    figure = px.pie(data_frame=_df,
+                    names="トリートメント選択",
+                    values="選択割合",
+                    color="トリートメント選択",
+                    title=f"Potential Treatment Ratio",
+                    height=290,
+                    # width=418,
+                    color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
+                    category_orders={"トリートメント選択":["する","しない"]}
+                )
+    
+    figure.update_traces(
+        textinfo="percent+label",
+        textposition="inside",
+        marker=dict(
+            line=dict(
+                color="slategrey",
+                width=2.0
+            )
+        ),
+        hovertemplate="トリートメント選択: %{label}<br>選択割合: %{percent}}",
+    )
+    
+    figure.update_layout(
+        uniformtext_mode="hide",
+        uniformtext_minsize=10,
+        margin={"l":30, "r":30, "t":50, "b":10},
+        title={"font":{"size":20,
+                       "color":"grey"},
+               "x":0.5,
+               "y":0.95,
+               "xanchor":"center"},
+        font=dict(
+            family=default_font,
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor="lightcyan",
+        # autosize=True,
+        legend=dict(
+            title=dict(text="トリートメント選択",
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor="aliceblue",
+            bordercolor="grey",
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color="slategrey"),
+        ),
         
-#     )
+    )
     
-#     return figure
+    return figure
 
-# # 1行3列
-# @callback(
-#     Output('hair-color-ratio', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+# 1行3列
+@callback(
+    Output("AI-pama-ratio", "figure"),
+    Input("AI_button", "n_clicks"),
+    [
+        # 県
+        State("AI_dropdown1", "value"),
+        # エリア
+        State("AI_dropdown2", "value"),
+        # セット面の数
+        State("AI_input1", "value"),
+        # ブログ投稿数
+        State("AI_input2", "value"),
+        # 口コミ数
+        State("AI_input3", "value"),
+        # スタッフ数
+        State("AI_input4", "value"),
+        # クーポン数
+        State("AI_input5", "value"),
+        # メニュー数
+        State("AI_input6", "value"),
+        # スタイル数
+        State("AI_input7", "value"),
+        # 駅徒歩
+        State("AI_input8", "value"),
+        # コメントへの返信率
+        State("AI_input9", "value"),
+        # イルミナメニュー化の有無
+        State("AI_dropdown3", "value"),
+        # addicthyメニュー化の有無
+        State("AI_dropdown4", "value"),
+        # inoaメニュー化の有無
+        State("AI_dropdown5", "value"),
+        # Aujuaメニュー化の有無
+        State("AI_dropdown6", "value"),
+    ],
+)
+def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
+                       AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
+                       AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
     
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
-    
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-    
-#     _df =_df.groupby('カラー選択').count().iloc[:,0:1].reset_index()
-#     _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
-#     _df.loc[_df['カラー選択']==0, 'カラー選択'] = 'カラー未実施'
-#     _df.loc[_df['カラー選択']==1, 'カラー選択'] = 'カラー実施'
+    _df = pd.DataFrame(data=[["県", "エリア", 0, 0.0, 0, 0, 0, 0, 0, 0, 0.0]],
+                    columns=["県", "エリア", "セット面の数", "ブログ投稿数", "口コミ数", "スタッフ数", "クーポン数", "メニュー数", "スタイル数", "駅徒歩", "コメントへの返信率"])
+    _df["県"] = AI_dropdown1_value
+    _df["エリア"] = AI_dropdown2_value
+    _df["セット面の数"] = AI_input1_value
+    _df["ブログ投稿数"] = AI_input2_value
+    _df["口コミ数"] = AI_input3_value
+    _df["スタッフ数"] = AI_input4_value
+    _df["クーポン数"] = AI_input5_value
+    _df["メニュー数"] = AI_input6_value
+    _df["スタイル数"] = AI_input7_value
+    _df["駅徒歩"] = AI_input8_value
+    _df["コメントへの返信率"] = AI_input9_value / 100
 
-#     figure = px.pie(
-#         data_frame=_df,
-#         names='カラー選択',
-#         values='客数(口コミ数)',
-#         color='カラー選択',
-#         title=f'Percentage Of Color Selected',
-#         height=290,
-#         width=418,
-#         color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
-#         category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
-#     )
+    _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
+    _df["口コミ数"] = _df["口コミ数"].astype(int)
+    _df["スタイル数"] = _df["スタイル数"].astype(int)
     
-#     figure.update_traces(
-#         textinfo='percent+label',
-#         textposition='inside',
-#         marker=dict(
-#             line=dict(
-#                 color='slategrey',
-#                 width=2.0
-#             ),
-#         )
-#     )
+    _df["県"] = _df["県"].astype("category")
+    _df["エリア"] = _df["エリア"].astype("category")
     
-#     figure.update_layout(
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=10,
-#         margin={'l':30, 'r':30, 't':50, 'b':10},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='カラー選択の有無',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=2,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#         ),
+    _score = np.mean([model.predict(_df) for model in pama_ratio_models])
+    _score = round(_score, 2)
+    
+    _df=pd.DataFrame(data=[["する", _score],
+                           ["しない", 1-_score]],
+                     columns=["パーマ選択","選択割合"])
+    # _df["選択割合(%)"] = _df["選択割合"]*100
+    figure = px.pie(data_frame=_df,
+                    names="パーマ選択",
+                    values="選択割合",
+                    color="パーマ選択",
+                    title=f"Potential Treatment Ratio",
+                    height=290,
+                    # width=418,
+                    color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
+                    category_orders={"パーマ選択":["する","しない"]}
+                )
+    
+    figure.update_traces(
+        textinfo="percent+label",
+        textposition="inside",
+        marker=dict(
+            line=dict(
+                color="slategrey",
+                width=2.0
+            )
+        ),
+        hovertemplate="パーマ選択: %{label}<br>選択割合: %{percent}}",
+    )
+    
+    figure.update_layout(
+        uniformtext_mode="hide",
+        uniformtext_minsize=10,
+        margin={"l":30, "r":30, "t":50, "b":10},
+        title={"font":{"size":20,
+                       "color":"grey"},
+               "x":0.5,
+               "y":0.95,
+               "xanchor":"center"},
+        font=dict(
+            family=default_font,
+            size=10,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor="lightcyan",
+        # autosize=True,
+        legend=dict(
+            title=dict(text="パーマ選択",
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor="aliceblue",
+            bordercolor="grey",
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=2,
+            font=dict(size=12,
+                      family=default_font,
+                      color="slategrey"),
+        ),
         
-#     )
+    )
     
-#     return figure
+    return figure
 
-# # 1行4列
-# @callback(
-#     Output('treatment-ratio', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+# 1行4列
+@callback(
+    Output("brand-target", "figure"),
+    Input("AI_button", "n_clicks"),
+    [
+        # 県
+        State("AI_dropdown1", "value"),
+        # エリア
+        State("AI_dropdown2", "value"),
+        # セット面の数
+        State("AI_input1", "value"),
+        # ブログ投稿数
+        State("AI_input2", "value"),
+        # 口コミ数
+        State("AI_input3", "value"),
+        # スタッフ数
+        State("AI_input4", "value"),
+        # クーポン数
+        State("AI_input5", "value"),
+        # メニュー数
+        State("AI_input6", "value"),
+        # スタイル数
+        State("AI_input7", "value"),
+        # 駅徒歩
+        State("AI_input8", "value"),
+        # コメントへの返信率
+        State("AI_input9", "value"),
+        # イルミナメニュー化の有無
+        State("AI_dropdown3", "value"),
+        # addicthyメニュー化の有無
+        State("AI_dropdown4", "value"),
+        # inoaメニュー化の有無
+        State("AI_dropdown5", "value"),
+        # Aujuaメニュー化の有無
+        State("AI_dropdown6", "value"),
+    ],
+)
+def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
+                       AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
+                       AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
     
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
+    _df = pd.DataFrame(data=[["県", "エリア", 0, 0.0, 0, 0, 0, 0, 0, 0, 0.0]],
+                    columns=["県", "エリア", "セット面の数", "ブログ投稿数", "口コミ数", "スタッフ数", "クーポン数", "メニュー数", "スタイル数", "駅徒歩", "コメントへの返信率"])
+    _df["県"] = AI_dropdown1_value
+    _df["エリア"] = AI_dropdown2_value
+    _df["セット面の数"] = AI_input1_value
+    _df["ブログ投稿数"] = AI_input2_value
+    _df["口コミ数"] = AI_input3_value
+    _df["スタッフ数"] = AI_input4_value
+    _df["クーポン数"] = AI_input5_value
+    _df["メニュー数"] = AI_input6_value
+    _df["スタイル数"] = AI_input7_value
+    _df["駅徒歩"] = AI_input8_value
+    _df["コメントへの返信率"] = AI_input9_value / 100
+
+    _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
+    _df["口コミ数"] = _df["口コミ数"].astype(int)
+    _df["スタイル数"] = _df["スタイル数"].astype(int)
     
-#     _df = _df[_df['性別'].isin(checklist1_value)]
+    print(_df)
     
-#     _df =_df.groupby('トリートメント選択').count().iloc[:,0:1].reset_index()
-#     _df.rename(columns={'県':'客数(口コミ数)'}, inplace=True)
-#     _df.loc[_df['トリートメント選択']==0, 'トリートメント選択'] = 'Tr未実施'
-#     _df.loc[_df['トリートメント選択']==1, 'トリートメント選択'] = 'Tr実施'
+    _df["県"] = _df["県"].astype("category")
+    _df["エリア"] = _df["エリア"].astype("category")
 
-#     figure = px.pie(
-#         data_frame=_df,
-#         names='トリートメント選択',
-#         values='客数(口コミ数)',
-#         color='トリートメント選択',
-#         title=f'Percentage Of Treatment Selected',
-#         height=290,
-#         width=418,
-#         color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
-#         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
-#     )
+    # 1秒遅らせる処理を入れて原因不明のバグを修正
+    time.sleep(1)
     
-#     figure.update_traces(
-#         textinfo='percent+label',
-#         textposition='inside',
-#         marker=dict(
-#             line=dict(
-#                 color='slategrey',
-#                 width=2.0
-#             ),
-#         )
-#     )
+    illumina_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in illumina_classification_models]), 2)
+    addicthy_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in addicthy_classification_models]), 2)
+    inoa_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in inoa_classification_models]), 2)
+    aujua_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in aujua_classification_models]), 2)
     
-#     figure.update_layout(
-#         plot_bgcolor='#f7fcf5',
-#         xaxis_showgrid=False,
-#         yaxis_showgrid=False,
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=10,
-#         margin={'l':30, 'r':30, 't':50, 'b':10},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='Tr選択の有無',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=2,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#         ),
-        
-#     )
     
-#     return figure
-
-
-# # 2行1列
-# @callback(
-#     Output('cut-only-comparison', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-
-#     _df_prefecture = _df.copy()
-#     prefecture_mean = int(round(_df_prefecture.loc[
-#         ((_df_prefecture['カット選択']==1)&(_df_prefecture['カラー選択']==0)&(_df_prefecture['トリートメント選択']==0)&(_df_prefecture['パーマ選択']==0)&\
-#         (_df_prefecture['縮毛矯正選択']==0)&(_df_prefecture['その他選択']==0)&(_df_prefecture['ヘッドスパ選択']==0)&(_df_prefecture['ヘアセット選択']==0)&\
-#         (_df_prefecture['エクステ選択']==0)&(_df_prefecture['着付け選択']==0)&(_df_prefecture['メニュー無し選択']==0)&(_df_prefecture['支出金額']!=0)),
-#         ['支出金額']].mean()))
-
-#     _df = _df[_df['エリア'] == dropdown2_value]
-
-#     _df_area = _df.copy()
-#     area_mean = int(round(_df_area.loc[
-#         ((_df_area['カット選択']==1)&(_df_area['カラー選択']==0)&(_df_area['トリートメント選択']==0)&(_df_area['パーマ選択']==0)&\
-#         (_df_area['縮毛矯正選択']==0)&(_df_area['その他選択']==0)&(_df_area['ヘッドスパ選択']==0)&(_df_area['ヘアセット選択']==0)&\
-#         (_df_area['エクステ選択']==0)&(_df_area['着付け選択']==0)&(_df_area['メニュー無し選択']==0)&(_df_area['支出金額']!=0)),
-#         ['支出金額']].mean()))
-
-#     _df = _df[_df['サロン名'] == dropdown3_value]
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-
-#     _df_salon = _df.copy()
-#     try:
-#         salon_mean = int(round(_df_salon.loc[
-#             ((_df_salon['カット選択']==1)&(_df_salon['カラー選択']==0)&(_df_salon['トリートメント選択']==0)&(_df_salon['パーマ選択']==0)&\
-#             (_df_salon['縮毛矯正選択']==0)&(_df_salon['その他選択']==0)&(_df_salon['ヘッドスパ選択']==0)&(_df_salon['ヘアセット選択']==0)&\
-#             (_df_salon['エクステ選択']==0)&(_df_salon['着付け選択']==0)&(_df_salon['メニュー無し選択']==0)&(_df_salon['支出金額']!=0)),
-#             ['支出金額']].mean()))
-#     except ValueError:
-#         try:
-#             salon_mean = int(_df['カット料金'].unique()[0])
-#         except Exception:
-#             salon_mean = 0
-        
-#     __df1 = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['単価(平均価格)'])
-#     __df1 = __df1.reset_index().rename(columns={'index':'算出レンジ'})
-
-#     xaxes_range_min = int(round(__df1['単価(平均価格)'].min()/2, -3))
-#     range_max = int(math.ceil(__df1['単価(平均価格)'].max()))
-#     xaxes_range_max = math.ceil(range_max/1000) * 1000 + 1000
-
-#     # 1秒遅らせる処理を入れて原因不明のバグを修正
-#     time.sleep(1)
-#     figure=px.bar(data_frame=__df1,
-#                   y='算出レンジ',
-#                   x='単価(平均価格)',
-#                   color='算出レンジ',
-#                   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-#                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
-#                   text=[f'¥{text:,}' for text in __df1['単価(平均価格)']],
-#                   title=f'Cut Unit Price',
-#                   height=290,
-#                   width=418,
-#                 )
     
-        
-#     figure.update_traces(
-#         width=0.6,
-#         orientation='h',
-#         # texttemplate=,
-#         textposition='outside',
-#         textfont=dict(size=12),
-#         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
-#         marker=dict(
-#             line=dict(
-#             color='slategrey',
-#             width=1.5,
-#             )
-#         ),
-#         # showlegend=False
-#     )
-
-#     figure.update_layout(
-#         # uniformtext_minsize=8,
-#         plot_bgcolor='#f7fcf5',
-#         xaxis_showgrid=False,
-#         yaxis_showgrid=False,
-#         uniformtext_mode='hide',
-#         margin={'l':0, 'r':50, 't':40, 'b':20},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='算出範囲',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=1.5,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#             # tracegroupgap=1,
-#             # itemsizing='constant'
-#         ),   
-#     )
-
-#     figure.update_xaxes(
-#         # rangemode='tozero',
-#         tickformat=',',
-#         tickprefix='¥',
-#         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 1000),
-#         range=(xaxes_range_min,xaxes_range_max)
-#     )
+    _df = pd.DataFrame([illumina_proba, addicthy_proba, inoa_proba, aujua_proba], index=['Illumina','Addicthy','Inoa','Aujua'], columns=["メニュー化成功率"]).reset_index()
+    _df.rename(columns={"index": "ブランド"}, inplace=True)
+    print(_df)
     
-#     figure.update_yaxes(
-#         title=''
-#     )    
+    xaxes_range_min = 0
+    xaxes_range_max = _df['メニュー化成功率'].max() + 10
     
-#     return figure
-
-# # 2行2列
-# @callback(
-#     Output('cut-and-colr-comparison', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-
-#     _df_prefecture = _df.copy()
-#     prefecture_mean = int(round(_df_prefecture.loc[
-#         ((_df_prefecture['カット選択']==1)&(_df_prefecture['カラー選択']==1)&(_df_prefecture['トリートメント選択']==0)&(_df_prefecture['パーマ選択']==0)&\
-#         (_df_prefecture['縮毛矯正選択']==0)&(_df_prefecture['その他選択']==0)&(_df_prefecture['ヘッドスパ選択']==0)&(_df_prefecture['ヘアセット選択']==0)&\
-#         (_df_prefecture['エクステ選択']==0)&(_df_prefecture['着付け選択']==0)&(_df_prefecture['メニュー無し選択']==0)&(_df_prefecture['支出金額']!=0)),
-#         ['支出金額']].mean()))
-
-#     _df = _df[_df['エリア'] == dropdown2_value]
-
-#     _df_area = _df.copy()
-#     area_mean = int(round(_df_area.loc[
-#         ((_df_area['カット選択']==1)&(_df_area['カラー選択']==1)&(_df_area['トリートメント選択']==0)&(_df_area['パーマ選択']==0)&\
-#         (_df_area['縮毛矯正選択']==0)&(_df_area['その他選択']==0)&(_df_area['ヘッドスパ選択']==0)&(_df_area['ヘアセット選択']==0)&\
-#         (_df_area['エクステ選択']==0)&(_df_area['着付け選択']==0)&(_df_area['メニュー無し選択']==0)&(_df_area['支出金額']!=0)),
-#         ['支出金額']].mean()))
-
-#     _df = _df[_df['サロン名'] == dropdown3_value]
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-
-#     _df_salon = _df.copy()
-#     try:
-#         salon_mean = int(round(_df_salon.loc[
-#             ((_df_salon['カット選択']==1)&(_df_salon['カラー選択']==1)&(_df_salon['トリートメント選択']==0)&(_df_salon['パーマ選択']==0)&\
-#             (_df_salon['縮毛矯正選択']==0)&(_df_salon['その他選択']==0)&(_df_salon['ヘッドスパ選択']==0)&(_df_salon['ヘアセット選択']==0)&\
-#             (_df_salon['エクステ選択']==0)&(_df_salon['着付け選択']==0)&(_df_salon['メニュー無し選択']==0)&(_df_salon['支出金額']!=0)),
-#             ['支出金額']].mean()))
-#     except ValueError:
-#         salon_mean = 0
-    
-#     __df2 = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['単価(平均価格)'])
-#     __df2 = __df2.reset_index().rename(columns={'index':'算出レンジ'})
-
-#     xaxes_range_min = int(round(__df2['単価(平均価格)'].min()/2, -3))
-#     range_max = int(math.ceil(__df2['単価(平均価格)'].max()))
-#     xaxes_range_max = math.ceil(range_max/1000) * 1000 + 2000
-
-#     #１秒遅らせる処理を入れて原因不明のバグを修正
-#     time.sleep(1)
-#     figure=px.bar(data_frame=__df2,
-#                   y='算出レンジ',
-#                   x='単価(平均価格)',
-#                   color='算出レンジ',
-#                   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-#                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
-#                   text=[f'¥{text:,}' for text in __df2['単価(平均価格)']],
-#                   title=f'Cut & Color Unit Price',
-#                   height=290,
-#                   width=418,
-#                 )
-    
-                
-#     figure.update_traces(
-#         width=0.6,
-#         orientation='h',
-#         # texttemplate=,
-#         textposition='outside',
-#         textfont=dict(size=12),
-#         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
-#         marker=dict(
-#             line=dict(
-#             color='slategrey',
-#             width=1.5,
-#             )
-#         ),
-#         # showlegend=False
-#     )
-
-#     figure.update_layout(
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=8,
-#         plot_bgcolor='#f7fcf5',
-#         xaxis_showgrid=False,
-#         yaxis_showgrid=False,
-#         margin={'l':0, 'r':50, 't':40, 'b':20},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='算出範囲',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=1.5,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#             # tracegroupgap=1,
-#             # itemsizing='constant'
-#         ),   
-#     )
-
-#     figure.update_xaxes(
-#         # rangemode='tozero',
-#         tickformat=',',
-#         tickprefix='¥',
-#         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 2000),
-#         range=(xaxes_range_min,xaxes_range_max),
-#     )
-    
-#     figure.update_yaxes(
-#         title=''
-#     )    
-    
-#     return figure
-    
-
-
-# # 2行3列
-# @callback(
-#     Output('cut-and-colr-and-treatment-comparison', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-
-#     _df_prefecture = _df.copy()
-#     prefecture_mean = int(round(_df_prefecture.loc[
-#         ((_df_prefecture['カット選択']==1)&(_df_prefecture['カラー選択']==1)&(_df_prefecture['トリートメント選択']==1)&(_df_prefecture['パーマ選択']==0)&\
-#         (_df_prefecture['縮毛矯正選択']==0)&(_df_prefecture['その他選択']==0)&(_df_prefecture['ヘッドスパ選択']==0)&(_df_prefecture['ヘアセット選択']==0)&\
-#         (_df_prefecture['エクステ選択']==0)&(_df_prefecture['着付け選択']==0)&(_df_prefecture['メニュー無し選択']==0)&(_df_prefecture['支出金額']!=0)),
-#         ['支出金額']].mean()))
-
-#     _df = _df[_df['エリア'] == dropdown2_value]
-
-#     _df_area = _df.copy()
-#     area_mean = int(round(_df_area.loc[
-#         ((_df_area['カット選択']==1)&(_df_area['カラー選択']==1)&(_df_area['トリートメント選択']==1)&(_df_area['パーマ選択']==0)&\
-#         (_df_area['縮毛矯正選択']==0)&(_df_area['その他選択']==0)&(_df_area['ヘッドスパ選択']==0)&(_df_area['ヘアセット選択']==0)&\
-#         (_df_area['エクステ選択']==0)&(_df_area['着付け選択']==0)&(_df_area['メニュー無し選択']==0)&(_df_area['支出金額']!=0)),
-#         ['支出金額']].mean()))
-
-#     _df = _df[_df['サロン名'] == dropdown3_value]
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-
-#     _df_salon = _df.copy()
-#     try:
-#         salon_mean = int(round(_df_salon.loc[
-#             ((_df_salon['カット選択']==1)&(_df_salon['カラー選択']==1)&(_df_salon['トリートメント選択']==1)&(_df_salon['パーマ選択']==0)&\
-#             (_df_salon['縮毛矯正選択']==0)&(_df_salon['その他選択']==0)&(_df_salon['ヘッドスパ選択']==0)&(_df_salon['ヘアセット選択']==0)&\
-#             (_df_salon['エクステ選択']==0)&(_df_salon['着付け選択']==0)&(_df_salon['メニュー無し選択']==0)&(_df_salon['支出金額']!=0)),
-#             ['支出金額']].mean()))
-#     except ValueError:
-#         salon_mean = 0
-        
-#     __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['単価(平均価格)'])
-#     __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
-
-#     xaxes_range_min = int(round(__df['単価(平均価格)'].min()/2, -3))
-#     range_max = int(math.ceil(__df['単価(平均価格)'].max()))
-#     xaxes_range_max = math.ceil(range_max/1000) * 1000 + 2000
-
-#     figure=px.bar(data_frame=__df,
-#                   y='算出レンジ',
-#                   x='単価(平均価格)',
-#                   color='算出レンジ',
-#                   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-#                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
-#                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
-#                   title=f'Cut & Color & Treatment Unit Price',
-#                   height=290,
-#                   width=418,
-#                 )
+    figure=px.bar(data_frame=_df,
+                  y='ブランド',
+                  x='メニュー化成功率',
+                  color='ブランド',
+                #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
+                #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
+                  text=[f'{text:,}%' for text in _df["メニュー化成功率"]],
+                  color_discrete_sequence=plotly.colors.qualitative.Pastel2,
+                  title=f'Probability Of Potential Use',
+                  height=290,
+                #   width=418,
+                )
     
         
-#     figure.update_traces(
-#         width=0.6,
-#         orientation='h',
-#         # texttemplate=,
-#         textposition='outside',
-#         textfont=dict(size=12),
-#         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
-#         marker=dict(
-#             line=dict(
-#             color='slategrey',
-#             width=1.5,
-#             )
-#         ),
-#         # showlegend=False
-#     )
+    figure.update_traces(
+        width=0.6,
+        orientation='h',
+        # texttemplate=,
+        textposition='outside',
+        textfont=dict(size=12),
+        hovertemplate='ブランド名: %{y}<br>メニュー化成功率: %{x}%',
+        marker=dict(
+            line=dict(
+            color='slategrey',
+            width=1.5,
+            )
+        ),
+        # showlegend=False
+    )
 
-#     figure.update_layout(
-#         plot_bgcolor='#f7fcf5',
-#         xaxis_showgrid=False,
-#         yaxis_showgrid=False,
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=8,
-#         margin={'l':0, 'r':50, 't':40, 'b':20},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='算出範囲',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=1.5,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#             # tracegroupgap=1,
-#             # itemsizing='constant'
-#         ),   
-#     )
+    figure.update_layout(
+        # uniformtext_minsize=8,
+        plot_bgcolor='#f7fcf5',
+        xaxis_showgrid=False,
+        yaxis_showgrid=False,
+        uniformtext_mode='hide',
+        # margin={'l':10, 'r':50, 't':40, 'b':20},
+        margin={"l":30, "r":30, "t":50, "b":10},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=12,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='ブランド',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=1.5,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+            # tracegroupgap=1,
+            # itemsizing='constant'
+        ),   
+    )
 
-#     figure.update_xaxes(
-#         # rangemode='tozero',
-#         tickformat=',',
-#         tickprefix='¥',
-#         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 2000),
-#         range=(xaxes_range_min,xaxes_range_max),
-#     )
+    figure.update_xaxes(
+        # rangemode='tozero',
+        # tickformat=',',
+        # tickprefix='%',
+        ticksuffix='%',
+        tickvals=np.arange(xaxes_range_min, xaxes_range_max, 10),
+        range=(xaxes_range_min,xaxes_range_max)
+    )
     
-#     figure.update_yaxes(
-#         title=''
-#     )    
+    figure.update_yaxes(
+        title=''
+    )    
     
-#     return figure
+    return figure
+
+# 2行1列
+@callback(
+    Output("review_score_prediction", "figure"),
+    Input("AI_button", "n_clicks"),
+    [
+        # 県
+        State("AI_dropdown1", "value"),
+        # エリア
+        State("AI_dropdown2", "value"),
+        # セット面の数
+        State("AI_input1", "value"),
+        # ブログ投稿数
+        State("AI_input2", "value"),
+        # 口コミ数
+        State("AI_input3", "value"),
+        # スタッフ数
+        State("AI_input4", "value"),
+        # クーポン数
+        State("AI_input5", "value"),
+        # メニュー数
+        State("AI_input6", "value"),
+        # スタイル数
+        State("AI_input7", "value"),
+        # 駅徒歩
+        State("AI_input8", "value"),
+        # コメントへの返信率
+        State("AI_input9", "value"),
+        # イルミナメニュー化の有無
+        State("AI_dropdown3", "value"),
+        # addicthyメニュー化の有無
+        State("AI_dropdown4", "value"),
+        # inoaメニュー化の有無
+        State("AI_dropdown5", "value"),
+        # Aujuaメニュー化の有無
+        State("AI_dropdown6", "value"),
+    ],
+)
+def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
+                       AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
+                       AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
     
-# # 2行4列
-# @callback(
-#     Output('all-menu-comparison', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
+    _df = pd.DataFrame(data=[["県", "エリア", 0, 0.0, 0, 0, 0, 0, 0, 0, 0.0]],
+                    columns=["県", "エリア", "セット面の数", "ブログ投稿数", "口コミ数", "スタッフ数", "クーポン数", "メニュー数", "スタイル数", "駅徒歩", "コメントへの返信率"])
+    _df["県"] = AI_dropdown1_value
+    _df["エリア"] = AI_dropdown2_value
+    _df["セット面の数"] = AI_input1_value
+    _df["ブログ投稿数"] = AI_input2_value
+    _df["口コミ数"] = AI_input3_value
+    _df["スタッフ数"] = AI_input4_value
+    _df["クーポン数"] = AI_input5_value
+    _df["メニュー数"] = AI_input6_value
+    _df["スタイル数"] = AI_input7_value
+    _df["駅徒歩"] = AI_input8_value
+    _df["コメントへの返信率"] = AI_input9_value / 100
 
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
+    _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
+    _df["口コミ数"] = _df["口コミ数"].astype(int)
+    _df["スタイル数"] = _df["スタイル数"].astype(int)
+    
+    print(_df)
+    
+    _df["県"] = _df["県"].astype("category")
+    _df["エリア"] = _df["エリア"].astype("category")
 
-#     _df_prefecture = _df.copy()
-#     prefecture_mean = int(round(_df_prefecture.loc[_df_prefecture['支出金額']!=0, ['支出金額']].mean()))
+    
+    general_score = round(np.min([model.predict(_df) for model in general_review_models]), 2)
+    atmosphere_score = round(np.min([model.predict(_df) for model in atmosphere_models]), 2)
+    hospitality_score = round(np.min([model.predict(_df) for model in hospitality_models]), 2)
+    skills_and_completion_score = round(np.min([model.predict(_df) for model in skills_and_completion_models]), 2)
+    menu_and_price_score = round(np.min([model.predict(_df) for model in menu_and_price_models]), 2)
+    
+    _df = pd.DataFrame([general_score, atmosphere_score, hospitality_score, skills_and_completion_score, menu_and_price_score],
+                        index=['総合','雰囲気','接客サービス','技術・仕上がり', "メニュー・料金"], columns=["レビューの平均点"]).reset_index()
+    _df.rename(columns={"index": "レビュー項目"}, inplace=True)
 
-#     _df = _df[_df['エリア'] == dropdown2_value]
-
-#     _df_area = _df.copy()
-#     area_mean = int(round(_df_area.loc[_df_area['支出金額']!=0, ['支出金額']].mean()))
-
-#     _df = _df[_df['サロン名'] == dropdown3_value]
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-
-#     _df_salon = _df.copy()
-#     try:
-#         salon_mean = int(round(_df_salon.loc[_df_salon['支出金額']!=0, ['支出金額']].mean()))
-#     except ValueError:
-#         salon_mean = 0
+    xaxes_range_min = math.floor(_df["レビューの平均点"].min() - 1)
+    xaxes_range_max = 5
+    
+    figure=px.bar(data_frame=_df,
+                  y='レビュー項目',
+                  x='レビューの平均点',
+                  color='レビュー項目',
+                #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
+                #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
+                  text=[f'¥{text:,}' for text in _df['レビューの平均点']],
+                  color_discrete_sequence=plotly.colors.qualitative.Set3,
+                  title=f'Probability Of Potential Use',
+                  height=650,
+                #   width=418,
+                )
+    
         
-#     __df = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['単価(平均価格)'])
-#     __df = __df.reset_index().rename(columns={'index':'算出レンジ'})
+    figure.update_traces(
+        width=0.5,
+        orientation='h',
+        # texttemplate=,
+        textposition='outside',
+        textfont=dict(size=12),
+        hovertemplate='レビュー項目: %{y}<br>レビューの平均点: %{x}%',
+        marker=dict(
+            line=dict(
+            color='slategrey',
+            width=1.5,
+            )
+        ),
+        # showlegend=False
+    )
 
-#     xaxes_range_min = int(round(__df['単価(平均価格)'].min()/2, -3))
-#     range_max = int(math.ceil(__df['単価(平均価格)'].max()))
-#     xaxes_range_max = math.ceil(range_max/1000) * 1000 + 2000
+    figure.update_layout(
+        # uniformtext_minsize=8,
+        plot_bgcolor='#f7fcf5',
+        xaxis_showgrid=False,
+        yaxis_showgrid=False,
+        uniformtext_mode='hide',
+        # margin={'l':10, 'r':50, 't':40, 'b':20},
+        margin={"l":30, "r":30, "t":70, "b":10},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=12,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='ブランド',
+                       font=dict(family=default_font,
+                                 size=12),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=1.5,
+            font=dict(size=12,
+                      family=default_font,
+                      color='slategrey'),
+            # tracegroupgap=1,
+            # itemsizing='constant'
+        ),   
+    )
 
-#     figure=px.bar(data_frame=__df,
-#                   y='算出レンジ',
-#                   x='単価(平均価格)',
-#                   color='算出レンジ',
-#                   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-#                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
-#                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
-#                   title=f'All Menu Unit Price',
-#                   height=290,
-#                   width=418,
-#                 )
-                
-#     figure.update_traces(
-#         width=0.6,
-#         orientation='h',
-#         # texttemplate=,
-#         textposition='outside',
-#         textfont=dict(size=12),
-#         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
-#         marker=dict(
-#             line=dict(
-#             color='slategrey',
-#             width=1.5,
-#             )
-#         ),
-#         # showlegend=False
-#     )
+    figure.update_xaxes(
+        # rangemode='tozero',
+        # tickformat=',',
+        # tickprefix='%',
+        # ticksuffix='%',
+        tickvals=np.arange(xaxes_range_min, xaxes_range_max, 1),
+        range=(xaxes_range_min,xaxes_range_max)
+    )
+    
+    figure.update_yaxes(
+        title=''
+    )    
+    
+    return figure
 
-#     figure.update_layout(
-#         plot_bgcolor='#f7fcf5',
-#         xaxis_showgrid=False,
-#         yaxis_showgrid=False,        
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=8,
-#         margin={'l':0, 'r':50, 't':40, 'b':20},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='算出範囲',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=1.5,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#             # tracegroupgap=1,
-#             # itemsizing='constant'
-#         ),   
-#     )
+# 2行2列
+@callback(
+    Output("each_price_prediction", "figure"),
+    Input("AI_button", "n_clicks"),
+    [
+        # 県
+        State("AI_dropdown1", "value"),
+        # エリア
+        State("AI_dropdown2", "value"),
+        # セット面の数
+        State("AI_input1", "value"),
+        # ブログ投稿数
+        State("AI_input2", "value"),
+        # 口コミ数
+        State("AI_input3", "value"),
+        # スタッフ数
+        State("AI_input4", "value"),
+        # クーポン数
+        State("AI_input5", "value"),
+        # メニュー数
+        State("AI_input6", "value"),
+        # スタイル数
+        State("AI_input7", "value"),
+        # 駅徒歩
+        State("AI_input8", "value"),
+        # コメントへの返信率
+        State("AI_input9", "value"),
+        # イルミナメニュー化の有無
+        State("AI_dropdown3", "value"),
+        # addicthyメニュー化の有無
+        State("AI_dropdown4", "value"),
+        # inoaメニュー化の有無
+        State("AI_dropdown5", "value"),
+        # Aujuaメニュー化の有無
+        State("AI_dropdown6", "value"),
+    ],
+)
+def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value, 
+                       AI_input1_value, AI_input2_value, AI_input3_value, AI_input4_value, AI_input5_value, AI_input6_value, AI_input7_value, AI_input8_value, AI_input9_value,
+                       AI_dropdown3_value, AI_dropdown4_value, AI_dropdown5_value, AI_dropdown6_value):
+    
+    _df = pd.DataFrame(data=[["県", "エリア", 0, 0.0, 0, 0, 0, 0, 0, 0, 0.0]],
+                    columns=["県", "エリア", "セット面の数", "ブログ投稿数", "口コミ数", "スタッフ数", "クーポン数", "メニュー数", "スタイル数", "駅徒歩", "コメントへの返信率"])
+    _df["県"] = AI_dropdown1_value
+    _df["エリア"] = AI_dropdown2_value
+    _df["セット面の数"] = AI_input1_value
+    _df["ブログ投稿数"] = AI_input2_value
+    _df["口コミ数"] = AI_input3_value
+    _df["スタッフ数"] = AI_input4_value
+    _df["クーポン数"] = AI_input5_value
+    _df["メニュー数"] = AI_input6_value
+    _df["スタイル数"] = AI_input7_value
+    _df["駅徒歩"] = AI_input8_value
+    _df["コメントへの返信率"] = AI_input9_value / 100
+    _df["カット選択"] = 0
+    _df["カラー選択"] = 0
+    _df["トリートメント選択"] = 0
+    _df["パーマ選択"] = 0
+    _df["縮毛矯正選択"] = 0
+    _df["その他選択"] = 0
+    _df["ヘッドスパ選択"] = 0
+    _df['イルミナメニュー化の有無'] = AI_dropdown3_value
+    _df['Aujuaメニュー化の有無'] = AI_dropdown6_value
+    _df['addicthyメニュー化の有無'] = AI_dropdown4_value
+    _df['inoaメニュー化の有無'] = AI_dropdown5_value
+    
+    _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
+    _df["口コミ数"] = _df["口コミ数"].astype(int)
+    _df["スタイル数"] = _df["スタイル数"].astype(int)
+    
+    print(_df)
+    
+    _df["県"] = _df["県"].astype("category")
+    _df["エリア"] = _df["エリア"].astype("category")
+    
+    cut_df = _df.copy()
+    cut_df["カット選択"] = 1
+    
+    cut_treatment_df = _df.copy()
+    cut_treatment_df["カット選択"] = 1
+    cut_treatment_df["トリートメント選択"] = 1
+    
+    cut_color_df = _df.copy()
+    cut_color_df["カット選択"] = 1
+    cut_color_df["カラー選択"] = 1
+    
+    cut_color_treatment_df = _df.copy()
+    cut_color_treatment_df["カット選択"] = 1
+    cut_color_treatment_df["カラー選択"] = 1
+    cut_color_treatment_df["トリートメント選択"] = 1
+    
+    cut_pama_df = _df.copy()
+    cut_pama_df["カット選択"] = 1
+    cut_pama_df["パーマ選択"] = 1
+    
+    cut_pama_treatment_df = _df.copy()
+    cut_pama_treatment_df["カット選択"] = 1
+    cut_pama_treatment_df["パーマ選択"] = 1
+    cut_pama_treatment_df["トリートメント選択"] = 1
+    
+    cut_straight_df = _df.copy()
+    cut_straight_df["カット選択"] = 1
+    cut_straight_df["縮毛矯正選択"] = 1
+    
+    cut_straight_treatment_df = _df.copy()
+    cut_straight_treatment_df["カット選択"] = 1
+    cut_straight_treatment_df["縮毛矯正選択"] = 1
+    cut_straight_treatment_df["トリートメント選択"] = 1
+    
+    cut_color_pama_df = _df.copy()
+    cut_color_pama_df["カット選択"] = 1
+    cut_color_pama_df["カラー選択"] = 1
+    cut_color_pama_df["パーマ選択"] = 1
+    
+    cut_color_pama_treatment_df = _df.copy()
+    cut_color_pama_treatment_df["カット選択"] = 1
+    cut_color_pama_treatment_df["カラー選択"] = 1
+    cut_color_pama_treatment_df["パーマ選択"] = 1
+    cut_color_pama_treatment_df["トリートメント選択"] = 1
+    
+    cut_color_straight_df = _df.copy()
+    cut_color_straight_df["カット選択"] = 1
+    cut_color_straight_df["カラー選択"] = 1
+    cut_color_straight_df["縮毛矯正選択"] = 1
+    
+    cut_color_straight_treatment_df = _df.copy()
+    cut_color_straight_treatment_df["カット選択"] = 1
+    cut_color_straight_treatment_df["カラー選択"] = 1
+    cut_color_straight_treatment_df["縮毛矯正選択"] = 1
+    cut_color_straight_treatment_df["トリートメント選択"] = 1
+    
+    cut_score = int(round(np.mean([model.predict(cut_df) for model in payments_models]),-2))
+    cut_treatment_score = int(round(np.mean([model.predict(cut_treatment_df) for model in payments_models]),-2))
+    cut_color_score = int(round(np.mean([model.predict(cut_color_df) for model in payments_models]),-2))
+    cut_color_treatment_score = int(round(np.mean([model.predict(cut_color_treatment_df) for model in payments_models]),-2))
+    cut_pama_score = int(round(np.mean([model.predict(cut_pama_df) for model in payments_models]),-2))
+    cut_pama_treatment_score = int(round(np.mean([model.predict(cut_pama_treatment_df) for model in payments_models]),-2))
+    cut_straight_score = int(round(np.mean([model.predict(cut_straight_df) for model in payments_models]),-2))
+    cut_straight_treatment_score = int(round(np.mean([model.predict(cut_straight_treatment_df) for model in payments_models]),-2))
+    cut_color_pama_score = int(round(np.mean([model.predict(cut_color_pama_df) for model in payments_models]),-2))
+    cut_color_pama_treatment_score = int(round(np.mean([model.predict(cut_color_pama_treatment_df) for model in payments_models]),-2))
+    cut_color_straight_score = int(round(np.mean([model.predict(cut_color_straight_df) for model in payments_models]),-2))
+    cut_color_straight_treatment_score = int(round(np.mean([model.predict(cut_color_straight_treatment_df) for model in payments_models]),-2))
+    
+    _df = pd.DataFrame([cut_score, cut_treatment_score, cut_color_score, cut_color_treatment_score, cut_pama_score, cut_pama_treatment_score, cut_straight_score, 
+                        cut_straight_treatment_score, cut_color_pama_score, cut_color_pama_treatment_score, cut_color_straight_score, cut_color_straight_treatment_score],
+                        index=['カット','カット+Tr','カット+カラー','カット+カラー+Tr', "カット+パーマ", "カット+パーマ+Tr","カット+縮毛矯正","カット+縮毛矯正+Tr",
+                               "カット+カラー+パーマ","カット+カラー+パーマ+Tr","カット+カラー+縮毛矯正","カット+カラー+縮毛矯正+Tr"],
+                        columns=["レビューの平均点"]).reset_index()
+    _df.rename(columns={"index": "レビュー項目"}, inplace=True)
 
-#     figure.update_xaxes(
-#         # rangemode='tozero',
-#         tickformat=',',
-#         tickprefix='¥',
-#         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 2000),
-#         range=(xaxes_range_min,xaxes_range_max),
-#     )
+    xaxes_range_min = math.floor((_df["レビューの平均点"].min() - 1000)/1000)*1000
+    xaxes_range_max = round(_df["レビューの平均点"].max(), -3)+3000
+    print(_df)
+    figure=px.bar(data_frame=_df,
+                  y='レビュー項目',
+                  x='レビューの平均点',
+                  color='レビュー項目',
+                #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
+                #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
+                  text=[f'¥{text:,}' for text in _df['レビューの平均点']],
+                  color_discrete_sequence=plotly.colors.qualitative.Pastel2,
+                  title=f'Probability Of Potential Use',
+                  height=650,
+                #   width=418,
+                )
     
-#     figure.update_yaxes(
-#         title=''
-#     )    
-    
-#     return figure
-   
-# # 3行1列
-# @callback(
-#     Output('total_bill_boxplot', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-    
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
-    
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-    
-    
-#     _df = _df[['サロン名','年齢', '支出金額', '名前', 'メニューの種類', '性別', '職業', '投稿日時','総合','雰囲気','接客サービス',	'技術・仕上がり', 'メニュー・料金']][_df['支出金額']!=0]
-    
-#     figure = px.box(
-#         data_frame=_df,
-#         y="支出金額", 
-#         x="年齢",
-#         color="年齢",
-#         points="all",
-#         hover_data=_df.columns, title='Distribution of Payments by Age',
-#         color_discrete_sequence=plotly.colors.qualitative.T10,
-#         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
-#         height=400,
-#         width=852
-#         )
-
-#     figure.update_traces(
-#         # 箱ひげ図の太さを調整。
-#         width=0.4,
-#         marker=dict(
-#             line=dict(
-#                 color='grey',
-#                 width=1.0
-#             ),
-#             size=5,
-#             opacity=0.9
-#         ),
-#     )
-
-#     figure.update_yaxes(
-#         rangemode='tozero',
-#         tickformat=',',
-#         tickprefix='¥',
-#         tickvals=[0,2500,5000,7500,10000,12500,15000,17500,20000,25000,30000,40000,50000,60000]
-#     )
-
-#     figure.update_layout(
-#         plot_bgcolor='#f7fcf5',
-#         xaxis_showgrid=False,
-#         yaxis_showgrid=True,        
-#         uniformtext_mode='hide',
-#         uniformtext_minsize=10,
-#         margin={'l':30, 'r':30, 't':50, 'b':10},
-#         title={'font':{'size':20,
-#                        'color':'grey'},
-#                'x':0.5,
-#                'y':0.95,
-#                'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                   size=12,
-#                                 #   color="white"
-#                                   )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='年齢',
-#                        font=dict(family=default_font,
-#                                  size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=2,
-#             font=dict(size=12,
-#                       family=default_font,
-#                       color='slategrey'),
-#             # valign='top'
-#             # itemsizing='constant'
-#         ),
         
-#     )
-    
-#     return figure
+    figure.update_traces(
+        width=0.5,
+        orientation='h',
+        # texttemplate=,
+        textposition='outside',
+        textfont=dict(size=12),
+        hovertemplate='レビュー項目: %{y}<br>レビューの平均点: %{x}',
+        marker=dict(
+            line=dict(
+            color='slategrey',
+            width=1.5,
+            )
+        ),
+        # showlegend=False
+    )
 
-# # 3行2列
-# @callback(
-#     Output('coupon-ranking', 'figure'),
-#     Input('button', 'n_clicks'),
-#     [State('dropdown1', 'value'),
-#      State('dropdown2', 'value'),
-#      State('dropdown3', 'value'),
-#      State('checklist1', 'value')])
-# def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value, checklist1_value):
-    
-#     _df = df.copy()
-#     _df = _df[_df['県']==dropdown1_value]
-#     _df = _df[_df['エリア']==dropdown2_value]
-#     _df = _df[_df['サロン名']==dropdown3_value]
-    
-#     _df = _df[_df['性別'].isin(checklist1_value)]
-#     _df = _df[(_df['投稿日時'].str.startswith('2023'))|(_df['投稿日時'].str.startswith('2022'))]
-#     _df = _df.groupby(['選択されたクーポン']).count().reset_index().iloc[:,0:2]
-#     _df.rename(columns={'県':'顧客数'}, inplace=True)
-#     total_customer = _df['顧客数'].sum()
-#     _df['割合']=_df['顧客数'].apply(lambda x: f'{round((x/total_customer)*100, 2)}%')
-#     _df = _df.sort_values(by='顧客数', ascending=False).head(10).reset_index(drop=True)
-    
-#     ranking = []
-#     for i in range(len(_df)):
-#         ranking.append(f'{i+1}位')
-    
-#     _df.insert(0,'ランキング', ranking)
-    
-#     figure = go.Figure(
-#         data=go.Table(
-#             columnorder = [1,2,3,4],
-#             columnwidth = [60,400,50,50],
-#             header={'values':_df.columns,
-#                     'fill_color':'#fee391',
-#                     'line_color':'lightgrey',
-#                     'font_size':14,
-#                     'height':30,},
-#             cells={'values':[_df[col].tolist() for col in _df.columns],
-#                    'fill_color':'#ffffe5',
-#                    'line_color':'lightgrey',
-#                    'font_size':14,
-#                    'height':30,},
-#         ),
-#         layout=go.Layout(title='Coupon Ranking Table',
-#                          height=400,
-#                          width=852)
-#     )
-    
-#     figure.update_layout(
-#         # uniformtext_mode='hide',
-#         # uniformtext_minsize=10,
-#         margin={'l':30, 'r':30, 't':50, 'b':10},
-#         title={'font':{'size':20,
-#                         'color':'grey'},
-#                 'x':0.5,
-#                 'y':0.95,
-#                 'xanchor':'center'},
-#         font=dict(
-#             family=default_font,
-#             size=10,
-#         ),
-#         # hoverlabel: hoverdataの中の指定
-#         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-#                                     size=12,
-#                                 #   color="white"
-#                                     )
-#                         ),
-#         paper_bgcolor='lightcyan',
-#         # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-#         # autosize=True,
-#         legend=dict(
-#             title=dict(text='年齢',
-#                         font=dict(family=default_font,
-#                                     size=12),
-#             ),
-#             bgcolor='aliceblue',
-#             bordercolor='grey',
-#             #bordercolorを指定したらborderwidthも指定しないといけない。
-#             borderwidth=2,
-#             font=dict(size=12,
-#                         family=default_font,
-#                         color='slategrey'),
-#             # valign='top'
-#             # itemsizing='constant'
-#     ),
-    
-# )
+    figure.update_layout(
+        # uniformtext_minsize=8,
+        plot_bgcolor='#f7fcf5',
+        xaxis_showgrid=False,
+        yaxis_showgrid=False,
+        uniformtext_mode='hide',
+        # margin={'l':10, 'r':50, 't':40, 'b':20},
+        margin={"l":30, "r":30, "t":70, "b":10},
+        title={'font':{'size':20,
+                       'color':'grey'},
+               'x':0.5,
+               'y':0.95,
+               'xanchor':'center'},
+        font=dict(
+            family=default_font,
+            size=12,
+        ),
+        # hoverlabel: hoverdataの中の指定
+        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+                                  size=12,
+                                #   color="white"
+                                  )
+                        ),
+        paper_bgcolor='lightcyan',
+        # autosize=True,
+        legend=dict(
+            title=dict(text='ブランド',
+                       font=dict(family=default_font,
+                                 size=10),
+            ),
+            bgcolor='aliceblue',
+            bordercolor='grey',
+            #bordercolorを指定したらborderwidthも指定しないといけない。
+            borderwidth=1.5,
+            font=dict(size=10,
+                      family=default_font,
+                      color='slategrey'),
+            # tracegroupgap=1,
+            # itemsizing='constant'
+        ),   
+    )
 
-#     return figure
+    figure.update_xaxes(
+        # rangemode='tozero',
+        tickformat=',',
+        tickprefix='¥',
+        # ticksuffix='%',
+        tickvals=np.arange(xaxes_range_min, xaxes_range_max, 3000),
+        range=(xaxes_range_min,xaxes_range_max)
+    )
+    
+    figure.update_yaxes(
+        title=''
+    )    
+    
+    return figure
