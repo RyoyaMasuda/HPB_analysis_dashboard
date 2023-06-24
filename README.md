@@ -1,5 +1,26 @@
-# hot_pepper_beauty_review_analysis_dashboard
-ホットペッパービューティーの顧客分析ダッシュボード
+# ホットペッパービューティーの顧客分析ダッシュボード
+個人開発として取り組んだダッシュボード開発のソースコードを公開します。
 
-# Pythonのversion
-3.8.10
+# アプリのURL
+デプロイ完了次第記載する。
+
+# 開発環境
+- docker-compose
+- Nginx
+- uWSGI
+- pyenv
+- python3.8.10
+- jupyterlab
+- Dash
+- bootstrap4(dash_bootstrap_component)
+- Plotly
+- plotly express
+- pandas
+- numpy
+- scikit-learn
+- LightGBM
+- AWS VPC
+- AWS EC2
+- AWS Route53
+- AWS ALB
+- AWS S3
