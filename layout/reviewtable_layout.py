@@ -1,11 +1,7 @@
-import time
-import math
 import pandas as pd
 import numpy as np
-from dash import Dash, dcc, html, Input, Output, State, callback, dash_table
+from dash import dcc, html, Input, Output, State, callback, dash_table
 import dash_bootstrap_components as dbc
-import plotly
-import plotly.graph_objects as go
 import plotly.express as px
 
 default_font='Comic Sans Ms'
@@ -51,7 +47,6 @@ sidebar = html.Div(
                 ),
                 dcc.Dropdown(
                     id='table_dropdown2',
-                    # options = callbackで返ってくる。
                     style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     value='八丁堀・幟町・胡町',
@@ -67,11 +62,9 @@ sidebar = html.Div(
                 ),
                 dcc.Dropdown(
                     id='table_dropdown3',
-                    # options = callbackで返ってくる。
                     value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
                     style={'width':'300px', 'margin-bottom':'1px', 'fontSize':12},
                     clearable=True,
-                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
                     optionHeight=55,
                     className='text-dark'
                 ),
@@ -85,7 +78,6 @@ sidebar = html.Div(
                 ),
                 dcc.Checklist(
                     id='table_checklist1',
-                    # options = callbackで返ってくる。
                     value=['女性', '未設定', '男性'],
                     inline=True,
                     inputStyle={'margin':'8px'}
@@ -216,7 +208,6 @@ sidebar = html.Div(
                 html.Div(
                     [
                         html.Hr(),
-                        # html.Br(),
                         html.Div(
                             id='salon_url',
                         )
@@ -272,7 +263,6 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
                     className='bg-info',
                     style={'padding':'8px'}
                 ),
@@ -363,7 +353,6 @@ content = html.Div(
                                             ),
                                             html.Div(
                                                 id='review_table',
-                                                # children = dash_table(hogehoge) コールバックで返ってくる
                                                 style={'padding':'20px',
                                                        'color':'grey',
                                                        'backgroundColor':'lightcyan'}
@@ -574,14 +563,11 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-                                  size=12,
-                                #   color="white"
+                                  size=12, 
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='点数',
                        font=dict(family=default_font,
@@ -589,7 +575,6 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -656,14 +641,11 @@ def general_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value,
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-                                  size=12,
-                                #   color="white"
+                                  size=12,                      
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='点数',
                        font=dict(family=default_font,
@@ -671,13 +653,11 @@ def general_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value,
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
         ),
-        
     )
     
     return figure
@@ -738,14 +718,14 @@ def Hospitality_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_va
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+       
         legend=dict(
             title=dict(text='点数',
                        font=dict(family=default_font,
@@ -753,7 +733,7 @@ def Hospitality_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_va
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -820,14 +800,14 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+       
         legend=dict(
             title=dict(text='点数',
                        font=dict(family=default_font,
@@ -835,7 +815,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -902,14 +882,12 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='点数',
                        font=dict(family=default_font,
@@ -917,7 +895,6 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -966,11 +943,10 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
                                                 },
                                     style_table={
                                         # 'height':'700px',
-                                                #  'overflowY':'scroll',
-                                                #  'overflowX':'scroll',
+                                                
                                                  },
                                     fixed_rows={'headers':True},
-                                    # fixed_columns={'headers':True},
+                                    
                                     style_header={
                                         'backgroundColor': '#fee391',
                                                   'fontWeight': 'bold',
@@ -980,20 +956,11 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
                                                 'whiteSpace':'normal',
                                                 'minWidth':'120px',
                                                 'maxWidth':'500px'},
-                                    # export_format='csv'
-                                    # 縦スクロール時にヘッダーを固定
 
                                     )
     
     return children
-    
-    
 
- 
-                    # id='review_item_dropdown',
-                    #             id='review_points',
-                    #             id='review_point_range',    
-    
 # 2行1列 更新する
 @callback(
     Output('review_table', 'children', allow_duplicate=True),
@@ -1002,9 +969,9 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     State('table_dropdown2', 'value'),
     State('table_dropdown3', 'value'),
     State('table_checklist1', 'value'),
-    State('review_item_dropdown', 'value'), # 総合とか雰囲気とか
-    State('review_points', 'value'), # 54321
-    State('review_point_range', 'value'), # 以上、以下、のみ
+    State('review_item_dropdown', 'value'),
+    State('review_points', 'value'),
+    State('review_point_range', 'value'),
     ],
     prevent_initial_call='initial_duplicate'
 )
@@ -1042,15 +1009,12 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
                                         'color':'grey',
                                                 # 'height':'300px',
                                                 'textAlign':'left',
-                                                # 'backgroundColor': '#fee391'
                                                 },
                                     style_table={
                                         # 'height':'700px',
-                                                #  'overflowY':'scroll',
-                                                #  'overflowX':'scroll',
                                                  },
                                     fixed_rows={'headers':True},
-                                    # fixed_columns={'headers':True},
+                                    
                                     style_header={
                                         'backgroundColor': '#fee391',
                                                   'fontWeight': 'bold',
@@ -1060,9 +1024,6 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
                                                 'whiteSpace':'normal',
                                                 'minWidth':'120px',
                                                 'maxWidth':'500px'},
-                                    # export_format='csv'
-                                    # 縦スクロール時にヘッダーを固定
-
                                     )
     
     return children
@@ -1075,11 +1036,10 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     State('table_dropdown2', 'value'),
     State('table_dropdown3', 'value'),
     State('table_checklist1', 'value'),
-    State('review_item_dropdown', 'value'), # 総合とか雰囲気とか
-    State('review_points', 'value'), # 54321
-    State('review_point_range', 'value'), # 以上、以下、のみ
+    State('review_item_dropdown', 'value'),
+    State('review_points', 'value'),
+    State('review_point_range', 'value'),
     ],
-    # prevent_initial_call='initial_duplicate',
     prevent_initial_call=True,
 )
 def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, table_dropdown3_value, table_checklist1_value, 
@@ -1102,12 +1062,3 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     range={'only':'のみ', 'more_than':'以上', 'less_than':'以下'}
     
     return dcc.send_data_frame(_df.to_csv, f"{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv")
-# @callback(
-#     ,
-#     Input("button_csv", "n_clicks"),
-#     prevent_initial_call=True,
-# )
-# def func(n_clicks):
-#     return dcc.send_data_frame(df.to_csv, "mydf.csv")
-
-# 'download-dataframe-csv'

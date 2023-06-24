@@ -1,4 +1,4 @@
-from dash import Dash, dcc, html, Input, Output, State, callback
+from dash import dcc, html
 import dash_bootstrap_components as dbc
 
 nav_contens = [

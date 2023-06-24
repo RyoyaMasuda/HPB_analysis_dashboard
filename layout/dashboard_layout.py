@@ -2,7 +2,7 @@ import time
 import math
 import pandas as pd
 import numpy as np
-from dash import Dash, dcc, html, Input, Output, State, callback
+from dash import dcc, html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 import plotly
 import plotly.graph_objects as go
@@ -26,7 +26,6 @@ sidebar = html.Div(
                 html.P(
                     children='Select a prefecture',
                     style={'margin': '10px',
-                        #    'width':'175px',
                            'text-decoration':'underline',
                            'fontSize':18},
                     className='font-weight-bold'
@@ -60,32 +59,27 @@ sidebar = html.Div(
                 html.P(
                     children='Select a salon',
                     style={'margin': '10px',
-                        #    'width':'130px',
                            'text-decoration':'underline',
                            'fontSize':18},
                     className='font-weight-bold'
                 ),
                 dcc.Dropdown(
                     id='dropdown3',
-                    # options = callbackで返ってくる。
                     value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
                     style={'width':'300px', 'margin-bottom':'1px', 'fontSize':12},
                     clearable=True,
-                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
                     optionHeight=55,
                     className='text-dark'
                 ),
                 html.P(
                     children='Select gender',
                     style={'margin': '10px',
-                        #    'width':'130px',
                            'text-decoration':'underline',
                            'fontSize':18},
                     className='font-weight-bold'
                 ),
                 dcc.Checklist(
                     id='checklist1',
-                    # options = callbackで返ってくる。
                     value=['女性', '未設定', '男性'],
                     inline=True,
                     inputStyle={'margin':'8px'}
@@ -153,7 +147,6 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
                     className='bg-info',
                     style={'padding':'8px'}
                 ),
@@ -225,7 +218,6 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],                    
-                    # className='bg-info',
                     style={'padding':'8px'},
                     className='bg-info'
                 ),
@@ -295,7 +287,6 @@ content = html.Div(
                     className='bg-info'
                 )
             ],
-            # className='bg-secondary',
             style={'height':'30vh'}
         ),
         dbc.Row(
@@ -571,8 +562,6 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
-        # margin={'l':0, 'r':50, 't':40, 'b':20},
         margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -583,14 +572,11 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='性別',
                        font=dict(family=default_font,
@@ -598,13 +584,11 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
         ),
-        
     )
     
     return figure
@@ -636,7 +620,6 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
         title='Age Ratio',
         height=290,
         # width=418,
-        # color_discrete_map={'女性':'cornflowerblue','男性':'hotpink','未設定':'darkorange'},
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
     )
@@ -655,8 +638,6 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
-        # margin={'l':0, 'r':50, 't':40, 'b':20},
         margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -667,15 +648,11 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-        # autosize=True,
         legend=dict(
             title=dict(text='年齢',
                        font=dict(family=default_font,
@@ -683,16 +660,11 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # valign='top',
-            # ↓多分いらない。itemsizing=
-            # itemsizing='constant'
         ),
-        
     )
     
     return figure
@@ -745,8 +717,6 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
-        # margin={'l':0, 'r':50, 't':40, 'b':20},
         margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -757,14 +727,11 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='カラー選択の有無',
                        font=dict(family=default_font,
@@ -772,13 +739,11 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
         ),
-        
     )
     
     return figure
@@ -834,8 +799,6 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         yaxis_showgrid=False,
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
-        # margin={'l':0, 'r':50, 't':40, 'b':20},
         margin={'l':10, 'r':50, 't':50, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -846,14 +809,11 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='Tr選択の有無',
                        font=dict(family=default_font,
@@ -861,17 +821,14 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
         ),
-        
     )
     
     return figure
-
 
 # 2行1列
 @callback(
@@ -939,11 +896,9 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                 #   width=418,
                 )
     
-        
     figure.update_traces(
         width=0.6,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
@@ -953,11 +908,9 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
     figure.update_layout(
-        # uniformtext_minsize=8,
         plot_bgcolor='#f7fcf5',
         xaxis_showgrid=False,
         yaxis_showgrid=False,
@@ -972,14 +925,11 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='算出範囲',
                        font=dict(family=default_font,
@@ -987,18 +937,14 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
         tickformat=',',
         tickprefix='¥',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 1000),
@@ -1073,12 +1019,10 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
                   height=290,
                 #   width=418,
                 )
-    
                 
     figure.update_traces(
         width=0.6,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
@@ -1088,7 +1032,6 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
     figure.update_layout(
@@ -1107,14 +1050,11 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
-                                  )
+                            )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='算出範囲',
                        font=dict(family=default_font,
@@ -1122,18 +1062,14 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
         tickformat=',',
         tickprefix='¥',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 2000),
@@ -1145,8 +1081,6 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
     )    
     
     return figure
-    
-
 
 # 2行3列
 @callback(
@@ -1213,7 +1147,6 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
     figure.update_traces(
         width=0.6,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
@@ -1223,7 +1156,6 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
     figure.update_layout(
@@ -1242,14 +1174,14 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+        
         legend=dict(
             title=dict(text='算出範囲',
                        font=dict(family=default_font,
@@ -1257,18 +1189,16 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
+        
         tickformat=',',
         tickprefix='¥',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 2000),
@@ -1333,7 +1263,6 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
     figure.update_traces(
         width=0.6,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='単価(平均価格): ¥%{x:,}<br>算出レンジ: %{y}',
@@ -1343,7 +1272,6 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
     figure.update_layout(
@@ -1362,14 +1290,14 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+        
         legend=dict(
             title=dict(text='算出範囲',
                        font=dict(family=default_font,
@@ -1377,18 +1305,18 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
+            
+            
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
+        
         tickformat=',',
         tickprefix='¥',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 2000),
@@ -1435,7 +1363,6 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         )
 
     figure.update_traces(
-        # 箱ひげ図の太さを調整。
         width=0.4,
         marker=dict(
             line=dict(
@@ -1470,33 +1397,24 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-        # autosize=True,
         legend=dict(
             title=dict(text='年齢',
                        font=dict(family=default_font,
                                  size=12),
             ),
             bgcolor='aliceblue',
-            bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            bordercolor='grey',  
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
-                      color='slategrey'),
-            # valign='top'
-            # itemsizing='constant'
+                      color='slategrey'),  
         ),
-        
     )
-    
     return figure
 
 # 3行2列
@@ -1550,8 +1468,6 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
     )
     
     figure.update_layout(
-        # uniformtext_mode='hide',
-        # uniformtext_minsize=10,
         margin={'l':30, 'r':30, 't':50, 'b':10},
         title={'font':{'size':20,
                         'color':'grey'},
@@ -1561,16 +1477,12 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
         font=dict(
             family=default_font,
             size=10,
-        ),
-        # hoverlabel: hoverdataの中の指定
+        ),        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-                                    size=12,
-                                #   color="white"
+                                    size=12,                      
                                     )
                         ),
         paper_bgcolor='lightcyan',
-        # ユーザーによって未定義にされたレイアウトの幅や高さを、各リレーアウトで初期化するかどうかを決定します。この属性に関係なく、未定義のレイアウトの幅や高さは、plotの最初の呼び出しで常に初期化されることに注意してください。
-        # autosize=True,
         legend=dict(
             title=dict(text='年齢',
                         font=dict(family=default_font,
@@ -1578,15 +1490,11 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                         family=default_font,
                         color='slategrey'),
-            # valign='top'
-            # itemsizing='constant'
     ),
     
 )
-
     return figure

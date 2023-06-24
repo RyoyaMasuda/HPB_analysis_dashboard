@@ -3,10 +3,9 @@ import pickle
 import math
 import pandas as pd
 import numpy as np
-from dash import Dash, dcc, html, Input, Output, State, callback
+from dash import dcc, html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
 import plotly
-import plotly.graph_objects as go
 import plotly.express as px
 
 default_font="Comic Sans Ms"
@@ -98,7 +97,7 @@ sidebar = html.Div(
                 ),
                 dcc.Dropdown(
                     id="AI_dropdown2",
-                    # options = callbackで返ってくる。
+                    
                     style={"width":"300px",
                         #    "height":"5px",
                            "margin-bottom":"1px", "fontSize":15},
@@ -130,14 +129,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input1",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=3,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                         "margin-bottom":"1px",
                                         # "margin-left":"12px",
                                         "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     min=1,
@@ -160,14 +159,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input2",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=100,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                         "margin-bottom":"1px",
                                         # "margin-left":"12px",
                                         "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     type="text", inputmode="numeric", pattern="[0-9]{1,4}",
@@ -192,14 +191,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input3",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=150,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                         "margin-bottom":"1px",
                                         #    "margin-left":"12px",
                                         "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     type="text", inputmode="numeric", pattern="[0-9]{1,4}",
@@ -219,14 +218,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input4",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=4,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                         "margin-bottom":"1px",
                                         #    "margin-left":"12px",
                                         "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     min=1,
@@ -255,14 +254,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input5",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=20,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                             "margin-bottom":"1px",
                                             # "margin-left":"12px",
                                             "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     min=1,
@@ -286,14 +285,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input6",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=15,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                         "margin-bottom":"1px",
                                         # "margin-left":"12px",
                                         "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     min=1,
@@ -322,14 +321,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input7",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=100,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                             "margin-bottom":"1px",
                                             # "margin-left":"12px",
                                             "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     type="text", inputmode="numeric", pattern="[0-9]{1,4}",
@@ -350,14 +349,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input8",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=9,
                                     style={"width":"135px",
-                                        #    "height":"30px",
+                                        #  "height":"30px",
                                         "margin-bottom":"1px",
                                         # "margin-left":"12px",
                                         "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     min=1,
@@ -386,14 +385,14 @@ sidebar = html.Div(
                                 dbc.Input(
                                     id="AI_input9",
                                     placeholder="Select...",
-                                    # options = callbackで返ってくる。
+                                    
                                     value=70,
                                     style={"width":"135px",
                                         #    "height":"30px",
                                             "margin-bottom":"1px",
                                             # "margin-left":"12px",
                                             "fontSize":16},
-                                    # 各オプションの高さ。ラベルの長さが回り込むような場合は、大きくすることができます。
+                                    
                                     className="text-dark",
                                     size="sm",
                                     min=0,
@@ -586,7 +585,6 @@ content = html.Div(
                             color="#ffffb3",
                             className="bg-info"),
                     ],
-                    # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
                     className="bg-info",
                     style={"padding":"8px"}
                 ),
@@ -658,7 +656,6 @@ content = html.Div(
                             color="#ffffb3",
                             className="bg-info"),
                     ],                    
-                    # className="bg-info",
                     style={"padding":"8px"},
                     className="bg-info"
                 ),
@@ -784,7 +781,6 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     _df=pd.DataFrame(data=[["する", _score],
                            ["しない", 1-_score]],
                      columns=["カラー選択","選択割合"])
-    # _df["選択割合(%)"] = _df["選択割合"]*100
     
     figure = px.pie(data_frame=_df,
                     names="カラー選択",
@@ -822,14 +818,11 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor="lightcyan",
-        # autosize=True,
         legend=dict(
             title=dict(text="カラー選択",
                        font=dict(family=default_font,
@@ -837,7 +830,6 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             ),
             bgcolor="aliceblue",
             bordercolor="grey",
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -916,7 +908,6 @@ def treatment_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     _df=pd.DataFrame(data=[["する", _score],
                            ["しない", 1-_score]],
                      columns=["トリートメント選択","選択割合"])
-    # _df["選択割合(%)"] = _df["選択割合"]*100
     
     figure = px.pie(data_frame=_df,
                     names="トリートメント選択",
@@ -954,14 +945,14 @@ def treatment_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor="lightcyan",
-        # autosize=True,
+        
         legend=dict(
             title=dict(text="トリートメント選択",
                        font=dict(family=default_font,
@@ -969,7 +960,7 @@ def treatment_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             ),
             bgcolor="aliceblue",
             bordercolor="grey",
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -1048,7 +1039,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     _df=pd.DataFrame(data=[["する", _score],
                            ["しない", 1-_score]],
                      columns=["パーマ選択","選択割合"])
-    # _df["選択割合(%)"] = _df["選択割合"]*100
     figure = px.pie(data_frame=_df,
                     names="パーマ選択",
                     values="選択割合",
@@ -1085,14 +1075,11 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
-                                  size=12,
-                                #   color="white"
+                                  size=12,                      
                                   )
                         ),
         paper_bgcolor="lightcyan",
-        # autosize=True,
         legend=dict(
             title=dict(text="パーマ選択",
                        font=dict(family=default_font,
@@ -1100,13 +1087,11 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             ),
             bgcolor="aliceblue",
             bordercolor="grey",
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
                       color="slategrey"),
         ),
-        
     )
     
     return figure
@@ -1182,12 +1167,9 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     addicthy_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in addicthy_classification_models]), 2)
     inoa_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in inoa_classification_models]), 2)
     aujua_proba = round(np.max([model.predict_proba(_df)[:, 1]*100 for model in aujua_classification_models]), 2)
-    
-    
-    
+
     _df = pd.DataFrame([illumina_proba, addicthy_proba, inoa_proba, aujua_proba], index=['Illumina','Addicthy','Inoa','Aujua'], columns=["メニュー化成功率"]).reset_index()
     _df.rename(columns={"index": "ブランド"}, inplace=True)
-    print(_df)
     
     xaxes_range_min = 0
     xaxes_range_max = _df['メニュー化成功率'].max() + 10
@@ -1196,8 +1178,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   y='ブランド',
                   x='メニュー化成功率',
                   color='ブランド',
-                #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-                #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'{text:,}%' for text in _df["メニュー化成功率"]],
                   color_discrete_sequence=plotly.colors.qualitative.Pastel2,
                   title=f'Probability Of Potential Utilizing',
@@ -1209,7 +1189,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     figure.update_traces(
         width=0.6,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='ブランド名: %{y}<br>メニュー化成功率: %{x}%',
@@ -1219,16 +1198,13 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
     figure.update_layout(
-        # uniformtext_minsize=8,
         plot_bgcolor='#f7fcf5',
         xaxis_showgrid=False,
         yaxis_showgrid=False,
         uniformtext_mode='hide',
-        # margin={'l':10, 'r':50, 't':40, 'b':20},
         margin={"l":30, "r":30, "t":50, "b":10},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -1239,14 +1215,12 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             family=default_font,
             size=12,
         ),
-        # hoverlabel: hoverdataの中の指定
+
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='ブランド',
                        font=dict(family=default_font,
@@ -1254,20 +1228,14 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=1.5,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
-        # tickformat=',',
-        # tickprefix='%',
         ticksuffix='%',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 10),
         range=(xaxes_range_min,xaxes_range_max)
@@ -1361,8 +1329,6 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   y='レビュー項目',
                   x='レビューの平均点',
                   color='レビュー項目',
-                #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-                #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'{text:,}' for text in _df['レビューの平均点']],
                   color_discrete_sequence=plotly.colors.qualitative.Set3,
                   title=f'Prediction Of Each Review Score',
@@ -1374,7 +1340,6 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     figure.update_traces(
         width=0.5,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='レビュー項目: %{y}<br>レビューの平均点: %{x}',
@@ -1384,16 +1349,14 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
-    figure.update_layout(
-        # uniformtext_minsize=8,
+    figure.update_layout(   
         plot_bgcolor='#f7fcf5',
         xaxis_showgrid=False,
         yaxis_showgrid=False,
         uniformtext_mode='hide',
-        # margin={'l':10, 'r':50, 't':40, 'b':20},
+        
         margin={"l":30, "r":30, "t":70, "b":10},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -1404,14 +1367,11 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             family=default_font,
             size=12,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='レビュー項目',
                        font=dict(family=default_font,
@@ -1419,21 +1379,14 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=1.5,
             font=dict(size=12,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
-        # tickformat=',',
-        # tickprefix='%',
-        # ticksuffix='%',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 1),
         range=(xaxes_range_min,xaxes_range_max)
     )
@@ -1602,8 +1555,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   y='メニュー',
                   x='支出金額',
                   color='メニュー',
-                #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
-                #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in _df['支出金額']],
                   color_discrete_sequence=plotly.colors.qualitative.Pastel2,
                   title=f'Prediction Of Each Menu Payments',
@@ -1615,7 +1566,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     figure.update_traces(
         width=0.5,
         orientation='h',
-        # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
         hovertemplate='メニュー: %{y}<br>支出金額: %{x}',
@@ -1625,16 +1575,15 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             width=1.5,
             )
         ),
-        # showlegend=False
     )
 
     figure.update_layout(
-        # uniformtext_minsize=8,
+        
         plot_bgcolor='#f7fcf5',
         xaxis_showgrid=False,
         yaxis_showgrid=False,
         uniformtext_mode='hide',
-        # margin={'l':10, 'r':50, 't':40, 'b':20},
+        
         margin={"l":30, "r":30, "t":70, "b":10},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -1645,14 +1594,12 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             family=default_font,
             size=12,
         ),
-        # hoverlabel: hoverdataの中の指定
+
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='メニュー',
                        font=dict(family=default_font,
@@ -1660,21 +1607,16 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=1.5,
             font=dict(size=10,
                       family=default_font,
                       color='slategrey'),
-            # tracegroupgap=1,
-            # itemsizing='constant'
         ),   
     )
 
     figure.update_xaxes(
-        # rangemode='tozero',
         tickformat=',',
         tickprefix='¥',
-        # ticksuffix='%',
         tickvals=np.arange(xaxes_range_min, xaxes_range_max, 3000),
         range=(xaxes_range_min,xaxes_range_max)
     )

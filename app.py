@@ -1,14 +1,7 @@
-import math
-import pandas as pd
-import numpy as np
-from dash import Dash, dcc, html, Input, Output, State, callback
+from dash import Dash, html, Input, Output
 import dash_bootstrap_components as dbc
-import plotly
-import plotly.graph_objects as go
-import plotly.express as px
-
 from navber import navber
-from layout import dashboard_layout, salonmap_layout, reviewtable_layout, potentialAI_layout
+from layout import dashboard_layout, salonmap_layout, reviewtable_layout, potentialAI_layout, home_layout
 
 default_font='Comic Sans Ms'
 
@@ -27,17 +20,10 @@ app.layout = dbc.Container(
         ),
         html.Div(
             id='layout',
-            # children=update_page()の返り値
         )
     ],
     fluid=True
 )
-
-home_layout = [
-    html.Div(
-        children='aaa'
-    )
-]
 
 @app.callback(
     [Output('layout', 'children')],
@@ -45,7 +31,7 @@ home_layout = [
 )
 def update_page(href):
     if href == '/':
-        return home_layout
+        return home_layout.home_layout
     if href == '/analysis_dashboard':
         return dashboard_layout.dashboard_layout
     if href == '/salon_map':

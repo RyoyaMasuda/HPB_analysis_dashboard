@@ -1,14 +1,8 @@
 import time
-import math
 import pandas as pd
-import numpy as np
-from dash import Dash, dcc, html, Input, Output, State, callback
+from dash import dcc, html, Input, Output, State, callback
 import dash_bootstrap_components as dbc
-import plotly
-import plotly.graph_objects as go
 import plotly.express as px
-
-# px.set_mapbox_access_token(open(".mapbox_token").read())
 
 default_font='Comic Sans Ms'
 
@@ -170,7 +164,6 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    # 画面のワイドの設定はcol-**で設定した方がいい。横が12だからcol−６で半分
                     className='bg-info',
                     style={'padding':'8px'}
                 ),
@@ -329,7 +322,6 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
         margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -340,14 +332,14 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+        
         legend=dict(
             title=dict(text='対象ブランド',
                        font=dict(family=default_font,
@@ -355,7 +347,7 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -418,7 +410,6 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
         margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -429,14 +420,14 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+        
         legend=dict(
             title=dict(text='対象ブランド',
                        font=dict(family=default_font,
@@ -444,7 +435,7 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -507,7 +498,6 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
         margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -518,14 +508,14 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
+        
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
+                                
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
+        
         legend=dict(
             title=dict(text='対象ブランド',
                        font=dict(family=default_font,
@@ -533,7 +523,7 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -599,7 +589,6 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     figure.update_layout(
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':50, 'b':10},
         margin={'l':10, 'r':50, 't':40, 'b':20},
         title={'font':{'size':20,
                        'color':'grey'},
@@ -610,14 +599,11 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             family=default_font,
             size=10,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=12,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text='対象ブランド',
                        font=dict(family=default_font,
@@ -625,7 +611,6 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=12,
                       family=default_font,
@@ -662,8 +647,6 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     elif multi_dropdown2_value == []:
         pass
     
-
-    
     _df.loc[_df['イルミナメニュー化の有無']==0, 'イルミナメニュー化の有無'] = '不活性or未導入'
     _df.loc[_df['イルミナメニュー化の有無']==1, 'イルミナメニュー化の有無'] = 'メニュー化'
 
@@ -699,7 +682,6 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         mapbox_style="open-street-map",
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':30, 'r':30, 't':80, 'b':10},
         margin={'l':10, 'r':50, 't':80, 'b':20},
         title={'font':{'size':26,
                        'color':'grey'},
@@ -710,22 +692,18 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             family=default_font,
             size=14,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=16,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text=f'対象ブランド: {brand_name}',
                        font=dict(family=default_font,
                                  size=16),
             ),
             bgcolor='aliceblue',
-            bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
+            bordercolor='grey',  
             borderwidth=2,
             font=dict(size=16,
                       family=default_font,
@@ -794,7 +772,6 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
         mapbox_style="open-street-map",
         uniformtext_mode='hide',
         uniformtext_minsize=10,
-        # margin={'l':10, 'r':50, 't':40, 'b':20},
         margin={'l':10, 'r':50, 't':80, 'b':20},
         title={'font':{'size':26,
                        'color':'grey'},
@@ -805,14 +782,11 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
             family=default_font,
             size=14,
         ),
-        # hoverlabel: hoverdataの中の指定
         hoverlabel=dict(font=dict(family="Comic Sans Ms",
                                   size=16,
-                                #   color="white"
                                   )
                         ),
         paper_bgcolor='lightcyan',
-        # autosize=True,
         legend=dict(
             title=dict(text=f'対象ブランド: {brand_name}',
                        font=dict(family=default_font,
@@ -820,7 +794,6 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
             ),
             bgcolor='aliceblue',
             bordercolor='grey',
-            #bordercolorを指定したらborderwidthも指定しないといけない。
             borderwidth=2,
             font=dict(size=16,
                       family=default_font,
