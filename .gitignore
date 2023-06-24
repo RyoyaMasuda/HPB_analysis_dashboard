@@ -1,0 +1,7 @@
+.env/
+.ipynb_checkpoints/
+__pycache__/
+/layout/__pycache__
+trash/
+data/
+data_for_revise/

@@ -1,4 +1,4 @@
-from dash import Dash, dcc, html, Input, Output, State, callback
+from dash import dcc, html
 import dash_bootstrap_components as dbc
 
 nav_contens = [
@@ -7,31 +7,50 @@ nav_contens = [
             id='home',
             children='Home',
             href='/',
-            external_link=True
+            external_link=True,
+            style={'fontSize':18,},
+            active='exact'
         )
     ),
     dbc.NavItem(
         dbc.NavLink(
-            id='dashboard',
-            children='Dashboard',
-            href='/',
-            external_link=True
+            id='analysis_dashboard',
+            children='AnalysisDashboard',
+            href='/analysis_dashboard',
+            external_link=True,
+            style={'fontSize':18,},
+            active='partial'
+            
         )
     ),
     dbc.NavItem(
         dbc.NavLink(
-            id='map',
-            children='Map',
-            href='/',
-            external_link=True
+            id='salon_map',
+            children='SalonMap',
+            href='/salon_map',
+            external_link=True,
+            style={'fontSize':18,},
+            active='partial'
         )
     ),
     dbc.NavItem(
         dbc.NavLink(
-            id='hoge',
-            children='hoge',
-            href='/',
-            external_link=True
+            id='review_table',
+            children='ReviewTable',
+            href='/review_table',
+            external_link=True,
+            style={'fontSize':18,},
+            active='partial'
+        )
+    ),
+    dbc.NavItem(
+        dbc.NavLink(
+            id='potential_analysis',
+            children='PotentialAnalysis(AI)',
+            href='/potential_analysis',
+            external_link=True,
+            style={'fontSize':18,},
+            active='partial'
         )
     )
 ]
@@ -54,8 +73,8 @@ navber = dbc.NavbarSimple(
         ],
         brand='Hot Pepper Beauty Review Analysis Dashboard',
         brand_href='/',
-        brand_style={'fontSize':20, 'font-family':'Comic Sans Ms'},
+        brand_style={'fontSize':30, 'font-family':'Comic Sans Ms'},
         className='bg-dark font-weight-bold text-warning',
         dark=True,
-        fluid=True
+        fluid=True,
 )
