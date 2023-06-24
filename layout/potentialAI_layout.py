@@ -1351,7 +1351,6 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
         xaxis_showgrid=False,
         yaxis_showgrid=False,
         uniformtext_mode='hide',
-        
         margin={"l":30, "r":30, "t":70, "b":10},
         title={'font':{'size':20,
                        'color':'grey'},

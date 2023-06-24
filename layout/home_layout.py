@@ -10,7 +10,8 @@ home_layout = [
             dbc.Col(
                 [
                     html.Div(
-                        [   
+                        [  
+                            html.Br(),
                             html.H2('ヘアサロン業界の営業支援アプリ(ダッシュボード)の開発'),
                             html.H3('自己紹介',
                                     style={'text-decoration':'underline',}),
@@ -38,7 +39,7 @@ home_layout = [
                             html.Span('また指定した条件で絞り込んだ口コミをcsvファイルでダウンロードできます。'),html.Br(),html.Br(),
                             html.H5('4.サロンポテンシャル分析(PotentialAnalysis)',
                                     style={'text-decoration':'underline',}),
-                            html.Span('AI(Microsoftが開発したLightGBMを採用)を用いて未知のサロン(これから出店するサロン)が持つポテンシャルを予測します。'),html.Br(),
+                            html.Span('AIを用いて未知のサロン(これから出店するサロン)が持つポテンシャルを予測します。(Microsoftが開発したLightGBMを採用しています。)'),html.Br(),
                             html.Span('既存顧客のサロンのポテンシャルを再分析し、現状と比較することもできます。'),html.Br(),
                             html.Span('※AIの精度は100%ではありませんので日々の営業活動の参考程度にとどめていただけますと幸いです。'),html.Br(),html.Br(),
                             html.H3('画面設定',
@@ -49,9 +50,11 @@ home_layout = [
                                     style={'text-decoration':'underline',}),
                             html.Span('GitHubにてソースコードを公開しています。→'),
                             html.A('RyoyaMasuda/HPB_analysis_dashboard', href='https://github.com/RyoyaMasuda/HPB_analysis_dashboard/', target='_blank'),
-                        ]
+                        ],
+                        style={'fontSize':18}
                     )        
-                ]
+                ],
+                
             ),
             dbc.Col(
                 width=3,
