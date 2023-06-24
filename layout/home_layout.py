@@ -6,7 +6,6 @@ home_layout = [
         [
             dbc.Col(
                 width=3,
-                className='bg-light'
             ),
             dbc.Col(
                 [
@@ -50,7 +49,6 @@ home_layout = [
             ),
             dbc.Col(
                 width=3,
-                className='bg-light'
             )
         ],
         style={'height':'100vh'}
