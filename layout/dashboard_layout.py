@@ -10,7 +10,7 @@ import plotly.express as px
 
 default_font='Comic Sans Ms'
 
-df = pd.read_csv('./data_for_revise/dashboard_and_table/dataframe_for_dashboard_and_table.csv', low_memory=False)
+df = pd.read_csv('./data/dashboard_and_table/dataframe_for_dashboard_and_table.csv', low_memory=False)
 
 sidebar = html.Div(
     [

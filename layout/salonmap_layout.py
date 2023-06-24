@@ -6,7 +6,7 @@ import plotly.express as px
 
 default_font='Comic Sans Ms'
 
-df = pd.read_csv('./data_for_revise/map/dataframe_for_map.csv', low_memory=False)
+df = pd.read_csv('./data/map/dataframe_for_map.csv', low_memory=False)
 
 
 sidebar = html.Div(

@@ -10,8 +10,7 @@ import plotly.express as px
 
 default_font="Comic Sans Ms"
 
-df = pd.read_csv("./data_for_revise/prediction/payments/dataset_for_payments.csv", low_memory=False)
-print(df.columns)
+df = pd.read_csv("./data/prediction/payments/dataset_for_payments.csv", low_memory=False)
 
 # 各モデルを全て読み込んでおく。
 # カラー比率
@@ -1154,9 +1153,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
     _df["口コミ数"] = _df["口コミ数"].astype(int)
     _df["スタイル数"] = _df["スタイル数"].astype(int)
-    
-    print(_df)
-    
+
     _df["県"] = _df["県"].astype("category")
     _df["エリア"] = _df["エリア"].astype("category")
 
@@ -1305,8 +1302,6 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     _df["ブログ投稿数"] = _df["ブログ投稿数"].astype(int)
     _df["口コミ数"] = _df["口コミ数"].astype(int)
     _df["スタイル数"] = _df["スタイル数"].astype(int)
-    
-    print(_df)
     
     _df["県"] = _df["県"].astype("category")
     _df["エリア"] = _df["エリア"].astype("category")
@@ -1467,8 +1462,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
     _df["口コミ数"] = _df["口コミ数"].astype(int)
     _df["スタイル数"] = _df["スタイル数"].astype(int)
     
-    print(_df)
-    
     _df["県"] = _df["県"].astype("category")
     _df["エリア"] = _df["エリア"].astype("category")
     
@@ -1550,7 +1543,6 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
 
     xaxes_range_min = math.floor((_df["支出金額"].min() - 1000)/1000)*1000
     xaxes_range_max = round(_df["支出金額"].max(), -3)+3000
-    print(_df)
     figure=px.bar(data_frame=_df,
                   y='メニュー',
                   x='支出金額',
