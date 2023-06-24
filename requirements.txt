@@ -1,3 +1,4 @@
+# pythonのバージョンは3.8.10(ubuntu20.04標準)
 anyio==3.7.0
 appnope==0.1.3
 argon2-cffi==21.3.0
