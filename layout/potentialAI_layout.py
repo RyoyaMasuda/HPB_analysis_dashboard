@@ -785,11 +785,6 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                            ["しない", 1-_score]],
                      columns=["カラー選択","選択割合"])
     # _df["選択割合(%)"] = _df["選択割合"]*100
-    figure = px.pie(data_frame=_df,
-                    names="カラー選択",
-                    values="選択割合",
-                    color="カラー選択",
-                    )
     
     figure = px.pie(data_frame=_df,
                     names="カラー選択",
@@ -811,7 +806,7 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                 width=2.0
             )
         ),
-        hovertemplate="カラー選択: %{label}<br>選択割合: %{percent}}",
+        hovertemplate="カラー選択: %{label}<br>選択割合: %{percent}",
     )
     
     figure.update_layout(
@@ -943,7 +938,7 @@ def treatment_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                 width=2.0
             )
         ),
-        hovertemplate="トリートメント選択: %{label}<br>選択割合: %{percent}}",
+        hovertemplate="トリートメント選択: %{label}<br>選択割合: %{percent}",
     )
     
     figure.update_layout(
@@ -1058,7 +1053,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                     names="パーマ選択",
                     values="選択割合",
                     color="パーマ選択",
-                    title=f"Potential Treatment Ratio",
+                    title=f"Potential Perm Ratio",
                     height=290,
                     # width=418,
                     color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
@@ -1074,7 +1069,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                 width=2.0
             )
         ),
-        hovertemplate="パーマ選択: %{label}<br>選択割合: %{percent}}",
+        hovertemplate="パーマ選択: %{label}<br>選択割合: %{percent}",
     )
     
     figure.update_layout(
@@ -1205,7 +1200,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                 #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'{text:,}%' for text in _df["メニュー化成功率"]],
                   color_discrete_sequence=plotly.colors.qualitative.Pastel2,
-                  title=f'Probability Of Potential Use',
+                  title=f'Probability Of Potential Utilizing',
                   height=290,
                 #   width=418,
                 )
@@ -1368,9 +1363,9 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   color='レビュー項目',
                 #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
                 #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
-                  text=[f'¥{text:,}' for text in _df['レビューの平均点']],
+                  text=[f'{text:,}' for text in _df['レビューの平均点']],
                   color_discrete_sequence=plotly.colors.qualitative.Set3,
-                  title=f'Probability Of Potential Use',
+                  title=f'Prediction Of Each Review Score',
                   height=650,
                 #   width=418,
                 )
@@ -1382,7 +1377,7 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
         # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
-        hovertemplate='レビュー項目: %{y}<br>レビューの平均点: %{x}%',
+        hovertemplate='レビュー項目: %{y}<br>レビューの平均点: %{x}',
         marker=dict(
             line=dict(
             color='slategrey',
@@ -1418,7 +1413,7 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
         paper_bgcolor='lightcyan',
         # autosize=True,
         legend=dict(
-            title=dict(text='ブランド',
+            title=dict(text='レビュー項目',
                        font=dict(family=default_font,
                                  size=12),
             ),
@@ -1597,21 +1592,21 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                         cut_straight_treatment_score, cut_color_pama_score, cut_color_pama_treatment_score, cut_color_straight_score, cut_color_straight_treatment_score],
                         index=['カット','カット+Tr','カット+カラー','カット+カラー+Tr', "カット+パーマ", "カット+パーマ+Tr","カット+縮毛矯正","カット+縮毛矯正+Tr",
                                "カット+カラー+パーマ","カット+カラー+パーマ+Tr","カット+カラー+縮毛矯正","カット+カラー+縮毛矯正+Tr"],
-                        columns=["レビューの平均点"]).reset_index()
-    _df.rename(columns={"index": "レビュー項目"}, inplace=True)
+                        columns=["支出金額"]).reset_index()
+    _df.rename(columns={"index": "メニュー"}, inplace=True)
 
-    xaxes_range_min = math.floor((_df["レビューの平均点"].min() - 1000)/1000)*1000
-    xaxes_range_max = round(_df["レビューの平均点"].max(), -3)+3000
+    xaxes_range_min = math.floor((_df["支出金額"].min() - 1000)/1000)*1000
+    xaxes_range_max = round(_df["支出金額"].max(), -3)+3000
     print(_df)
     figure=px.bar(data_frame=_df,
-                  y='レビュー項目',
-                  x='レビューの平均点',
-                  color='レビュー項目',
+                  y='メニュー',
+                  x='支出金額',
+                  color='メニュー',
                 #   color_discrete_map={'サロン':'#8dd3c7','エリア':'#ffffb3','県':'#fdb462'},
                 #   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
-                  text=[f'¥{text:,}' for text in _df['レビューの平均点']],
+                  text=[f'¥{text:,}' for text in _df['支出金額']],
                   color_discrete_sequence=plotly.colors.qualitative.Pastel2,
-                  title=f'Probability Of Potential Use',
+                  title=f'Prediction Of Each Menu Payments',
                   height=650,
                 #   width=418,
                 )
@@ -1623,7 +1618,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
         # texttemplate=,
         textposition='outside',
         textfont=dict(size=12),
-        hovertemplate='レビュー項目: %{y}<br>レビューの平均点: %{x}',
+        hovertemplate='メニュー: %{y}<br>支出金額: %{x}',
         marker=dict(
             line=dict(
             color='slategrey',
@@ -1659,7 +1654,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
         paper_bgcolor='lightcyan',
         # autosize=True,
         legend=dict(
-            title=dict(text='ブランド',
+            title=dict(text='メニュー',
                        font=dict(family=default_font,
                                  size=10),
             ),

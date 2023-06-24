@@ -59,7 +59,7 @@ sidebar = html.Div(
                     id='multi_dropdown2',
                     options = [{'label':x, 'value':x} for x in df['県'].unique()],
                     style={'width':'300px',
-                           'height': '300px',
+                           'height': '400px',
                            'margin-bottom':'1px',
                            'fontSize':15},
                     clearable=True,
@@ -688,7 +688,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=710
+                                height=720
 
     )
     figure.update_traces(
@@ -784,7 +784,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=710
+                                height=720
 
     )
     figure.update_traces(
