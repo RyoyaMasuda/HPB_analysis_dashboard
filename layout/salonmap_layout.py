@@ -671,7 +671,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=720
+                                height=710
 
     )
     figure.update_traces(
@@ -762,7 +762,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=720
+                                height=710
 
     )
     figure.update_traces(

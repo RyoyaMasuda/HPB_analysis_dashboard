@@ -45,4 +45,4 @@ def update_page(href):
         return potentialAI_layout.potensialAI_layout
     
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True, port=8049)

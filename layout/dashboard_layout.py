@@ -874,7 +874,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             salon_mean = int(_df['カット料金'].unique()[0])
         except Exception:
             salon_mean = 0
-        
+    time.sleep(1)
     __df1 = pd.DataFrame(data=[salon_mean, area_mean, prefecture_mean], index=['サロン', 'エリア', '県'], columns=['単価(平均価格)'])
     __df1 = __df1.reset_index().rename(columns={'index':'算出レンジ'})
 
@@ -1358,7 +1358,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         hover_data=_df.columns, title='Distribution of Payments by Age',
         color_discrete_sequence=plotly.colors.qualitative.T10,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
-        height=400,
+        height=390,
         # width=852
         )
 
@@ -1462,7 +1462,7 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
                    'height':30,},
         ),
         layout=go.Layout(title='Coupon Ranking Table',
-                         height=400,
+                         height=390,
                         #  width=852
                     )
     )

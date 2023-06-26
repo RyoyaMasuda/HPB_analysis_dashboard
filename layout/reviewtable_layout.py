@@ -360,7 +360,7 @@ content = html.Div(
                                             
                                             ],
                                         style={'backgroundColor':'lightcyan',
-                                               'height':'720px'}
+                                               'height':'700px'}
                                     ),
                             ],
                             style={"margin": "10%",
@@ -534,7 +534,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         color='点数',
         title=f'General Score Ratio',
         height=290,
-        width=335,
+        # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
     )
@@ -612,7 +612,7 @@ def general_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value,
         color='点数',
         title=f'Atomosphere Score Ratio',
         height=290,
-        width=335,
+        # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
     )
@@ -689,7 +689,7 @@ def Hospitality_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_va
         color='点数',
         title=f'Hospitality Score Ratio',
         height=290,
-        width=335,
+        # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
     )
@@ -771,7 +771,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         color='点数',
         title=f'Hairdresser Skills & Quality Ratio',
         height=290,
-        width=335,
+        # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
     )
@@ -853,7 +853,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         color='点数',
         title=f'Menu & Price Score Ratio',
         height=290,
-        width=335,
+        # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
     )
