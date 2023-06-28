@@ -37,11 +37,12 @@ home_layout = [
                             html.Span('指定したサロンの口コミ点数の割合と口コミ情報を表示できます。'),
                             html.Span('表示する口コミは点数の条件を指定することができます。'),html.Br(),
                             html.Span('また指定した条件で絞り込んだ口コミをcsvファイルでダウンロードできます。'),html.Br(),html.Br(),
-                            html.H5('4.サロンポテンシャル分析(PotentialAnalysis)',
+                            html.H5('4.サロンポテンシャル分析(PotentialAnalysis)[現在非公開]',
                                     style={'text-decoration':'underline',}),
                             html.Span('AIを用いて未知のサロン(これから出店するサロン)が持つポテンシャルを予測します。(Microsoftが開発したLightGBMを採用しています。)'),html.Br(),
                             html.Span('既存顧客のサロンのポテンシャルを再分析し、現状と比較することもできます。'),html.Br(),
-                            html.Span('※AIの精度は100%ではありませんので日々の営業活動の参考程度にとどめていただけますと幸いです。'),html.Br(),html.Br(),
+                            html.Span('※AIの精度は100%ではありませんので日々の営業活動の参考程度にとどめていただけますと幸いです。'),html.Br(),
+                            html.Span('(サーバスペック上の問題で現在非公開とさせていただいています。ご使用されたい場合は個別にお問い合わせください。)'),html.Br(),html.Br(),
                             html.H3('画面設定',
                                     style={'text-decoration':'underline',}),
                             html.Span('画面サイズ100%, 解像度1920×1080, ブラウザの倍率:80%~90%に設定の上ご使用ください。'),html.Br(),
@@ -51,7 +52,7 @@ home_layout = [
                             html.Span('GitHubにてソースコードを公開しています。→'),
                             html.A('RyoyaMasuda/HPB_analysis_dashboard', href='https://github.com/RyoyaMasuda/HPB_analysis_dashboard/', target='_blank'),
                         ],
-                        style={'fontSize':18}
+                        style={'fontSize':16}
                     )        
                 ],
                 

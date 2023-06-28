@@ -2,18 +2,18 @@ from flask import Flask
 from dash import Dash, html, Input, Output
 import dash_bootstrap_components as dbc
 from navber import navber
-from layout import dashboard_layout, salonmap_layout, reviewtable_layout, potentialAI_layout, home_layout
+from layout import dashboard_layout, salonmap_layout, reviewtable_layout, potentialAI_layout, home_layout, contact_layout
 
 default_font='Comic Sans Ms'
 
-server = Flask(__name__)
 app = Dash(__name__,
            suppress_callback_exceptions=True,
            prevent_initial_callbacks='initial_duplicate',
            external_stylesheets=[dbc.themes.DARKLY],
            update_title=None,
-           server=server
            )
+server = app.server
+
 app.title = "Hot Pepper Beauty Review Analysis Dashboard"
 
 app.layout = dbc.Container(
@@ -43,6 +43,10 @@ def update_page(href):
         return reviewtable_layout.reviewtable_layout
     if href == '/potential_analysis':
         return potentialAI_layout.potensialAI_layout
+    if href=='/contact':
+        return contact_layout.contact_layout
     
 if __name__ == '__main__':
-    app.run(debug=True, port=8049)
+    app.run(debug=True,
+            #  host='0.0.0.0',
+               port=8050)

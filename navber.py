@@ -50,7 +50,18 @@ nav_contens = [
             href='/potential_analysis',
             external_link=True,
             style={'fontSize':18,},
-            active='partial'
+            active='partial',
+            disabled=True,
+        )
+    ),
+    dbc.NavItem(
+        dbc.NavLink(
+            id='contact',
+            children='Contact',
+            href='/contact',
+            external_link=True,
+            style={'fontSize':18,},
+            active='partial',
         )
     )
 ]
