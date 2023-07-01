@@ -109,7 +109,7 @@ content = html.Div(
             [   # 1行1列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-1",
+                        dcc.Loading(id='loading_1-1',
                             children=[
                                     html.Div(
                                         [
@@ -119,7 +119,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -131,7 +131,7 @@ content = html.Div(
                 # 1行2列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-2",
+                        dcc.Loading(id='loading_1-2',
                             children=[
                                     html.Div(
                                         [
@@ -141,7 +141,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -153,7 +153,7 @@ content = html.Div(
                 # 1行3列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-3",
+                        dcc.Loading(id='loading_1-3',
                             children=[
                                     html.Div(
                                         [
@@ -163,7 +163,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -175,7 +175,7 @@ content = html.Div(
                 # 1行4列
                 dbc.Col(  
                     [   
-                        dcc.Loading(id="loading_1-4",
+                        dcc.Loading(id='loading_1-4',
                             children=[
                                     html.Div(
                                         [
@@ -185,7 +185,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -202,7 +202,7 @@ content = html.Div(
             [   # 2行1列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_2-1",
+                        dcc.Loading(id='loading_2-1',
                             children=[
                                     html.Div(
                                         [
@@ -212,7 +212,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -224,7 +224,7 @@ content = html.Div(
                 # 2行2列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_2-2",
+                        dcc.Loading(id='loading_2-2',
                             children=[
                                     html.Div(
                                         [
@@ -234,7 +234,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -246,7 +246,7 @@ content = html.Div(
                 # 2行3列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_2-3",
+                        dcc.Loading(id='loading_2-3',
                             children=[
                                     html.Div(
                                         [
@@ -256,7 +256,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -268,7 +268,7 @@ content = html.Div(
                 # 2行4列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_2-4",
+                        dcc.Loading(id='loading_2-4',
                             children=[
                                     html.Div(
                                         [
@@ -278,7 +278,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",},
+                            style={'margin': '10%',},
                             type='dot',
                             color='#ffffb3',
                             className='bg-info'),
@@ -293,7 +293,7 @@ content = html.Div(
             [   #3行1列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_3-1",
+                        dcc.Loading(id='loading_3-1',
                             children=[
                                     html.Div(
                                         [
@@ -303,7 +303,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -314,7 +314,7 @@ content = html.Div(
                     ),
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_3-1",
+                        dcc.Loading(id='loading_3-1',
                             children=[
                                     html.Div(
                                         [
@@ -324,7 +324,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -509,7 +509,7 @@ def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
                                         ),
                                     ]
                                 ),
-                            width={"size": 6, "offset": 3},
+                            width={'size': 6, 'offset': 3},
                         )
                     ),
                 ]
@@ -572,7 +572,7 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -648,7 +648,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -727,7 +727,7 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -809,7 +809,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -925,7 +925,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -1050,7 +1050,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                             )
                         ),
@@ -1175,7 +1175,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -1291,7 +1291,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -1351,10 +1351,10 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
     
     figure = px.box(
         data_frame=_df,
-        y="支出金額", 
-        x="年齢",
-        color="年齢",
-        points="all",
+        y='支出金額', 
+        x='年齢',
+        color='年齢',
+        points='all',
         hover_data=_df.columns, title='Distribution of Payments by Age',
         color_discrete_sequence=plotly.colors.qualitative.T10,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
@@ -1397,7 +1397,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -1478,7 +1478,7 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
             family=default_font,
             size=10,
         ),        
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                     size=12,                      
                                     )
                         ),

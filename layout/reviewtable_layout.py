@@ -225,7 +225,7 @@ content = html.Div(
             [   # 1行1列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-1",
+                        dcc.Loading(id='loading_1-1',
                             children=[
                                     html.Div(
                                         [
@@ -235,7 +235,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -247,7 +247,7 @@ content = html.Div(
                 # 1行2列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-2",
+                        dcc.Loading(id='loading_1-2',
                             children=[
                                     html.Div(
                                         [
@@ -257,7 +257,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -269,7 +269,7 @@ content = html.Div(
                 # 1行3列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-3",
+                        dcc.Loading(id='loading_1-3',
                             children=[
                                     html.Div(
                                         [
@@ -279,7 +279,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -291,7 +291,7 @@ content = html.Div(
                 # 1行4列
                 dbc.Col(  
                     [   
-                        dcc.Loading(id="loading_1-4",
+                        dcc.Loading(id='loading_1-4',
                             children=[
                                     html.Div(
                                         [
@@ -301,7 +301,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -313,7 +313,7 @@ content = html.Div(
                 # 1行5列
                 dbc.Col(  
                     [   
-                        dcc.Loading(id="loading_1-4",
+                        dcc.Loading(id='loading_1-4',
                             children=[
                                     html.Div(
                                         [
@@ -323,7 +323,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -338,7 +338,7 @@ content = html.Div(
         ),
         dbc.Row(
             [   
-                dcc.Loading(id="loading_2-1",
+                dcc.Loading(id='loading_2-1',
                             children=[
                                     html.Div(
                                         children=[
@@ -363,7 +363,7 @@ content = html.Div(
                                                'height':'700px'}
                                     ),
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -499,7 +499,7 @@ def salon_url(n_clicks, table_dropdown1_value, table_dropdown2_value, tabledropd
                                     ),
                                 ]
                             ),
-                        width={"size": 6, "offset": 3},
+                        width={'size': 6, 'offset': 3},
                     ),
                     style={'margin-top':'15px'}
                 ),
@@ -563,7 +563,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12, 
                                   )
                         ),
@@ -641,7 +641,7 @@ def general_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value,
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,                      
                                   )
                         ),
@@ -719,7 +719,7 @@ def Hospitality_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_va
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -801,7 +801,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -882,7 +882,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -1030,8 +1030,8 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
 
 # 2行1列のデータフレームをダウンロードする。
 @callback(
-    Output("download-dataframe-csv", "data"),
-    Input("button_csv", "n_clicks"),
+    Output('download-dataframe-csv', 'data'),
+    Input('button_csv', 'n_clicks'),
     [State('table_dropdown1', 'value'),
     State('table_dropdown2', 'value'),
     State('table_dropdown3', 'value'),
@@ -1061,4 +1061,4 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     
     range={'only':'のみ', 'more_than':'以上', 'less_than':'以下'}
     
-    return dcc.send_data_frame(_df.to_csv, f"{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv")
+    return dcc.send_data_frame(_df.to_csv, f'{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv')

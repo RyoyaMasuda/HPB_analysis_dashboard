@@ -126,7 +126,7 @@ content = html.Div(
             [   # 1行1列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-1",
+                        dcc.Loading(id='loading_1-1',
                             children=[
                                     html.Div(
                                         [
@@ -136,7 +136,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -148,7 +148,7 @@ content = html.Div(
                 # 1行2列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-2",
+                        dcc.Loading(id='loading_1-2',
                             children=[
                                     html.Div(
                                         [
@@ -158,7 +158,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -170,7 +170,7 @@ content = html.Div(
                 # 1行3列
                 dbc.Col(
                     [   
-                        dcc.Loading(id="loading_1-3",
+                        dcc.Loading(id='loading_1-3',
                             children=[
                                     html.Div(
                                         [
@@ -180,7 +180,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -192,7 +192,7 @@ content = html.Div(
                 # 1行4列
                 dbc.Col(  
                     [   
-                        dcc.Loading(id="loading_1-4",
+                        dcc.Loading(id='loading_1-4',
                             children=[
                                     html.Div(
                                         [
@@ -202,7 +202,7 @@ content = html.Div(
                                         ]
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -217,7 +217,7 @@ content = html.Div(
         ),
         dbc.Row(
             [   
-                dcc.Loading(id="loading_2-1",
+                dcc.Loading(id='loading_2-1',
                             children=[
                                     html.Div(
                                         [
@@ -227,7 +227,7 @@ content = html.Div(
                                         ] 
                                     )
                             ],
-                            style={"margin": "10%",
+                            style={'margin': '10%',
                                     },
                             type='dot',
                             color='#ffffb3',
@@ -333,7 +333,7 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -421,7 +421,7 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -509,7 +509,7 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             size=10,
         ),
         
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                 
                                   )
@@ -599,7 +599,7 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             family=default_font,
             size=10,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=12,
                                   )
                         ),
@@ -652,8 +652,8 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
 
     figure = px.scatter_mapbox(_df,
                                title='Map of Salons (Selected brands are being activated.)',
-                                lat="緯度",
-                                lon="経度",
+                                lat='緯度',
+                                lon='経度',
                                 color='イルミナメニュー化の有無',
                                 size_max=15,
                                 zoom=12,
@@ -679,7 +679,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
     )
     
     figure.update_layout(
-        mapbox_style="open-street-map",
+        mapbox_style='open-street-map',
         uniformtext_mode='hide',
         uniformtext_minsize=10,
         margin={'l':10, 'r':50, 't':80, 'b':20},
@@ -692,7 +692,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
             family=default_font,
             size=14,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=16,
                                   )
                         ),
@@ -743,8 +743,8 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
 
     figure = px.scatter_mapbox(_df,
                                title='Map of Salons (Selected brands are being activated.)',
-                                lat="緯度",
-                                lon="経度",
+                                lat='緯度',
+                                lon='経度',
                                 color=selected_brand,
                                 size_max=15,
                                 zoom=12,
@@ -769,7 +769,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
         marker=dict(size=16,)
     )
     figure.update_layout(
-        mapbox_style="open-street-map",
+        mapbox_style='open-street-map',
         uniformtext_mode='hide',
         uniformtext_minsize=10,
         margin={'l':10, 'r':50, 't':80, 'b':20},
@@ -782,7 +782,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
             family=default_font,
             size=14,
         ),
-        hoverlabel=dict(font=dict(family="Comic Sans Ms",
+        hoverlabel=dict(font=dict(family='Comic Sans Ms',
                                   size=16,
                                   )
                         ),
