@@ -35,7 +35,7 @@ sidebar = html.Div(
                     ],
                     value='広島',
                     style={'width':'15vw',
-                           'height': '20vh',
+                           'height': '15vh',
                            'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     multi=True,
