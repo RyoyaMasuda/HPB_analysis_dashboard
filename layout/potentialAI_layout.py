@@ -80,7 +80,7 @@ sidebar = html.Div(
                         {'label':x, 'value':x} for x in df['県'].unique()
                     ],
                     value='広島',
-                    style={'width':'300px',
+                    style={'width':'15vw',
                         #    'height':'20px',
                            'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
@@ -97,7 +97,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='AI_dropdown2',
                     
-                    style={'width':'300px',
+                    style={'width':'15vw',
                         #    'height':'5px',
                            'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
@@ -130,7 +130,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=3,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                         'margin-bottom':'1px',
                                         # 'margin-left':'12px',
@@ -160,7 +160,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=100,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                         'margin-bottom':'1px',
                                         # 'margin-left':'12px',
@@ -192,7 +192,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=150,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                         'margin-bottom':'1px',
                                         #    'margin-left':'12px',
@@ -219,7 +219,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=4,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                         'margin-bottom':'1px',
                                         #    'margin-left':'12px',
@@ -255,7 +255,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=20,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                             'margin-bottom':'1px',
                                             # 'margin-left':'12px',
@@ -286,7 +286,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=15,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                         'margin-bottom':'1px',
                                         # 'margin-left':'12px',
@@ -322,7 +322,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=100,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                             'margin-bottom':'1px',
                                             # 'margin-left':'12px',
@@ -350,7 +350,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=9,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #  'height':'30px',
                                         'margin-bottom':'1px',
                                         # 'margin-left':'12px',
@@ -386,7 +386,7 @@ sidebar = html.Div(
                                     placeholder='Select...',
                                     
                                     value=70,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         #    'height':'30px',
                                             'margin-bottom':'1px',
                                             # 'margin-left':'12px',
@@ -432,7 +432,7 @@ sidebar = html.Div(
                                         {'label':'無', 'value':0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         'margin-bottom':'1px',
                                         'fontSize':14},
                                     clearable=False,
@@ -457,9 +457,9 @@ sidebar = html.Div(
                                         {'label':'無', 'value':0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         'margin-bottom':'1px',
-                                        'fontSize':14},
+                                        'fontSize':12},
                                     clearable=False,
                                     className='text-dark',
                                 ),
@@ -478,7 +478,7 @@ sidebar = html.Div(
                                         'margin': '10px',
                                         #    'width':'130px',
                                         'text-decoration':'underline',
-                                        'fontSize':16},
+                                        'fontSize':14},
                                     className='font-weight-bold'
                                 ),
                                 dcc.Dropdown(
@@ -488,7 +488,7 @@ sidebar = html.Div(
                                         {'label':'無', 'value':0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         'margin-bottom':'1px',
                                         'fontSize':14},
                                     clearable=False,
@@ -503,7 +503,7 @@ sidebar = html.Div(
                                     style={'margin': '10px',
                                         #    'width':'130px',
                                         'text-decoration':'underline',
-                                        'fontSize':16},
+                                        'fontSize':14},
                                     className='font-weight-bold'
                                 ),
                                 dcc.Dropdown(
@@ -513,7 +513,7 @@ sidebar = html.Div(
                                         {'label':'無', 'value':0},
                                     ],
                                     value=0,
-                                    style={'width':'135px',
+                                    style={'width':'6vw',
                                         'margin-bottom':'1px',
                                         'fontSize':14},
                                     clearable=False,
@@ -552,6 +552,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='AI-color-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -562,7 +563,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                 ],
-                className='bg-info',
+                className='bg-info col-3',
                 style={'padding':'8px'}
                 ),
                 # 1行2列
@@ -574,6 +575,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='AI_treatment-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -584,7 +586,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 ),
                 # 1行3列
@@ -596,6 +598,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='AI-pama-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -606,7 +609,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 ),
                 # 1行4列
@@ -618,6 +621,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='brand-target',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -628,7 +632,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],                                          
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 )
             ],
@@ -645,6 +649,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='review_score_prediction',
+                                            style={'height':'68vh'}
                                             ), 
                                         ]
                                     )
@@ -656,7 +661,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                    
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-6'
                 ),
                 # 2行2列
                 dbc.Col(
@@ -667,6 +672,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='each_price_prediction',
+                                            style={'height':'68vh'}
                                             ), 
                                         ]
                                     )
@@ -678,11 +684,11 @@ content = html.Div(
                             className='bg-info'),
                     ],
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-6'
                     ),
             ],
             className='bg-info',
-            style={'height':'40vh'}
+            style={'height':'70vh'}
         )   
     ]
 )
@@ -786,7 +792,7 @@ def color_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                     values='選択割合',
                     color='カラー選択',
                     title=f'Potential Color Ratio',
-                    height=290,
+                    # height=290,
                     # width=418,
                     color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
                     category_orders={'カラー選択':['する','しない']}
@@ -913,7 +919,7 @@ def treatment_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                     values='選択割合',
                     color='トリートメント選択',
                     title=f'Potential Treatment Ratio',
-                    height=290,
+                    # height=290,
                     # width=418,
                     color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
                     category_orders={'トリートメント選択':['する','しない']}
@@ -1043,7 +1049,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                     values='選択割合',
                     color='パーマ選択',
                     title=f'Potential Perm Ratio',
-                    height=290,
+                    # height=290,
                     # width=418,
                     color_discrete_map={'する':'#fccde5','しない':'#b3de69'},
                     category_orders={'パーマ選択':['する','しない']}
@@ -1178,7 +1184,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   text=[f'{text:,}%' for text in _df['メニュー化成功率']],
                   color_discrete_sequence=plotly.colors.qualitative.Pastel2,
                   title=f'Probability Of Potential Utilizing',
-                  height=290,
+                #   height=290,
                 #   width=418,
                 )
     
@@ -1327,7 +1333,7 @@ def review_score_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   text=[f'{text:,}' for text in _df['レビューの平均点']],
                   color_discrete_sequence=plotly.colors.qualitative.Set3,
                   title=f'Prediction Of Each Review Score',
-                  height=650,
+                #   height=650,
                 #   width=418,
                 )
     
@@ -1549,7 +1555,7 @@ def pama_ratio_figure(n_clicks, AI_dropdown1_value, AI_dropdown2_value,
                   text=[f'¥{text:,}' for text in _df['支出金額']],
                   color_discrete_sequence=plotly.colors.qualitative.Pastel2,
                   title=f'Prediction Of Each Menu Payments',
-                  height=650,
+                #   height=650,
                 #   width=418,
                 )
     

@@ -24,7 +24,7 @@ home_layout = [
                             html.Span('※今回公開しているのは中国四国エリアのみとなります。その他エリアに関しては順次公開していきます。'),html.Br(),html.Br(),
                             html.H3('画面設定',
                                     style={'text-decoration':'underline',}),
-                            html.Span('画面サイズ100%, 解像度1920×1080, ブラウザの倍率:80%~90%に設定の上ご使用ください。'),html.Br(),
+                            html.Span('画面サイズ100%, 解像度1920×1080, ブラウザの倍率:75%~90%に設定の上ご使用ください。'),html.Br(),
                             html.Span('※設定条件次第で画面が崩れる可能性があります。上記を目安に適宜調整いただけますと幸いです。'),html.Br(),html.Br(),
                             html.H3('機能紹介',
                                     style={'text-decoration':'underline',}),
@@ -58,7 +58,7 @@ home_layout = [
                 
             ),
             dbc.Col(
-                width=3,
+                width=2,
             )
         ],
         style={'height':'100vh'}

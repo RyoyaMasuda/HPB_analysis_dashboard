@@ -36,7 +36,7 @@ sidebar = html.Div(
                         {'label':x, 'value':x} for x in df['県'].unique()
                     ],
                     value='広島',
-                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
+                    style={'width':'15vw', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     className='text-dark'
                 ),
@@ -51,7 +51,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='dropdown2',
                     # options = callbackで返ってくる。
-                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
+                    style={'width':'15vw', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     value='八丁堀・幟町・胡町',
                     className='text-dark',
@@ -66,7 +66,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='dropdown3',
                     value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
-                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':12},
+                    style={'width':'15vw', 'margin-bottom':'1px', 'fontSize':12},
                     clearable=True,
                     optionHeight=55,
                     className='text-dark'
@@ -100,7 +100,7 @@ sidebar = html.Div(
             ]
         ),
     ],
-    style={'font-family': default_font}
+    style={'font-family': default_font,}
 )
 
 content = html.Div(
@@ -115,6 +115,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='gender-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -125,7 +126,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                 ],
-                className='bg-info',
+                className='bg-info col-3',
                 style={'padding':'8px'}
                 ),
                 # 1行2列
@@ -137,6 +138,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='age-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -147,7 +149,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 ),
                 # 1行3列
@@ -159,6 +161,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='hair-color-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -169,7 +172,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 ),
                 # 1行4列
@@ -181,6 +184,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='treatment-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -191,7 +195,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],                                          
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 )
             ],
@@ -208,6 +212,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='cut-only-comparison',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -219,7 +224,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                    
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-3'
                 ),
                 # 2行2列
                 dbc.Col(
@@ -230,6 +235,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='cut-and-colr-comparison',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -241,7 +247,7 @@ content = html.Div(
                             className='bg-info'),
                     ],
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-3'
                     ),
                 # 2行3列
                 dbc.Col(
@@ -252,6 +258,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='cut-and-colr-and-treatment-comparison',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -263,7 +270,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                    
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-3'
                 ),
                 # 2行4列
                 dbc.Col(
@@ -274,6 +281,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='all-menu-comparison',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -284,7 +292,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                       
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-3'
                 )
             ],
             style={'height':'30vh'}
@@ -299,6 +307,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='total_bill_boxplot',
+                                            style={'height':'38vh'}
                                             ), 
                                         ]
                                     )
@@ -310,7 +319,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                    
                     style={'padding':'8px'},
-                    className='bg-info'
+                    className='bg-info col-6'
                     ),
                 dbc.Col(
                     [   
@@ -320,6 +329,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='coupon-ranking',
+                                            style={'height':'38vh'}
                                             ), 
                                         ]
                                     )
@@ -331,7 +341,7 @@ content = html.Div(
                             className='bg-info'),
                     ],
                     style={'padding':'8px'},
-                    className='light'
+                    className='light col-6'
                     ),
             ],
             className='bg-info',
@@ -504,6 +514,7 @@ def salon_infomation(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
                                             href=link,
                                             target='_blank',
                                             style={'text-decoration':'underline',
+                                                   'textAlign':'center',
                                                     'margin':'5px'
                                             },
                                         ),
@@ -543,7 +554,7 @@ def gender_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_va
         values='客数(口コミ数)',
         color='性別',
         title=f'Gender Ratio',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'女性':'skyblue','男性':'peachpuff','未設定':'palegreen'},
     )
@@ -618,7 +629,7 @@ def age_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_value
         values='客数(口コミ数)',
         color='年齢',
         title='Age Ratio',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_sequence=plotly.colors.qualitative.Set3,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']}
@@ -697,7 +708,7 @@ def hair_color_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
         values='客数(口コミ数)',
         color='カラー選択',
         title=f'Percentage Of Color Selected',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'カラー実施':'#fccde5','カラー未実施':'#b3de69'},
         category_orders={'カラー選択':['カラー実施', 'カラー未実施']}
@@ -776,7 +787,7 @@ def treatment_ratio_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3
         values='客数(口コミ数)',
         color='トリートメント選択',
         title=f'Percentage Of Treatment Selected',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'Tr実施':'#fccde5','Tr未実施':'#b3de69'},
         category_orders={'トリートメント選択':['Tr実施', 'Tr未実施']}
@@ -892,7 +903,7 @@ def cut_only_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df1['単価(平均価格)']],
                   title=f'Cut Unit Price',
-                  height=290,
+                #   height=290,
                 #   width=418,
                 )
     
@@ -1016,7 +1027,7 @@ def cut_and_color_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dro
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df2['単価(平均価格)']],
                   title=f'Cut & Color Unit Price',
-                  height=290,
+                #   height=290,
                 #   width=418,
                 )
                 
@@ -1139,7 +1150,7 @@ def cut_and_color_and_treatment_compare_figure(n_clicks, dropdown1_value, dropdo
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'Cut & Color & Treatment Unit Price',
-                  height=290,
+                #   height=290,
                 #   width=418,
                 )
     
@@ -1256,7 +1267,7 @@ def all_menu_compare_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown
                   category_orders={'算出レンジ':['サロン', 'エリア', '県']},
                   text=[f'¥{text:,}' for text in __df['単価(平均価格)']],
                   title=f'All Menu Unit Price',
-                  height=290,
+                #   height=290,
                 #   width=418,
                 )
                 
@@ -1358,7 +1369,7 @@ def total_bill_box_figure(n_clicks, dropdown1_value, dropdown2_value, dropdown3_
         hover_data=_df.columns, title='Distribution of Payments by Age',
         color_discrete_sequence=plotly.colors.qualitative.T10,
         category_orders={'年齢':['～10代前半', '10代後半', '20代前半', '20代後半', '30代前半', '30代後半', '40代', '50代', '60代', '70代～', '未設定']},
-        height=390,
+        # height=390,
         # width=852
         )
 
@@ -1462,7 +1473,7 @@ def coupon_ranking_table_figure(n_clicks, dropdown1_value, dropdown2_value, drop
                    'height':30,},
         ),
         layout=go.Layout(title='Coupon Ranking Table',
-                         height=390,
+                        #  height=390,
                         #  width=852
                     )
     )

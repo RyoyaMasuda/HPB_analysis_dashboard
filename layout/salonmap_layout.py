@@ -34,7 +34,7 @@ sidebar = html.Div(
                         {'label':x, 'value':x} for x in df['県'].unique()
                     ],
                     value='広島',
-                    style={'width':'300px',
+                    style={'width':'15vw',
                            'height': '150px',
                            'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
@@ -52,7 +52,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='multi_dropdown2',
                     options = [{'label':x, 'value':x} for x in df['県'].unique()],
-                    style={'width':'300px',
+                    style={'width':'15vw',
                            'height': '400px',
                            'margin-bottom':'1px',
                            'fontSize':15},
@@ -99,7 +99,7 @@ sidebar = html.Div(
                         {'label':'Aujua(MILBON)', 'value':'Aujuaメニュー化の有無'},
                     ],
                     value='イルミナメニュー化の有無',
-                    style={'width':'300px',
+                    style={'width':'15vw',
                            'margin-bottom':'1px',
                            'fontSize':15},
                     clearable=False,

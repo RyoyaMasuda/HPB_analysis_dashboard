@@ -33,7 +33,7 @@ sidebar = html.Div(
                         {'label':x, 'value':x} for x in df['県'].unique()
                     ],
                     value='広島',
-                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
+                    style={'width':'15vw', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     className='text-dark'
                 ),
@@ -47,7 +47,7 @@ sidebar = html.Div(
                 ),
                 dcc.Dropdown(
                     id='table_dropdown2',
-                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':15},
+                    style={'width':'15vw', 'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     value='八丁堀・幟町・胡町',
                     className='text-dark',
@@ -63,7 +63,7 @@ sidebar = html.Div(
                 dcc.Dropdown(
                     id='table_dropdown3',
                     value='ATENA　AVEDA　広島三越店 【アテナアヴェダ】',
-                    style={'width':'300px', 'margin-bottom':'1px', 'fontSize':12},
+                    style={'width':'15vw', 'margin-bottom':'1px', 'fontSize':12},
                     clearable=True,
                     optionHeight=55,
                     className='text-dark'
@@ -121,7 +121,7 @@ sidebar = html.Div(
                         {'label':'メニュー・料金', 'value':'メニュー・料金'},
                     ],
                     value='総合',
-                    style={'width':'300px',
+                    style={'width':'15vw',
                            'margin-bottom':'1px',
                            'fontSize':15},
                     clearable=False,
@@ -141,7 +141,7 @@ sidebar = html.Div(
                             dcc.Dropdown(
                                 id='review_points',
                                 value='5',
-                                style={'width':'135px',
+                                style={'width':'6vw',
                                     'margin':'1px',
                                     'fontSize':15},
                                 clearable=False,
@@ -157,7 +157,7 @@ sidebar = html.Div(
                                     {'label':'以下', 'value':'less_than'},
                                 ],
                                 value='only',
-                                style={'width':'135px',
+                                style={'width':'6vw',
                                     # 'margin':'1px',
                                     'fontSize':15},
                                 clearable=False,
@@ -231,6 +231,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='total-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -241,8 +242,10 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                 ],
-                className='bg-info',
-                style={'padding':'8px'}
+                className='bg-info col-2.4',
+                style={'padding':'8px',
+                    #    'width':'20vw'
+                       }
                 ),
                 # 1行2列
                 dbc.Col(
@@ -253,6 +256,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='atmosphere-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -264,7 +268,7 @@ content = html.Div(
                             className='bg-info'),
                     ],
                     className='bg-info',
-                    style={'padding':'8px'}
+                    style={'padding':'8px', 'width':'20vw'}
                 ),
                 # 1行3列
                 dbc.Col(
@@ -275,6 +279,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='service-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -286,7 +291,7 @@ content = html.Div(
                             className='bg-info'),
                     ],
                     className='bg-info',
-                    style={'padding':'8px'}
+                    style={'padding':'8px', 'width':'20vw'}
                 ),
                 # 1行4列
                 dbc.Col(  
@@ -297,6 +302,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='skill-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -308,7 +314,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                                          
                     className='bg-info',
-                    style={'padding':'8px'}
+                    style={'padding':'8px', 'width':'20vw'}
                 ),
                 # 1行5列
                 dbc.Col(  
@@ -319,6 +325,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='menu_and_price-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -330,7 +337,7 @@ content = html.Div(
                             className='bg-info'),
                     ],                                          
                     className='bg-info',
-                    style={'padding':'8px'}
+                    style={'padding':'8px', 'width':'20vw'}
                 ),
             ],
             className='bg-primary',
@@ -360,7 +367,7 @@ content = html.Div(
                                             
                                             ],
                                         style={'backgroundColor':'lightcyan',
-                                               'height':'700px'}
+                                               'height':'68vh'}
                                     ),
                             ],
                             style={'margin': '10%',
@@ -533,7 +540,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         values='客数(口コミ数)',
         color='点数',
         title=f'General Score Ratio',
-        height=290,
+        # height=290,
         # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
@@ -611,7 +618,7 @@ def general_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value,
         values='客数(口コミ数)',
         color='点数',
         title=f'Atomosphere Score Ratio',
-        height=290,
+        # height=290,
         # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
@@ -688,7 +695,7 @@ def Hospitality_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_va
         values='客数(口コミ数)',
         color='点数',
         title=f'Hospitality Score Ratio',
-        height=290,
+        # height=290,
         # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
@@ -770,7 +777,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         values='客数(口コミ数)',
         color='点数',
         title=f'Hairdresser Skills & Quality Ratio',
-        height=290,
+        # height=290,
         # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
@@ -852,7 +859,7 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         values='客数(口コミ数)',
         color='点数',
         title=f'Menu & Price Score Ratio',
-        height=290,
+        # height=290,
         # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
@@ -1061,4 +1068,6 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     
     range={'only':'のみ', 'more_than':'以上', 'less_than':'以下'}
     
-    return dcc.send_data_frame(_df.to_csv, f'{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv')
+    return dcc.send_data_frame(_df.to_csv,
+                               f'{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv',
+                               )
