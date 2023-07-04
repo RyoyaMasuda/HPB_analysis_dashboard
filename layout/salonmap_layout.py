@@ -35,7 +35,7 @@ sidebar = html.Div(
                     ],
                     value='広島',
                     style={'width':'15vw',
-                           'height': '150px',
+                           'height': '20vh',
                            'margin-bottom':'1px', 'fontSize':15},
                     clearable=True,
                     multi=True,
@@ -53,7 +53,7 @@ sidebar = html.Div(
                     id='multi_dropdown2',
                     options = [{'label':x, 'value':x} for x in df['県'].unique()],
                     style={'width':'15vw',
-                           'height': '400px',
+                           'height': '35vh',
                            'margin-bottom':'1px',
                            'fontSize':15},
                     clearable=True,
@@ -307,7 +307,7 @@ def gender_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         values='サロン数',
         color='イルミナメニュー化の有無',
         title=f'Illumina Color Activated Salon Ratio',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'イルミナメニュー化の有無':['メニュー化', '不活性or未導入']}
@@ -395,7 +395,7 @@ def addicthy_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value
         values='サロン数',
         color='addicthyメニュー化の有無',
         title=f'Addicthy Color Activated Salon Ratio',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'addicthyメニュー化の有無':['メニュー化', '不活性or未導入']}
@@ -483,7 +483,7 @@ def inoa_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         values='サロン数',
         color='inoaメニュー化の有無',
         title=f'inoa Color Activated Salon Ratio',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'inoaメニュー化の有無':['メニュー化', '不活性or未導入']}
@@ -574,7 +574,7 @@ def aujua_ratio_figure(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
         values='サロン数',
         color='Aujuaメニュー化の有無',
         title=f'Aujua Activated Salon Ratio',
-        height=290,
+        # height=290,
         # width=418,
         color_discrete_map={'メニュー化':'fuchsia','不活性or未導入':'aqua'},
         category_orders={'Aujuaメニュー化の有無':['メニュー化', '不活性or未導入']}
@@ -676,7 +676,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value):
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=710
+                                # height=710
 
     )
     figure.update_traces(
@@ -767,7 +767,7 @@ def brand_activate_map(n_clicks, multi_dropdown1_value, multi_dropdown2_value, s
                                             'ブログ投稿数':True,
                                             '口コミ数':True,
                                 },
-                                height=710
+                                # height=710
 
     )
     figure.update_traces(
