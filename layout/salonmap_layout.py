@@ -223,6 +223,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='brand_activate_map',
+                                            style={'height':'68vh'},
                                             ), 
                                         ] 
                                     )
