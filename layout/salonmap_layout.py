@@ -132,6 +132,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='illumina-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -142,7 +143,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                 ],
-                className='bg-info',
+                className='bg-info col-3',
                 style={'padding':'8px'}
                 ),
                 # 1行2列
@@ -154,6 +155,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='addicthy-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -164,7 +166,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 ),
                 # 1行3列
@@ -176,6 +178,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='inoa-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -186,7 +189,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 ),
                 # 1行4列
@@ -198,6 +201,7 @@ content = html.Div(
                                         [
                                             dcc.Graph(
                                             id='aujua-ratio',
+                                            style={'height':'29vh'}
                                             ), 
                                         ]
                                     )
@@ -208,7 +212,7 @@ content = html.Div(
                             color='#ffffb3',
                             className='bg-info'),
                     ],                                          
-                    className='bg-info',
+                    className='bg-info col-3',
                     style={'padding':'8px'}
                 )
             ],
