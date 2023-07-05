@@ -268,7 +268,7 @@ content = html.Div(
                             className='bg-info'),
                     ],
                     className='bg-info',
-                    style={'padding':'8px', 'width':'20vw'}
+                    style={'padding':'8px', 'width':'20vw'},
                 ),
                 # 1行3列
                 dbc.Col(
@@ -540,8 +540,6 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
         values='客数(口コミ数)',
         color='点数',
         title=f'General Score Ratio',
-        # height=290,
-        # width=335,
         color_discrete_map={'5':'#fccde5','4':'#ffffb3','3以下':'#80b1d3'},
         category_orders={'点数':['5','4','3以下']}
     )
@@ -1068,6 +1066,6 @@ def total_ratio_figure(n_clicks, table_dropdown1_value, table_dropdown2_value, t
     
     range={'only':'のみ', 'more_than':'以上', 'less_than':'以下'}
     
-    return dcc.send_data_frame(_df.to_csv,
+    return dcc.send_data_frame(_df.to_csv(index=False),
                                f'{table_dropdown3_value}_{review_item_dropdown_value}の評価{review_points_value}点{range[review_point_range_value]}の口コミ.csv',
                                )
