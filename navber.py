@@ -51,7 +51,7 @@ nav_contens = [
             external_link=True,
             style={'fontSize':18,},
             active='partial',
-            # disabled=True,
+            disabled=True,
         )
     ),
     dbc.NavItem(
