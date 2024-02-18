@@ -11,7 +11,7 @@ window環境において
 ※その他の環境では画面崩れが生じる可能性があります。適宜調整いただけますと幸いです。
 
 # アプリのURL
-http://hpbdashboard.mydns.jp/
+~http://hpbdashboard.mydns.jp/~
 
 # 開発環境
 - AWS VPC
