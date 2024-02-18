@@ -31,7 +31,7 @@ sudoは必要ないかもしれない...
 ```
 sudo rm -rf model data
 ```
-4. 以下のリンクよりmodelとdataをダウンロードします。
+4. 以下のリンクよりmodelとdataをそれぞれダウンロードします。
 (Downloadsディレクトリにダウンロードする前提で進めていきます。)  
 https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m
   
