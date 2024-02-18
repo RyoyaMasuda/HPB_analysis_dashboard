@@ -15,7 +15,8 @@ window環境において
 (自宅サーバにてURLを公開しておりましたが、現在別用途にて使用しておりますのでアプリの立ち上げ方法を記載します。)
 
 # アプリ起動方法(Documentsディレクトリにてアプリを起動)
-linux環境かUnix環境(mac環境)にて実施をしてください。(windowsの場合はWSL2のubuntuにて実施をお勧めします。)  
+- linux環境かUnix環境(mac環境)にて実施をしてください。(windowsの場合はWSL2のubuntuにて実施をお勧めします。)  
+- python3.9系にて動作確認をしています。
   
 1. Documentsディレクトリに移動します
 ```
@@ -51,6 +52,24 @@ sudo mv data ~/Documents/HPB_analysis_dashboard
 ```
 ```
 sudo mv model ~/Documents/HPB_analysis_dashboard
+```
+7. HPB_analysis_dashboardディレクトリに移動します。
+```
+cd ~/Documents/HPB_analysis_dashboard/
+```
+8. ライブラリ等をインストールします。(必要に応じて仮想環境を作成)
+```
+python -m venv .env
+```
+```
+source .env/bin/activate
+```
+```
+pip install -r requirements.txt
+```
+9. アプリを起動します。
+```
+python run.py
 ```
 
 # 開発環境
