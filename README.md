@@ -33,9 +33,11 @@ sudo rm -rf model data
 ```
 4. 以下のリンクよりmodelとdataをダウンロードします。
 (Downloadsディレクトリにダウンロードする前提で進めていきます。)  
-https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m  
+https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m
+  
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/53acf4a9-9ad3-470f-99ab-74069b80b3e7)
-5. ダウンロードしたらzipファイルを解凍します。(modelとdataがzipファイルとしてダウンロードされている場合)
+  
+6. ダウンロードしたらzipファイルを解凍します。(modelとdataがzipファイルとしてダウンロードされている場合)
 sudoは必要ないかもしれない...  
 ```
 cd ~/Downloads
