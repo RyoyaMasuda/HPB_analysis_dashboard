@@ -18,26 +18,26 @@ window環境において
 - linux環境かUnix環境(mac環境)にて実施をしてください。(windowsの場合はWSL2のubuntuにて実施をお勧めします。)  
 - python3.9系にて動作確認をしています。
   
-1. Documentsディレクトリに移動します
+### 1. Documentsディレクトリに移動します
 ```
 cd ~/Documents
 ```
-2. リポジトリをクローンします。
+### 2. リポジトリをクローンします。
 ```
 git clone git@github.com:RyoyaMasuda/HPB_analysis_dashboard.git
 ```
-3. modelとdataを削除します。(サンプルデータのため)
+### 3. modelとdataを削除します。(サンプルデータのため)
 sudoは必要ないかもしれない...  
 ```
 sudo rm -rf model data
 ```
-4. 以下のリンクよりmodelとdataをそれぞれダウンロードします。
+### 4. 以下のリンクよりmodelとdataをそれぞれダウンロードします。
 (Downloadsディレクトリにダウンロードする前提で進めていきます。)  
 https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m
   
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/53acf4a9-9ad3-470f-99ab-74069b80b3e7)
   
-5. ダウンロードしたらzipファイルを解凍します。(modelとdataがzipファイルとしてダウンロードされている場合)  
+### 5. ダウンロードしたらzipファイルを解凍します。(modelとdataがzipファイルとしてダウンロードされている場合)  
 sudoは必要ないかもしれない...  
 ```
 cd ~/Downloads
@@ -48,18 +48,18 @@ sudo unzip data-20240218T044219Z-001.zip
 ```
 sudo unzip model-20240218T044219Z-001.zip
 ```
-6. 解凍したディレクトリをクローンしてきたディレクトリ内に配置します。
+### 6. 解凍したディレクトリをクローンしてきたディレクトリ内に配置します。
 ```
 sudo mv data ~/Documents/HPB_analysis_dashboard
 ```
 ```
 sudo mv model ~/Documents/HPB_analysis_dashboard
 ```
-7. HPB_analysis_dashboardディレクトリに移動します。
+### 7. HPB_analysis_dashboardディレクトリに移動します。
 ```
 cd ~/Documents/HPB_analysis_dashboard/
 ```
-8. ライブラリ等をインストールします。(必要に応じて仮想環境を作成)
+### 8. ライブラリ等をインストールします。(必要に応じて仮想環境を作成)
 ```
 python -m venv .env
 ```
@@ -69,13 +69,14 @@ source .env/bin/activate
 ```
 pip install -r requirements.txt
 ```
-9. アプリを起動します。
+### 9. アプリを起動します。
 ```
 python run.py
 ```
 
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/8a33d237-9b5b-47b5-a282-7968ddb5ad87)
-10. ブラウザにアクセスしてください。  
+
+### 10. ブラウザにアクセスしてください。  
 標準出力されたURLにアクセスしてください。自分の環境では以下URLが出現。  
 http://127.0.0.1:5000  
   
