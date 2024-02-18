@@ -51,10 +51,10 @@ sudo unzip model-20240218T044219Z-001.zip
 ```
 ### 6. 解凍したディレクトリをクローンしてきたディレクトリ内に配置します。
 ```
-sudo mv data ~/Documents/HPB_analysis_dashboard
+sudo mv data ~/Documents/HPB_analysis_dashboard/
 ```
 ```
-sudo mv model ~/Documents/HPB_analysis_dashboard
+sudo mv model ~/Documents/HPB_analysis_dashboard/
 ```
 ### 7. HPB_analysis_dashboardディレクトリに移動します。
 ```
