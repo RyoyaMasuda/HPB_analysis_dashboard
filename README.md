@@ -15,12 +15,15 @@ window環境において
 (自宅サーバにてURLを公開しておりましたが、現在別用途にて使用しておりますのでアプリの立ち上げ方法を記載します。)
 
 # アプリ起動方法(Documentsディレクトリにてアプリを起動する方法)
-1. Documentsディレクトリに移動します。
-'''
+1. Documentsディレクトリに移動します
+```
 cd ~/Documents
-'''
-
-1. 
+```
+2. リポジトリをクローンします。
+```
+git clone git@github.com:RyoyaMasuda/HPB_analysis_dashboard.git
+```
+3. 
 
 # 開発環境
 - AWS VPC
