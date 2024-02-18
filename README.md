@@ -26,11 +26,10 @@ cd ~/Documents
 git clone git@github.com:RyoyaMasuda/HPB_analysis_dashboard.git
 ```
 3. modelとdataを削除します。(サンプルデータのため)
+sudoは必要ないかもしれない...  
 ```
 sudo rm -rf model data
 ```
-sudoは必要ないかもしれない...  
-
 4. 以下のリンクよりmodelとdataをダウンロードします。
 https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m  
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/53acf4a9-9ad3-470f-99ab-74069b80b3e7)
