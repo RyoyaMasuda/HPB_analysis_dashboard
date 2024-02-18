@@ -75,9 +75,8 @@ python run.py
 ```
 
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/8a33d237-9b5b-47b5-a282-7968ddb5ad87)
-  
-10. ブラウザにアクセスしてください。  
-9.にて標準出力されたURLにアクセスしてください。自分の環境では以下URLが出現。  
+10. ブラウザにアクセスしてください。
+標準出力されたURLにアクセスしてください。自分の環境では以下URLが出現。  
 http://127.0.0.1:5000  
   
 # 開発環境
