@@ -14,7 +14,9 @@ window環境において
 ~http://hpbdashboard.mydns.jp/~  
 (自宅サーバにてURLを公開しておりましたが、現在別用途にて使用しておりますのでアプリの立ち上げ方法を記載します。)
 
-# アプリ起動方法(Documentsディレクトリにてアプリを起動する方法)
+# アプリ起動方法(Documentsディレクトリにてアプリを起動)
+linux環境かUnix環境(mac環境)にて実施をしてください。(windowsの場合はWSL2のubuntuにて実施をお勧めします。)  
+  
 1. Documentsディレクトリに移動します
 ```
 cd ~/Documents
@@ -23,7 +25,15 @@ cd ~/Documents
 ```
 git clone git@github.com:RyoyaMasuda/HPB_analysis_dashboard.git
 ```
-3. 
+3. modelとdataを削除します。(サンプルデータのため)
+```
+sudo rm -rf model data
+```
+sudoは必要ないかもしれない...
+4. 以下のリンクよりmodelとdataをダウンロードします。
+https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m  
+![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/53acf4a9-9ad3-470f-99ab-74069b80b3e7)
+
 
 # 開発環境
 - AWS VPC
