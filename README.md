@@ -37,7 +37,7 @@ https://drive.google.com/drive/folders/115_96jMMp5Vl0aZQIrvy-2ZP8VZgy02m
   
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/53acf4a9-9ad3-470f-99ab-74069b80b3e7)
   
-6. ダウンロードしたらzipファイルを解凍します。(modelとdataがzipファイルとしてダウンロードされている場合)
+5. ダウンロードしたらzipファイルを解凍します。(modelとdataがzipファイルとしてダウンロードされている場合)
 sudoは必要ないかもしれない...  
 ```
 cd ~/Downloads
@@ -76,7 +76,7 @@ python run.py
 
 ![image](https://github.com/RyoyaMasuda/HPB_analysis_dashboard/assets/94744317/8a33d237-9b5b-47b5-a282-7968ddb5ad87)
   
-10. ブラウザにアクセスしてください。
+10. ブラウザにアクセスしてください。  
 9.にて標準出力されたURLにアクセスしてください。自分の環境では以下URLが出現。  
 http://127.0.0.1:5000  
   
