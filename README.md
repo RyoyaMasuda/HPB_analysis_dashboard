@@ -73,7 +73,7 @@ pip install -r requirements.txt
 ```
 python run.py
 ```
-10. ブラウザにアクセスしてください。
+10. ブラウザにアクセスしてください。  
 http://127.0.0.1:5000  
   
 # 開発環境
